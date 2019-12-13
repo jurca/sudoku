@@ -1,0 +1,16 @@
+:local(.matrix) {
+  border: 1px solid currentColor;
+  border-collapse: collapse;
+}
+
+:local(.cell) {
+  border: 1px solid currentColor;
+}
+
+:local(.verticalSeparator) {
+  border-right-width: 2px;
+}
+
+:local(.horizontalSeparator) {
+  border-bottom-width: 2px;
+}
