@@ -4,6 +4,7 @@ import Difficulty from '../conf/Difficulty'
 
 export enum Action {
   NEW_GAME = 'Action.NEW_GAME',
+  SHOW_VALUE_PICKER = 'Action.SHOW_VALUE_PICKER',
 }
 
 export type ActionType = ReduxActionType<Action>
@@ -13,3 +14,4 @@ function mkActionFactory<Payload>(type: Action) {
 }
 
 export const newGame = mkActionFactory<Difficulty>(Action.NEW_GAME)
+export const showValuePicker = mkActionFactory<[number, number]>(Action.SHOW_VALUE_PICKER)

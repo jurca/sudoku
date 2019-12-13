@@ -32,7 +32,7 @@ export default augmentor(function App(state: IState, dispatch: Dispatch<actions.
         Start new game
       </button>
 
-      ${Matrix(state)}
+      ${Matrix(state, dispatch)}
     </sudoku-app>
   `
 
