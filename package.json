@@ -1,0 +1,36 @@
+{
+  "name": "@jurca/sudoku",
+  "version": "0.0.0",
+  "description": "Sudoku game with UI providing hints and notes, based on the Sudoku.js library.",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=development webpack-dev-server",
+    "build": "NODE_ENV=production webpack",
+    "test": "tslint --project . "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jurca/sudoku.git"
+  },
+  "keywords": [
+    "sudoku"
+  ],
+  "author": "Martin Jurča <martin.jurca@firma.seznam.cz>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jurca/sudoku/issues"
+  },
+  "homepage": "https://github.com/jurca/sudoku#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^3.2.0",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "dependencies": {
+    "@jlguenego/sudoku-generator": "^1.0.7",
+    "lighterhtml": "^2.0.8"
+  }
+}
