@@ -5,6 +5,7 @@ import Difficulty from '../conf/Difficulty'
 import * as actions from '../game/Action'
 import {difficultySelector} from '../game/selectors'
 import {IState} from '../game/state'
+import Matrix from './Matrix'
 
 export default augmentor(function App(state: IState, dispatch: Dispatch<actions.ActionType>) {
   const difficulty = difficultySelector(state)
@@ -31,7 +32,7 @@ export default augmentor(function App(state: IState, dispatch: Dispatch<actions.
         Start new game
       </button>
 
-      ${JSON.stringify(state)}
+      ${Matrix(state)}
     </sudoku-app>
   `
 
