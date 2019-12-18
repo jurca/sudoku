@@ -5,6 +5,7 @@ import Difficulty from '../conf/Difficulty'
 import * as actions from '../game/Action'
 import {difficultySelector} from '../game/selectors'
 import {IState} from '../game/state'
+import styles from './app.css'
 import Matrix from './Matrix'
 
 export default augmentor(function App(state: IState, dispatch: Dispatch<actions.ActionType>) {
@@ -44,7 +45,9 @@ export default augmentor(function App(state: IState, dispatch: Dispatch<actions.
         </label>
       </p>
 
-      ${Matrix(state, dispatch)}
+      <div class=${styles.matrixWrapper}>
+        ${Matrix(state, dispatch)}
+      </div>
     </sudoku-app>
   `
 
