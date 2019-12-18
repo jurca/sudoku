@@ -1,5 +1,6 @@
 import {html} from 'lighterhtml'
 import {ISudokuMatrixCell} from '../game/state'
+import styles from './cell.css'
 import ValuePicker from './ValuePicker'
 
 export default function Cell(
@@ -9,7 +10,7 @@ export default function Cell(
   onCellValueToggled: (cell: ISudokuMatrixCell, toggledValue: number) => void,
 ) {
   return html`
-    <sudoku-cell>
+    <sudoku-cell class=${styles.cell}>
       ${cell.value ?
         cell.value
       :

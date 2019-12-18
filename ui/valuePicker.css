@@ -1,3 +1,21 @@
+:local(.valuePicker) {
+  display: flex;
+
+  position: absolute;
+  left: -24px;
+  top: -24px;
+
+  width: 72px;
+
+  flex-wrap: wrap;
+
+  z-index: 1;
+}
+
+:local(.value) {
+  width: 24px
+}
+
 :local(.selected) {
   font-weight: bold;
 }

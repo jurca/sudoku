@@ -1,0 +1,7 @@
+:local(.cell) {
+  display: block;
+
+  position: relative;
+
+  text-align: center;
+}

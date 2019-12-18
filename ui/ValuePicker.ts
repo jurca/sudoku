@@ -1,11 +1,18 @@
+import classnames from 'classnames'
 import {html} from 'lighterhtml'
 import styles from './valuePicker.css'
 
 export default function ValuePicker(selectedValues: boolean[], onValueToggled: (value: number) => void) {
   return html`
-    <sudoku-value-picker>
+    <sudoku-value-picker class=${styles.valuePicker}>
       ${selectedValues.map((isSelected, index) => html`
-        <button class=${isSelected ? styles.selected : ''} onclick=${onValueToggled.bind(null, index + 1)}>
+        <button
+          class=${classnames(
+            styles.value,
+            isSelected && styles.selected,
+          )}
+          onclick=${onValueToggled.bind(null, index + 1)}
+        >
           ${index + 1}
         </button>
       `)}
