@@ -6,7 +6,7 @@ export interface ISudokuMatrixCell {
   readonly value: null | number
   readonly userMarkedOptions: number[]
 }
-type SudokuMatrixRow = readonly [
+export type SudokuMatrixRow = readonly [
   ISudokuMatrixCell,
   ISudokuMatrixCell,
   ISudokuMatrixCell,

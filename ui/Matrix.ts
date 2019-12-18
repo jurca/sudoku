@@ -3,7 +3,7 @@ import {html} from 'lighterhtml'
 import {Dispatch} from 'redux'
 import * as actions from '../game/Action'
 import {matrixSelector, valuePickerOpenAtSelector} from '../game/selectors'
-import {IState} from '../game/state'
+import {IState, ISudokuMatrixCell} from '../game/state'
 import Cell from './Cell'
 import styles from './matrix.css'
 
@@ -28,6 +28,7 @@ export default function Matrix(state: IState, dispatch: Dispatch<actions.ActionT
                     cell,
                     columnIndex === valuePickerX && rowIndex === valuePickerY,
                     onShowValuePicker.bind(null, columnIndex, rowIndex),
+                    onCellValueToggled,
                   )}
                 </td>
               `)}
@@ -38,7 +39,11 @@ export default function Matrix(state: IState, dispatch: Dispatch<actions.ActionT
     </sudoku-matrix>
   `
 
-  function onShowValuePicker(x: number, y: number) {
+  function onShowValuePicker(x: number, y: number): void {
     dispatch(actions.showValuePicker([x, y]))
+  }
+
+  function onCellValueToggled(cell: ISudokuMatrixCell, value: number): void {
+    dispatch(actions.toggleCellValue({cell, value}))
   }
 }

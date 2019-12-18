@@ -32,6 +32,18 @@ export default augmentor(function App(state: IState, dispatch: Dispatch<actions.
         Start new game
       </button>
 
+      <p>
+        Mode:
+        <label>
+          <input type="radio" name="mode" value="entry" checked>
+          Entry
+        </label>
+        <label>
+          <input type="radio" name="mode" value="notes">
+          Notes
+        </label>
+      </p>
+
       ${Matrix(state, dispatch)}
     </sudoku-app>
   `
