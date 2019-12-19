@@ -10,7 +10,7 @@ import Matrix from './Matrix'
 
 export default augmentor(function App(state: IState, dispatch: Dispatch<actions.ActionType>) {
   const difficulty = difficultySelector(state)
-  const difficultyChoiceRef = useRef<HTMLInputElement>(null)
+  const difficultyChoiceRef = useRef<HTMLParagraphElement>(null)
 
   return html`
     <sudoku-app>
