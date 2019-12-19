@@ -15,9 +15,7 @@ export default function Cell(
         cell.value
       :
         html`
-          <button onclick=${onShowValuePicker}>
-            &nbsp;
-          </button>
+          <button class=${styles.cellButton} onclick=${onShowValuePicker}></button>
           ${hasValuePicker ?
             ValuePicker(
               [...new Array(9)].map((_, index) => cell.userMarkedOptions.includes(index + 1)),
