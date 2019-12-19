@@ -7,7 +7,11 @@ import {IState, ISudokuMatrixCell} from '../game/state'
 import Cell from './Cell'
 import styles from './matrix.css'
 
-export default function Matrix(state: IState, dispatch: Dispatch<actions.ActionType>) {
+export default function Matrix(
+  state: IState,
+  entryMode: actions.ValueEntryMode,
+  dispatch: Dispatch<actions.ActionType>,
+) {
   const matrix = matrixSelector(state)
   const valuePickerCoordinates = valuePickerOpenAtSelector(state) || [-1, -1]
   const [valuePickerX, valuePickerY] = valuePickerCoordinates
@@ -44,6 +48,6 @@ export default function Matrix(state: IState, dispatch: Dispatch<actions.ActionT
   }
 
   function onCellValueToggled(cell: ISudokuMatrixCell, value: number): void {
-    dispatch(actions.toggleCellValue({cell, value}))
+    dispatch(actions.toggleCellValue({cell, value, mode: entryMode}))
   }
 }

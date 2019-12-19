@@ -1,4 +1,4 @@
-import {augmentor, useRef} from 'dom-augmentor'
+import {augmentor, useRef, useState} from 'dom-augmentor'
 import {html} from 'lighterhtml'
 import {Dispatch} from 'redux'
 import Difficulty from '../conf/Difficulty'
@@ -11,6 +11,7 @@ import Matrix from './Matrix'
 export default augmentor(function App(state: IState, dispatch: Dispatch<actions.ActionType>) {
   const difficulty = difficultySelector(state)
   const difficultyChoiceRef = useRef<HTMLParagraphElement>(null)
+  const [entryMode, setEntryMode] = useState(actions.ValueEntryMode.SET_VALUE)
 
   return html`
     <sudoku-app>
@@ -36,17 +37,29 @@ export default augmentor(function App(state: IState, dispatch: Dispatch<actions.
       <p>
         Mode:
         <label>
-          <input type="radio" name="mode" value="entry" checked>
+          <input
+            type="radio"
+            name="mode"
+            value=${actions.ValueEntryMode.SET_VALUE}
+            checked=${entryMode === actions.ValueEntryMode.SET_VALUE}
+            onchange=${onSetEntryMode}
+          >
           Entry
         </label>
         <label>
-          <input type="radio" name="mode" value="notes">
+          <input
+            type="radio"
+            name="mode"
+            value=${actions.ValueEntryMode.MAKE_NOTE}
+            checked=${entryMode === actions.ValueEntryMode.MAKE_NOTE}
+            onchange=${onSetEntryMode}
+          >
           Notes
         </label>
       </p>
 
       <div class=${styles.matrixWrapper}>
-        ${Matrix(state, dispatch)}
+        ${Matrix(state, entryMode, dispatch)}
       </div>
     </sudoku-app>
   `
@@ -55,6 +68,14 @@ export default augmentor(function App(state: IState, dispatch: Dispatch<actions.
     const selectedDifficulty = difficultyChoiceRef.current?.querySelector(':checked')
     if (selectedDifficulty instanceof HTMLInputElement) {
       dispatch(actions.newGame(selectedDifficulty.value as Difficulty) )
+    }
+  }
+
+  function onSetEntryMode(event: Event): void {
+    const input = event.target
+    const value = input && (input as any).value
+    if (Object.values(actions.ValueEntryMode).includes(value)) {
+      setEntryMode(value)
     }
   }
 })

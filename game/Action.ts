@@ -22,4 +22,6 @@ function mkActionFactory<Payload>(type: Action) {
 
 export const newGame = mkActionFactory<Difficulty>(Action.NEW_GAME)
 export const showValuePicker = mkActionFactory<[number, number]>(Action.SHOW_VALUE_PICKER)
-export const toggleCellValue = mkActionFactory<{cell: ISudokuMatrixCell, value: number}>(Action.TOGGLE_CELL_VALUE)
+export const toggleCellValue = mkActionFactory<{cell: ISudokuMatrixCell, value: number, mode: ValueEntryMode}>(
+  Action.TOGGLE_CELL_VALUE,
+)

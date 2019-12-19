@@ -1,6 +1,6 @@
 import createReducer from 'redux-create-fsa-reducer'
 import Difficulty from '../conf/Difficulty'
-import {Action} from './Action'
+import {Action, ValueEntryMode} from './Action'
 import {checkBoard} from './boardChecker'
 import createGame from './gameGenerator'
 import {DEFAULT_STATE, IState, ISudokuMatrixCell, SudokuMatrix, SudokuMatrixRow} from './state'
@@ -24,7 +24,10 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     }
   },
 
-  [Action.TOGGLE_CELL_VALUE](state: IState, {cell, value}: {cell: ISudokuMatrixCell, value: number}): IState {
+  [Action.TOGGLE_CELL_VALUE](
+    state: IState,
+    {cell, mode, value}: {cell: ISudokuMatrixCell, mode: ValueEntryMode, value: number},
+  ): IState {
     const cellRow = state.matrix.findIndex((row) => row.includes(cell))
     if (cellRow === -1) {
       return state
@@ -33,7 +36,15 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     const updatedRow = state.matrix[cellRow].slice()
     updatedRow.splice(cellColumn, 1, {
       ...cell,
-      value, // TODO: add support for notes
+      userMarkedOptions: mode === ValueEntryMode.MAKE_NOTE ?
+        (cell.userMarkedOptions.includes(value) ?
+          cell.userMarkedOptions.filter((otherValue) => otherValue !== value)
+        :
+          cell.userMarkedOptions.concat(value)
+        )
+      :
+        cell.userMarkedOptions,
+      value: mode === ValueEntryMode.SET_VALUE ? value : cell.value,
     })
     const updatedMatrixData = state.matrix.slice()
     updatedMatrixData.splice(cellRow, 1, updatedRow as unknown as SudokuMatrixRow)
