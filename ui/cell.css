@@ -3,15 +3,37 @@
 
   position: relative;
 
-  width: 24px;
+  width: 30px;
+  height: 30px;
 
   text-align: center;
 }
 
 :local(.cellButton) {
   padding: 0;
-  width: 24px;
-  height: 1.6em;
+  border: 1px;
+  width: 30px;
+  height: 30px;
 
   vertical-align: middle;
+}
+
+:local(.noteTableReset) {
+  margin: 0;
+  border-spacing: 0;
+  padding: 0;
+}
+
+:local(.noteCell) {
+  margin: 0;
+  padding: 0;
+}
+
+:local(.noteCellContent) {
+  width: 10px;
+  height: 10px;
+  overflow: hidden;
+
+  font-size: 9px;
+  text-align: center;
 }

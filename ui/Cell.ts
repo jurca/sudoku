@@ -10,6 +10,7 @@ export default function Cell(
   onCellValueToggled: (cell: ISudokuMatrixCell, toggledValue: number) => void,
 ) {
   const expandedNotes = [...new Array(9)].map((_, index) => cell.userMarkedOptions.includes(index + 1))
+  const notesAsGrid = [expandedNotes.slice(0, 3), expandedNotes.slice(3, 6), expandedNotes.slice(6)]
 
   return html`
     <sudoku-cell class=${styles.cell}>
@@ -20,7 +21,23 @@ export default function Cell(
           <button class=${styles.cellButton} onclick=${onShowValuePicker}>${cell.value ?
             cell.value
           :
-            ''
+            html`
+              <table class=${styles.noteTableReset}>
+                <tbody class=${styles.noteTableReset}>
+                  ${notesAsGrid.map((row, rowIndex) => html`
+                    <tr class=${styles.noteTableReset}>
+                      ${row.map((noteCellSelected, cellIndex) => html`
+                        <td class=${styles.noteCell}>
+                          <div class=${styles.noteCellContent}>
+                            ${noteCellSelected ? cellIndex + rowIndex * 3 + 1 : ''}
+                          </div>
+                        </td>
+                      `)}
+                    </tr>
+                  `)}
+                </tbody>
+              </table>
+            `
           }</button>
           ${hasValuePicker ?
             ValuePicker(

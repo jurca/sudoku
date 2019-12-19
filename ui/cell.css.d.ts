@@ -3,6 +3,9 @@
 interface CssExports {
   'cell': string;
   'cellButton': string;
+  'noteCell': string;
+  'noteCellContent': string;
+  'noteTableReset': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
