@@ -7,7 +7,7 @@ enum Difficulty {
 export default Difficulty
 
 export const DIFFICULTY_TO_CARVED_NUMBERS = {
-  [Difficulty.EASY]: 28,
-  [Difficulty.MEDIUM]: 37,
-  [Difficulty.HARD]: 46,
+  [Difficulty.EASY]: 37,
+  [Difficulty.MEDIUM]: 46,
+  [Difficulty.HARD]: 55,
 }
