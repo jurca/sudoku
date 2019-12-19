@@ -34,18 +34,25 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     }
     const cellColumn = state.matrix[cellRow].findIndex((otherCell) => otherCell === cell)
     const updatedRow = state.matrix[cellRow].slice()
-    updatedRow.splice(cellColumn, 1, {
+    const updatedUserMarkedOptions = cell.userMarkedOptions.slice()
+    if (mode === ValueEntryMode.MAKE_NOTE) {
+      if (value === null) {
+        updatedUserMarkedOptions.splice(0)
+      } else {
+        const existingValueIndex = updatedUserMarkedOptions.indexOf(value)
+        if (existingValueIndex > -1) {
+          updatedUserMarkedOptions.splice(existingValueIndex, 1)
+        } else {
+          updatedUserMarkedOptions.push(value)
+        }
+      }
+    }
+    const updatedCell = {
       ...cell,
-      userMarkedOptions: mode === ValueEntryMode.MAKE_NOTE ?
-        (cell.userMarkedOptions.includes(value) ?
-          cell.userMarkedOptions.filter((otherValue) => otherValue !== value)
-        :
-          cell.userMarkedOptions.concat(value)
-        )
-      :
-        cell.userMarkedOptions,
+      userMarkedOptions: updatedUserMarkedOptions,
       value: mode === ValueEntryMode.SET_VALUE ? value : cell.value,
-    })
+    }
+    updatedRow.splice(cellColumn, 1, updatedCell)
     const updatedMatrixData = state.matrix.slice()
     updatedMatrixData.splice(cellRow, 1, updatedRow as unknown as SudokuMatrixRow)
     const updatedMatrix = updatedMatrixData as unknown as SudokuMatrix

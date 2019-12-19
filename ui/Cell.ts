@@ -7,7 +7,7 @@ export default function Cell(
   cell: ISudokuMatrixCell,
   hasValuePicker: boolean,
   onShowValuePicker: () => void,
-  onCellValueToggled: (cell: ISudokuMatrixCell, toggledValue: number) => void,
+  onCellValueToggled: (cell: ISudokuMatrixCell, toggledValue: null | number) => void,
 ) {
   const expandedNotes = [...new Array(9)].map((_, index) => cell.userMarkedOptions.includes(index + 1))
   const notesAsGrid = [expandedNotes.slice(0, 3), expandedNotes.slice(3, 6), expandedNotes.slice(6)]

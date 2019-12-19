@@ -47,7 +47,7 @@ export default function Matrix(
     dispatch(actions.showValuePicker([x, y]))
   }
 
-  function onCellValueToggled(cell: ISudokuMatrixCell, value: number): void {
+  function onCellValueToggled(cell: ISudokuMatrixCell, value: null | number): void {
     dispatch(actions.toggleCellValue({cell, value, mode: entryMode}))
   }
 }
