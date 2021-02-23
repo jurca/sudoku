@@ -1,5 +1,5 @@
 import {html} from 'lighterhtml'
-import {ISudokuMatrixCell} from '../game/state'
+import {ISudokuMatrixCell} from '../../game/state'
 import styles from './cell.css'
 import ValuePicker from './ValuePicker'
 

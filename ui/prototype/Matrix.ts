@@ -1,9 +1,9 @@
 import classnames from 'classnames'
 import {html} from 'lighterhtml'
 import {Dispatch} from 'redux'
-import * as actions from '../game/Action'
-import {matrixSelector, valuePickerOpenAtSelector} from '../game/selectors'
-import {IState, ISudokuMatrixCell} from '../game/state'
+import * as actions from '../../game/Action'
+import {matrixSelector, valuePickerOpenAtSelector} from '../../game/selectors'
+import {IState, ISudokuMatrixCell} from '../../game/state'
 import Cell from './Cell'
 import styles from './matrix.css'
 
