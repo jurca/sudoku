@@ -4,7 +4,7 @@
   "description": "Sudoku game with UI providing hints and notes, based on the Sudoku.js library.",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --host ::",
+    "dev": "NODE_ENV=development webpack serve --host ::",
     "build": "NODE_ENV=production webpack",
     "test": "tslint --project . "
   },
@@ -24,16 +24,16 @@
   "devDependencies": {
     "@types/classnames": "^2.2.9",
     "@types/redux-actions": "^2.6.1",
-    "css-loader": "^3.3.2",
-    "css-modules-typescript-loader": "^4.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "style-loader": "^1.0.1",
-    "ts-loader": "^6.2.1",
+    "css-loader": "^5.0.2",
+    "css-modules-typescript-loader": "^4.0.1",
+    "html-webpack-plugin": "^5.2.0",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.0.17",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.3",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "typescript": "^4.1.5",
+    "webpack": "^5.24.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
     "@jlguenego/sudoku-generator": "^1.0.7",
