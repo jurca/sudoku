@@ -1,0 +1,10 @@
+@import url(font/font.css);
+
+:local(.app) {
+  width: 100%;
+  height: 100%;
+
+  font: 16px PTSans;
+  font-weight: normal;
+  color: #404040;
+}

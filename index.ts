@@ -1,18 +1,15 @@
-import {render} from 'lighterhtml'
-import {Dispatch} from 'redux'
-import {ActionType} from './game/Action'
-import {IState} from './game/state'
+import {createElement} from 'react'
+import {render} from 'react-dom'
+import {Provider} from 'react-redux'
 import storeFactory from './game/storeFactory'
-import App from './ui/prototype/App'
+import App from './ui/seznam.cz-2021/App'
 
 const appRoot = document.getElementById('app')!
 const store = storeFactory()
 
-renderUI(appRoot, store.getState(), store.dispatch)
-store.subscribe(() => {
-  renderUI(appRoot, store.getState(), store.dispatch)
-})
-
-function renderUI(uiRoot: HTMLElement, state: IState, dispatch: Dispatch<ActionType>): void {
-  render(uiRoot, App(state, dispatch))
-}
+render(
+  createElement(Provider, {store},
+    createElement(App),
+  ),
+  appRoot,
+)

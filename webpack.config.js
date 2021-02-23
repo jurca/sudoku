@@ -27,6 +27,10 @@ module.exports = {
           },
         ]
       },
+      {
+        test: /\.woff2$/i,
+        use: 'url-loader',
+      },
     ],
   },
 
