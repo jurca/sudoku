@@ -1,0 +1,30 @@
+:local(.iconButton) {
+  display: inline-flex;
+
+  border: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+
+  justify-content: center;
+  align-items: center;
+
+  background: none;
+
+  cursor: pointer;
+}
+
+:local(.icon) {
+  width: 24px;
+  height: 24px;
+}
+
+:local(.hasText) {
+  width: auto;
+
+  justify-content: flex-start;
+}
+
+:local(.hasText) :local(.icon) {
+  margin-right: 4px;
+}
