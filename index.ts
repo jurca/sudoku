@@ -3,7 +3,7 @@ import {Dispatch} from 'redux'
 import {ActionType} from './game/Action'
 import {IState} from './game/state'
 import storeFactory from './game/storeFactory'
-import App from './ui/App'
+import App from './ui/prototype/App'
 
 const appRoot = document.getElementById('app')!
 const store = storeFactory()
