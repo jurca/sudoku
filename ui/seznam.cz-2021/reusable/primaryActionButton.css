@@ -1,0 +1,18 @@
+:local(.button) {
+  display: inline-flex;
+
+  border: none;
+  border-radius: 4px;
+  padding: 0 22px;
+  height: 48px;
+
+  justify-content: center;
+  align-items: center;
+
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: bold;
+  color: #fff;
+
+  background: #c00;
+}
