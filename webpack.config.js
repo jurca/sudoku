@@ -31,6 +31,15 @@ module.exports = {
         test: /\.woff2$/i,
         use: 'url-loader',
       },
+      {
+        test: /\.svg$/i,
+        use: {
+          loader:'@svgr/webpack',
+          options: {
+            svgo: false,
+          },
+        },
+      },
     ],
   },
 

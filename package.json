@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/jurca/sudoku#readme",
   "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/classnames": "^2.2.9",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
