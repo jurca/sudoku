@@ -32,7 +32,6 @@ export default function Drawer(props: IProps) {
     )
   }
 
-  // TODO: display as Dialog if client is not Android nor iOS
   return (
     <div className={classnames(styles.drawer, props.isNested && styles.isNested)}>
       <div className={styles.ui}>
