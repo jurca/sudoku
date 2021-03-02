@@ -1,0 +1,39 @@
+:local(.header) {
+  display: flex;
+
+  box-sizing: border-box;
+  padding: 0 16px;
+  width: 100%;
+  height: 52px;
+
+  align-items: center;
+
+  background: #f0f0f0;
+}
+
+:local(.buttonWrapper) {
+  display: block;
+
+  width: 24px;
+  height: 24px;
+
+  flex-shrink: 0;
+
+  color: #404040;
+}
+
+:local(.title) {
+  display: flex;
+
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Roboto, Viga, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+:local(.ios) :local(.title) {
+  font-family: SF UI Text, Viga, sans-serif;
+}
