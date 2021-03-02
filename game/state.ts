@@ -29,16 +29,32 @@ export type SudokuMatrix = readonly [
   SudokuMatrixRow,
 ]
 
+export interface IStartedGamePlayBreak {
+  readonly startLogicalTimestamp: number
+}
+
+export interface IEndedGamePlayBreak extends IStartedGamePlayBreak {
+  readonly endLogicalTimestamp: number
+}
+
 export interface IState {
-  readonly difficulty: Difficulty,
-  readonly gameStart: number,
-  readonly matrix: SudokuMatrix,
-  readonly valuePickerOpenAt: null | readonly [number, number]
+  readonly difficulty: Difficulty
+  readonly gameStart: {
+    readonly absoluteTimestamp: number,
+    readonly logicalTimestamp: number,
+  }
+  readonly matrix: SudokuMatrix
+  readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
+  readonly valuePickerOpenAt: null | {readonly row: number, readonly column: number}
 }
 
 export const DEFAULT_STATE: IState = {
+  breaks: [],
   difficulty: Difficulty.MEDIUM,
-  gameStart: performance.now(),
+  gameStart: {
+    absoluteTimestamp: Date.now(),
+    logicalTimestamp: performance.now(),
+  },
   matrix: createGame(Difficulty.MEDIUM),
   valuePickerOpenAt: null,
 }

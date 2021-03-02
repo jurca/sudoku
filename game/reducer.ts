@@ -11,13 +11,19 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     return {
       ...state,
       difficulty,
-      gameStart: performance.now(),
+      gameStart: {
+        absoluteTimestamp: Date.now(),
+        logicalTimestamp: performance.now(),
+      },
       matrix,
       valuePickerOpenAt: null,
     }
   },
 
-  [Action.SHOW_VALUE_PICKER](state: IState, valuePickerCoordinates: readonly [number, number]): IState {
+  [Action.SHOW_VALUE_PICKER](
+    state: IState,
+    valuePickerCoordinates: {readonly row: number, readonly column: number},
+  ): IState {
     return {
       ...state,
       valuePickerOpenAt: valuePickerCoordinates,

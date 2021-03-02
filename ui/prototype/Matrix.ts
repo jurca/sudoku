@@ -13,8 +13,8 @@ export default function Matrix(
   dispatch: Dispatch<actions.ActionType>,
 ) {
   const matrix = matrixSelector(state)
-  const valuePickerCoordinates = valuePickerOpenAtSelector(state) || [-1, -1]
-  const [valuePickerX, valuePickerY] = valuePickerCoordinates
+  const valuePickerCoordinates = valuePickerOpenAtSelector(state) || {row: -1, column: -1}
+  const {row: valuePickerRow, column: valuePickerColumn} = valuePickerCoordinates
 
   return html`
     <sudoku-matrix>
@@ -30,7 +30,7 @@ export default function Matrix(
                 )}>
                   ${Cell(
                     cell,
-                    columnIndex === valuePickerX && rowIndex === valuePickerY,
+                    columnIndex === valuePickerColumn && rowIndex === valuePickerRow,
                     onShowValuePicker.bind(null, columnIndex, rowIndex),
                     onCellValueToggled,
                   )}
