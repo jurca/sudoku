@@ -8,6 +8,7 @@ import isAndroidOrIOS from '../reusable/isAndroidOrIOS'
 import styles from './gameDeskHeader.css'
 
 interface IProps {
+  readonly className?: string
   readonly difficulty: null | Difficulty
   readonly gameStart: null | {
     readonly logicalTimestamp: number,
@@ -33,7 +34,7 @@ export default function GameDeskHeader(props: IProps) {
   const forceMobileLayout = isAndroidOrIOS()
 
   return (
-    <div className={classnames(styles.header, forceMobileLayout && styles.forceMobileLayout)}>
+    <div className={classnames(styles.header, forceMobileLayout && styles.forceMobileLayout, props.className)}>
       <div className={styles.content}>
         <div className={classnames(styles.sideContent, styles.leftSide)}>
           {typeof gamePlayDuration === 'number' &&

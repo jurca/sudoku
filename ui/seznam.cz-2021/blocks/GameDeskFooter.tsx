@@ -5,6 +5,7 @@ import isAndroidOrIOS from '../reusable/isAndroidOrIOS'
 import styles from './gameDeskFooter.css'
 
 interface IProps {
+  readonly className?: string
   readonly onNewGame: () => void
   readonly onPause: () => void
   readonly onUndo: () => void
@@ -13,7 +14,7 @@ interface IProps {
 
 export default function GameDeskFooter(props: IProps): React.ReactElement {
   return (
-    <div className={classnames(styles.gameDeskFooter, isAndroidOrIOS() && styles.forceMobileLayout)}>
+    <div className={classnames(styles.gameDeskFooter, isAndroidOrIOS() && styles.forceMobileLayout, props.className)}>
       <div className={styles.outerContainer}>
         <div className={styles.innerContainer}>
           <IconButton className={styles.button} icon={IconType.CIRCLED_PLUS} onAction={props.onNewGame}>

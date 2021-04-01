@@ -1,0 +1,70 @@
+:local(.gameDesk) {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+}
+
+:local(.toolbar) {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  backdrop-filter: blur(2px);
+}
+
+:local(.bottomToolbar) {
+  top: auto;
+  bottom: 0;
+}
+
+:local(.container) {
+  display: flex;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 80px 0;
+  overflow: auto;
+
+  flex-direction: column;
+}
+
+@media
+  (max-width: 595px),
+  (max-width: 83mm)
+{
+  :local(.container) {
+    padding-bottom: 64px;
+  }
+}
+
+:local(.forceMobileLayout) :local(.container) {
+  padding-bottom: 64px;
+}
+
+:local(.topContentOffset) {
+  min-height: 12px;
+  max-height: 40px;
+  flex: 1 1 40px;
+}
+
+:local(.bottomContentOffset) {
+  min-height: 24px;
+  max-height: 80px;
+  flex: 2 2 80px;
+}
+
+:local(.content) {
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 464px;
+  padding: 0 12px;
+
+  flex-shrink: 0;
+}
