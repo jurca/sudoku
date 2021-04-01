@@ -1,0 +1,97 @@
+:local(.gameDeskFooter) {
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+
+  background: rgba(0, 0, 0, 0.1);
+}
+
+:local(.outerContainer) {
+  display: flex;
+
+  box-sizing: border-box;
+  margin: auto;
+  width: 100%;
+  max-width: 740px;
+  height: 100%;
+  padding: 0 18px;
+
+  justify-content: space-between;
+}
+
+:local(.innerContainer) {
+  display: flex;
+
+  height: 100%;
+  align-items: center;
+}
+
+:local(.button) {
+  height: 100%;
+  padding: 0 14px;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+:local(.buttonWithMargin) {
+  margin-left: 12px;
+}
+
+@media
+  (max-width: 595px),
+  (max-width: 83mm)
+{
+  :local(.gameDeskFooter) {
+    height: 64px;
+  }
+
+  :local(.button) {
+    flex-direction: column;
+
+    justify-content: center;
+
+    font-size: 12px;
+  }
+
+  :local(.buttonWithMargin) {
+    margin-left: 4px;
+  }
+
+  :local(.button):local(.button) div {
+    margin-right: 0;
+    margin-bottom: 6px;
+  }
+}
+
+:local(.forceMobileLayout):local(.gameDeskFooter) {
+  height: 64px;
+}
+
+:local(.forceMobileLayout) :local(.button) {
+  flex-direction: column;
+
+  justify-content: center;
+
+  font-size: 12px;
+}
+
+:local(.forceMobileLayout) :local(.buttonWithMargin) {
+  margin-left: 4px;
+}
+
+:local(.forceMobileLayout) :local(.button):local(.button) div {
+  margin-right: 0;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 380px) {
+  :local(.outerContainer) {
+    padding: 0 8px;
+  }
+
+  :local(.buttonWithMargin) {
+    margin-left: 0;
+  }
+}
