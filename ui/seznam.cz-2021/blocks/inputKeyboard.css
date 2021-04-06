@@ -1,0 +1,29 @@
+:local(.keyboard) {
+  position: relative;
+
+  box-sizing: border-box;
+  border: 1px solid currentColor;
+  width: 100%;
+  padding-top: calc((100% - 1px) / 9 - 1px);
+}
+
+:local(.keyboardContent) {
+  display: flex;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  
+  width: 100%;
+  height: 100%;
+}
+
+:local(.key) {
+  flex: 1 1 0;
+}
+
+:local(.separator) {
+  flex: 0 0 1px;
+
+  background: currentColor;
+}
