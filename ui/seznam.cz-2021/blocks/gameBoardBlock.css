@@ -1,0 +1,24 @@
+:local(.block) {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
+  flex-direction: column;
+}
+
+:local(.row) {
+  display: flex;
+
+  flex: 1 1 0;
+}
+
+:local(.cell) {
+  flex: 1 1 0;
+}
+
+:local(.separator) {
+  flex: 0 0 1px;
+
+  background: currentColor;
+}
