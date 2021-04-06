@@ -14,9 +14,9 @@ interface IProps {
   onAction(): void
 }
 
-export default function GameBoardCell({children: content}: IProps) {
+export default function GameBoardCell({children: content, onAction}: IProps) {
   return (
-    <button className={classnames('game-board-cell', styles.gameBoardCell)}>
+    <button className={classnames('game-board-cell', styles.gameBoardCell)} onClick={onAction}>
       {(() => {
         switch (true) {
           case content === undefined || content === null:
