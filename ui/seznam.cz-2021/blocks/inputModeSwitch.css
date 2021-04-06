@@ -1,0 +1,52 @@
+:local(.switch) {
+  position: relative;
+
+  box-sizing: border-box;
+  border: 1px solid currentColor;
+  width: 100%;
+  padding-top: calc((100% - 1px) / 3 - 1px);
+}
+
+:local(.content) {
+  display: flex;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+:local(.mode) {
+  flex: 1 1 0;
+}
+
+:local(.input) {
+  display: none;
+}
+
+:local(.modeUI) {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
+  justify-content: center;
+  align-items: center;
+
+  background: currentColor;
+}
+
+:local(.icon) {
+  display: block;
+
+  width: 24px;
+  height: 24px;
+}
+
+:local(.separator) {
+  flex: 0 0 1px;
+
+  background: currentColor;
+}
