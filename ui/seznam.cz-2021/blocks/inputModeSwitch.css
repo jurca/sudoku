@@ -36,6 +36,8 @@
   align-items: center;
 
   background: currentColor;
+
+  cursor: pointer;
 }
 
 :local(.icon) {
