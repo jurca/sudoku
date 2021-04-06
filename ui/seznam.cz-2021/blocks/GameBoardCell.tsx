@@ -10,13 +10,14 @@ export type IMatrix3x3 = readonly [
 ]
 
 interface IProps {
+  className?: string
   readonly children?: null | IMatrix3x3 | IconType | string
   onAction(): void
 }
 
-export default function GameBoardCell({children: content, onAction}: IProps) {
+export default function GameBoardCell({className, children: content, onAction}: IProps) {
   return (
-    <button className={classnames('game-board-cell', styles.gameBoardCell)} onClick={onAction}>
+    <button className={classnames('game-board-cell', styles.gameBoardCell, className)} onClick={onAction}>
       {(() => {
         switch (true) {
           case content === undefined || content === null:

@@ -2,12 +2,14 @@ import classnames from 'classnames'
 import * as React from 'react'
 import styles from './gameBoardBlock.css'
 
+export type ContentMatrix = readonly [
+  readonly [React.ReactChild, React.ReactChild, React.ReactChild],
+  readonly [React.ReactChild, React.ReactChild, React.ReactChild],
+  readonly [React.ReactChild, React.ReactChild, React.ReactChild],
+]
+
 interface IProps {
-  children: readonly [
-    readonly [React.ReactChild, React.ReactChild, React.ReactChild],
-    readonly [React.ReactChild, React.ReactChild, React.ReactChild],
-    readonly [React.ReactChild, React.ReactChild, React.ReactChild],
-  ]
+  readonly children: ContentMatrix
 }
 
 export default function GameBoardBlock({children: content}: IProps) {
