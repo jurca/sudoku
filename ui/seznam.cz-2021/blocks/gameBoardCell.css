@@ -1,0 +1,57 @@
+:local(.gameBoardCell) {
+  display: flex;
+
+  margin: 0;
+  border: none;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+
+  justify-content: center;
+  align-items: center;
+
+  font: 16px PTSans;
+  color: inherit;
+
+  background: currentColor;
+}
+
+:local(.icon) {
+  display: block;
+
+  width: 24px;
+  height: 24px;
+}
+
+:local(.matrix) {
+  display: flex;
+
+  flex-direction: column;
+
+  flex: 1 1 0;
+}
+
+:local(.row) {
+  display: flex;
+
+  flex: 1 1 0;
+}
+
+:local(.cell) {
+  display: flex;
+
+  flex: 1 1 0;
+
+  justify-content: center;
+  align-items: center;
+
+  font-size: 10px;
+}
+
+:local(.symbol) {
+  font-size: 24px;
+}
+
+:local(.content) {
+  color: #404040;
+}
