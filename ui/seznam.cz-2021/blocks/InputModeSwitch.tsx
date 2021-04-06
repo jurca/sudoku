@@ -4,8 +4,8 @@ import Icon, {IconType} from '../reusable/Icon'
 import styles from './inputModeSwitch.css'
 
 interface IProps {
-  name: string
-  defaultMode: InputMode
+  readonly name: string
+  readonly defaultMode: InputMode
   onModeChange(currentMode: InputMode): void
 }
 
