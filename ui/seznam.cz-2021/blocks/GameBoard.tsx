@@ -44,7 +44,7 @@ export default function GameBoard(props: IProps) {
       null
   const selectedCellRow = selectedCell && selectedBlock && selectedBlock.findIndex((row) => row.includes(selectedCell))
   const selectedCellColumn =
-    selectedCell && selectedBlock && selectedCellRow && selectedCellRow > -1 ?
+    selectedCell && selectedBlock && selectedCellRow != null && selectedCellRow > -1 ?
       selectedBlock[selectedCellRow].findIndex((cell) => cell === selectedCell)
     :
       null
