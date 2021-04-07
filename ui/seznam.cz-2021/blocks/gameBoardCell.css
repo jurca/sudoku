@@ -29,9 +29,10 @@
 :local(.matrix) {
   display: flex;
 
-  flex-direction: column;
-
+  height: 100%;
   flex: 1 1 0;
+
+  flex-direction: column;
 }
 
 :local(.row) {
