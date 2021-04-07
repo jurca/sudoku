@@ -20,7 +20,7 @@ export default function InputKeyboard(props: IProps) {
           )
           return (
             <React.Fragment key={keyIndex}>
-              <div className={styles.key}>
+              <div className={classnames('input-keyboard__key', `input-keyboard__key-${key}`, styles.key)}>
                 <GameBoardCell onAction={onKeyAction}>
                   {`${key}`}
                 </GameBoardCell>

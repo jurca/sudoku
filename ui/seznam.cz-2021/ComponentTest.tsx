@@ -457,6 +457,14 @@ export default function ComponentTest() {
             color: #4c1e1e;
           }
 
+          #game-board .input-keyboard .input-keyboard__key-2 .game-board-cell {
+            color: #d98282;
+          }
+
+          #game-board .input-keyboard .input-keyboard__key-6 .game-board-cell {
+            color: #cfe5e5;
+          }
+
           #game-board .input-keyboard__separator {
             color: #a0a0a0;
           }
