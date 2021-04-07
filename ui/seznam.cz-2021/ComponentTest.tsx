@@ -428,11 +428,11 @@ export default function ComponentTest() {
            */
 
           #game-board .${BoardClassNames.MATRIX} {
-            color: #4c1e1e;
+            color: #4d1f1f;
           }
 
           #game-board .${BlockClassNames.ROOT} {
-            color: #4c1e1e;
+            color: #4d1f1f;
           }
 
           #game-board .${BlockClassNames.ROOT} .${BlockClassNames.ROOT} {
@@ -443,12 +443,16 @@ export default function ComponentTest() {
             color: #fff2f2;
           }
 
+          #game-board .${CellClassNames.CONTENT} {
+            color: #4d1f1f;
+          }
+
           #game-board .${BoardClassNames.PRE_FILLED_CELL} {
-            color: #f5dcdc;
+            color: #f2dada;
           }
 
           #game-board .${BoardClassNames.CELL_WITH_NOTES} {
-            color: #cfe5e5;
+            color: #cfe6e6;
           }
 
           #game-board .${BoardClassNames.HIGHLIGHTED_CELL} {
@@ -464,7 +468,7 @@ export default function ComponentTest() {
           }
 
           #game-board .${InputKeysClassNames.ROOT} {
-            color: #4c1e1e;
+            color: #4d1f1f;
           }
 
           #game-board .${InputKeysClassNames.KEY}[${KEY_VALUE_ATTRIBUTE}='2'] .${CellClassNames.ROOT} {
@@ -472,7 +476,7 @@ export default function ComponentTest() {
           }
 
           #game-board .${InputKeysClassNames.KEY}[${KEY_VALUE_ATTRIBUTE}='6'] .${CellClassNames.ROOT} {
-            color: #cfe5e5;
+            color: #cfe6e6;
           }
 
           #game-board .${InputKeysClassNames.SEPARATOR} {
@@ -480,7 +484,7 @@ export default function ComponentTest() {
           }
 
           #game-board .${InputModeClassNames.ROOT} {
-            color: #000000;
+            color: #4d1f1f;
           }
 
           #game-board .${InputModeClassNames.MODE} {
@@ -492,7 +496,7 @@ export default function ComponentTest() {
           }
 
           #game-board .${InputModeClassNames.ICON} {
-            color: #000000;
+            color: #4d1f1f;
           }
 
           #game-board .${InputModeClassNames.SEPARATOR} {
