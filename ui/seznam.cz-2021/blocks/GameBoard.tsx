@@ -110,11 +110,11 @@ function GameBoardCellWrapper(
   {cell, isSelected, isHighlighted, selectedCellValue, onAction}: IGameBoardCellWrapperProps,
 ) {
   const isPreFilled = !!(cell.initialValue && cell.initialValue === cell.value)
-  const hasNotes = !isPreFilled && cell.userMarkedOptions.length
+  const hasNotes = !isPreFilled && !cell.value && cell.userMarkedOptions.length
   return (
     <GameBoardCell
       className={classnames({
-        [CssClassNames.CELL_WITH_NOTES]: hasNotes && !cell.value,
+        [CssClassNames.CELL_WITH_NOTES]: hasNotes,
         [CssClassNames.HIGHLIGHTED_CELL]: !hasNotes && isHighlighted,
         [CssClassNames.CELL_MATCHING_SELECTED_CELL]: (
           selectedCellValue && !isSelected && cell.value === selectedCellValue
