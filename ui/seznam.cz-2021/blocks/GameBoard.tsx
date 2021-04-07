@@ -114,7 +114,7 @@ function GameBoardCellWrapper(
   return (
     <GameBoardCell
       className={classnames({
-        [CssClassNames.CELL_WITH_NOTES]: hasNotes,
+        [CssClassNames.CELL_WITH_NOTES]: hasNotes && !cell.value,
         [CssClassNames.HIGHLIGHTED_CELL]: !hasNotes && isHighlighted,
         [CssClassNames.CELL_MATCHING_SELECTED_CELL]: (
           selectedCellValue && !isSelected && cell.value === selectedCellValue
