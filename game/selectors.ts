@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect'
-import {IState, ISudokuMatrixCell} from './state'
+import {IState, ISudokuMatrixCell, SudokuMatrix} from './state'
 
 export const difficultySelector = (globalState: IState) => globalState.difficulty
 export const matrixSelector = (globalState: IState) => globalState.matrix
@@ -19,26 +19,28 @@ export type HierarchicalMatrix = readonly [
 
 export const hierarchicalCellsSelector = createSelector(
   matrixSelector,
-  (matrix): HierarchicalMatrix => {
-    const hierarchicalMatrix: ISudokuMatrixCell[][][][] = [
-      [],
-      [],
-      [],
-    ]
-    for (let rowIndex = 0; rowIndex < matrix.length; rowIndex++) {
-      const row = matrix[rowIndex]
-      for (let cellIndex = 0; cellIndex < row.length; cellIndex++) {
-        const blockRow = Math.floor(rowIndex / 3)
-        const blockColumn = Math.floor(cellIndex / 3)
-        const block: ISudokuMatrixCell[][] = hierarchicalMatrix[blockRow][blockColumn] || []
-        hierarchicalMatrix[blockRow][blockColumn] = block
-
-        if (!block[rowIndex % 3]) {
-          block[rowIndex % 3] = []
-        }
-        block[rowIndex % 3][cellIndex % 3] = row[cellIndex]
-      }
-    }
-    return hierarchicalMatrix as unknown as HierarchicalMatrix
-  },
+  createHierarchicalCellMatrix,
 )
+
+export function createHierarchicalCellMatrix(plainMatrix: SudokuMatrix): HierarchicalMatrix {
+  const hierarchicalMatrix: ISudokuMatrixCell[][][][] = [
+    [],
+    [],
+    [],
+  ]
+  for (let rowIndex = 0; rowIndex < plainMatrix.length; rowIndex++) {
+    const row = plainMatrix[rowIndex]
+    for (let cellIndex = 0; cellIndex < row.length; cellIndex++) {
+      const blockRow = Math.floor(rowIndex / 3)
+      const blockColumn = Math.floor(cellIndex / 3)
+      const block: ISudokuMatrixCell[][] = hierarchicalMatrix[blockRow][blockColumn] || []
+      hierarchicalMatrix[blockRow][blockColumn] = block
+
+      if (!block[rowIndex % 3]) {
+        block[rowIndex % 3] = []
+      }
+      block[rowIndex % 3][cellIndex % 3] = row[cellIndex]
+    }
+  }
+  return hierarchicalMatrix as unknown as HierarchicalMatrix
+}
