@@ -16,6 +16,7 @@
   background: currentColor;
 
   cursor: pointer;
+  outline: none;
 }
 
 :local(.icon) {
