@@ -8,13 +8,17 @@ export type ContentMatrix = readonly [
   readonly [React.ReactChild, React.ReactChild, React.ReactChild],
 ]
 
+export enum CssClassNames {
+  ROOT = 'game-board-block',
+}
+
 interface IProps {
   readonly children: ContentMatrix
 }
 
 export default function GameBoardBlock({children: content}: IProps) {
   return (
-    <div className={classnames('game-board-block', styles.block)}>
+    <div className={classnames(CssClassNames.ROOT, styles.block)}>
       {content.map((row, rowIndex, rows) =>
         <React.Fragment key={rowIndex}>
           <div className={styles.row}>

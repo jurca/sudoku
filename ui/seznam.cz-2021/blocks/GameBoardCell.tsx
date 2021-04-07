@@ -9,6 +9,11 @@ export type IMatrix3x3 = readonly [
   readonly [null | string, null | string, null | string],
 ]
 
+export enum CssClassNames {
+  ROOT = 'game-board-cell',
+  CONTENT = 'game-board-cell__content',
+}
+
 interface IProps {
   className?: string
   readonly children?: null | IMatrix3x3 | IconType | string
@@ -17,14 +22,14 @@ interface IProps {
 
 export default function GameBoardCell({className, children: content, onAction}: IProps) {
   return (
-    <button className={classnames('game-board-cell', styles.gameBoardCell, className)} onClick={onAction}>
+    <button className={classnames(CssClassNames.ROOT, styles.gameBoardCell, className)} onClick={onAction}>
       {(() => {
         switch (true) {
           case content === undefined || content === null:
             return null
           case isIconType(content):
             return (
-              <span className={classnames('game-board-cell__content', styles.icon, styles.content)}>
+              <span className={classnames(CssClassNames.CONTENT, styles.icon, styles.content)}>
                 <Icon icon={content as IconType}/>
               </span>
             )
@@ -32,7 +37,7 @@ export default function GameBoardCell({className, children: content, onAction}: 
             return (
               <span className={styles.matrix}>
                 {(content as unknown as IMatrix3x3).map((row, rowIndex) =>
-                  <span key={rowIndex} className={classnames('game-board-cell__content', styles.row, styles.content)}>
+                  <span key={rowIndex} className={classnames(CssClassNames.CONTENT, styles.row, styles.content)}>
                     {row.map((cell, cellIndex) =>
                       <span key={cellIndex} className={styles.cell}>
                         {cell}
@@ -44,7 +49,7 @@ export default function GameBoardCell({className, children: content, onAction}: 
             )
           default:
             return (
-              <span className={classnames('game-board-cell__content', styles.symbol, styles.content)}>
+              <span className={classnames(CssClassNames.CONTENT, styles.symbol, styles.content)}>
                 {content}
               </span>
             )

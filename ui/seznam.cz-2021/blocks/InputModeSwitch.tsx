@@ -3,6 +3,13 @@ import * as React from 'react'
 import Icon, {IconType} from '../reusable/Icon'
 import styles from './inputModeSwitch.css'
 
+export enum CssClassNames {
+  ROOT = 'input-mode-switch',
+  MODE = 'input-mode-switch__mode',
+  ICON = 'input-mode-switch__icon',
+  SEPARATOR = 'input-mode-switch__separator',
+}
+
 interface IProps {
   readonly name: string
   readonly defaultMode: InputMode
@@ -28,7 +35,7 @@ export default function InputModeSwitch(props: IProps) {
   )
 
   return (
-    <div className={classnames('input-mode-switch', styles.switch)}>
+    <div className={classnames(CssClassNames.ROOT, styles.switch)}>
       <div className={styles.content}>
         {MODES.map(([mode, icon], index, modes) =>
           <React.Fragment key={mode}>
@@ -41,14 +48,14 @@ export default function InputModeSwitch(props: IProps) {
                 defaultChecked={mode === props.defaultMode}
                 onChange={onChange}
               />
-              <span className={classnames('input-mode-switch__mode', styles.modeUI)}>
-                <span className={classnames('input-mode-switch__icon', styles.icon)}>
+              <span className={classnames(CssClassNames.MODE, styles.modeUI)}>
+                <span className={classnames(CssClassNames.ICON, styles.icon)}>
                   <Icon icon={icon}/>
                 </span>
               </span>
             </label>
             {index < modes.length - 1 &&
-              <div className={classnames('input-mode-switch__separator', styles.separator)}/>
+              <div className={classnames(CssClassNames.SEPARATOR, styles.separator)}/>
             }
           </React.Fragment>,
         )}

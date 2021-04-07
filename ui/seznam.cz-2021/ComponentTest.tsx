@@ -3,14 +3,14 @@ import Difficulty from '../../conf/Difficulty'
 import {hierarchicalCellsSelector, HierarchicalMatrix} from '../../game/selectors'
 import {DEFAULT_STATE} from '../../game/state'
 import BackgroundPattern from './blocks/BackgroundPattern'
-import GameBoard from './blocks/GameBoard'
-import GameBoardBlock from './blocks/GameBoardBlock'
-import GameBoardCell from './blocks/GameBoardCell'
+import GameBoard, {CssClassNames as BoardClassNames} from './blocks/GameBoard'
+import GameBoardBlock, {CssClassNames as BlockClassNames} from './blocks/GameBoardBlock'
+import GameBoardCell, {CssClassNames as CellClassNames} from './blocks/GameBoardCell'
 import GameDesk from './blocks/GameDesk'
 import GameDeskFooter from './blocks/GameDeskFooter'
 import GameDeskHeader from './blocks/GameDeskHeader'
-import InputKeyboard from './blocks/InputKeyboard'
-import InputModeSwitch, {InputMode} from './blocks/InputModeSwitch'
+import InputKeyboard, {CssClassNames as InputKeysClassNames, KEY_VALUE_ATTRIBUTE} from './blocks/InputKeyboard'
+import InputModeSwitch, {CssClassNames as InputModeClassNames, InputMode} from './blocks/InputModeSwitch'
 import SettingsListItem from './blocks/SettingsListItem'
 import Dialog from './reusable/Dialog'
 import DialogHost from './reusable/DialogHost'
@@ -421,71 +421,81 @@ export default function ComponentTest() {
           onInputModeChange={NOOP}
         />
         <style>{`
-          #game-board .game-board__matrix {
+          /*
+            Before anyone asks: We are targetting compatibility with legacy baked-in WebView in Android 5, that's why
+            we cannot use custom CSS properties (AKA CSS variables) :(. Using currentColor instead offers *some* level
+            of similar abstraction.
+           */
+
+          #game-board .${BoardClassNames.MATRIX} {
             color: #4c1e1e;
           }
 
-          #game-board .game-board-block .game-board-block {
+          #game-board .${BlockClassNames.ROOT} {
+            color: #4c1e1e;
+          }
+
+          #game-board .${BlockClassNames.ROOT} .${BlockClassNames.ROOT} {
             color: #a0a0a0;
           }
 
-          #game-board .game-board-cell {
+          #game-board .${CellClassNames.ROOT} {
             color: #fff2f2;
           }
 
-          #game-board .game-board__pre-filled-cell {
+          #game-board .${BoardClassNames.PRE_FILLED_CELL} {
             color: #f5dcdc;
           }
 
-          #game-board .game-board__cell-with-notes {
+          #game-board .${BoardClassNames.CELL_WITH_NOTES} {
             color: #cfe5e5;
           }
 
-          #game-board .game-board__highlighted-cell {
+          #game-board .${BoardClassNames.HIGHLIGHTED_CELL} {
             color: #f2b6b6;
           }
 
-          #game-board .game-board__matching-selected-cell {
+          #game-board .${BoardClassNames.CELL_MATCHING_SELECTED_CELL} {
             color: #d98282;
           }
 
-          #game-board .game-board__selected-cell {
+          #game-board .${BoardClassNames.SELECTED_CELL} {
             color: #d98282;
           }
 
-          #game-board .input-keyboard {
+          #game-board .${InputKeysClassNames.ROOT} {
             color: #4c1e1e;
           }
 
-          #game-board .input-keyboard .input-keyboard__key-2 .game-board-cell {
+          #game-board .${InputKeysClassNames.KEY}[${KEY_VALUE_ATTRIBUTE}='2'] .${CellClassNames.ROOT} {
             color: #d98282;
           }
 
-          #game-board .input-keyboard .input-keyboard__key-6 .game-board-cell {
+          #game-board .${InputKeysClassNames.KEY}[${KEY_VALUE_ATTRIBUTE}='6'] .${CellClassNames.ROOT} {
             color: #cfe5e5;
           }
 
-          #game-board .input-keyboard__separator {
+          #game-board .${InputKeysClassNames.SEPARATOR} {
             color: #a0a0a0;
           }
 
-          #game-board .input-mode-switch {
+          #game-board .${InputModeClassNames.ROOT} {
             color: #000000;
           }
 
-          #game-board .input-mode-switch__mode {
+          #game-board .${InputModeClassNames.MODE} {
             color: #fff2f2;
           }
 
-          #game-board :checked + .input-mode-switch__mode {
+          #game-board :checked + .${InputModeClassNames.MODE} {
             color: #d98282;
           }
 
-          #game-board .input-mode-switch__icon {
+          #game-board .${InputModeClassNames.ICON} {
             color: #000000;
           }
 
-          #game-board .input-mode-switch__separator {
+          #game-board .${InputModeClassNames.SEPARATOR} {
             color: #a0a0a0;
           }
         `}</style>

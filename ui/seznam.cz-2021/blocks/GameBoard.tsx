@@ -8,6 +8,15 @@ import GameBoardCell, {IMatrix3x3} from './GameBoardCell'
 import InputKeyboard from './InputKeyboard'
 import InputModeSwitch, {InputMode} from './InputModeSwitch'
 
+export enum CssClassNames {
+  MATRIX = 'game-board__matrix',
+  CELL_WITH_NOTES = 'game-board__cell-with-notes',
+  HIGHLIGHTED_CELL = 'game-board__highlighted-cell',
+  CELL_MATCHING_SELECTED_CELL = 'game-board__matching-selected-cell',
+  PRE_FILLED_CELL = 'game-board__pre-filled-cell',
+  SELECTED_CELL = 'game-board__selected-cell',
+}
+
 interface IProps {
   readonly gameState: HierarchicalMatrix
   readonly selectedCell: null | ISudokuMatrixCell
@@ -42,7 +51,7 @@ export default function GameBoard(props: IProps) {
 
   return (
     <div className={styles.board}>
-      <div className={classnames('game-board__matrix', styles.matrixContainer)}>
+      <div className={classnames(CssClassNames.MATRIX, styles.matrixContainer)}>
         <div className={styles.matrix}>
           <GameBoardBlock>
             {props.gameState.map((blockRow, blockRowIndex) =>
@@ -105,11 +114,13 @@ function GameBoardCellWrapper(
   return (
     <GameBoardCell
       className={classnames({
-        'game-board__cell-with-notes': hasNotes,
-        'game-board__highlighted-cell': !hasNotes && isHighlighted,
-        'game-board__matching-selected-cell': selectedCellValue && !isSelected && cell.value === selectedCellValue,
-        'game-board__pre-filled-cell': isPreFilled,
-        'game-board__selected-cell': isSelected,
+        [CssClassNames.CELL_WITH_NOTES]: hasNotes,
+        [CssClassNames.HIGHLIGHTED_CELL]: !hasNotes && isHighlighted,
+        [CssClassNames.CELL_MATCHING_SELECTED_CELL]: (
+          selectedCellValue && !isSelected && cell.value === selectedCellValue
+        ),
+        [CssClassNames.PRE_FILLED_CELL]: isPreFilled,
+        [CssClassNames.SELECTED_CELL]: isSelected,
       })}
       onAction={onAction}
     >
