@@ -24,7 +24,7 @@ import TabSwitcher from './reusable/TabSwitcher'
 
 const NOOP = () => undefined
 
-export default function ComponentTest() {
+export default function ComponentDemo() {
   return (
     <div style={{width: '100%', height: '100vh', overflow: 'auto'}}>
       <h2>Reusable components</h2>
