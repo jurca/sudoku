@@ -102,6 +102,7 @@ export interface IState {
     readonly logicalTimestamp: number,
   }
   readonly matrix: SudokuMatrixState
+  readonly matrixHistory: readonly SudokuMatrixState[]
   readonly notes: SudokuMatrixNotes
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
   readonly valuePickerOpenAt: null | IMatrixCoordinates
@@ -118,6 +119,7 @@ export const DEFAULT_STATE: IState = {
     logicalTimestamp: performance.now(),
   },
   matrix: createGame(Difficulty.MEDIUM),
+  matrixHistory: [],
   notes: [
     [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
     [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],

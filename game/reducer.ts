@@ -25,6 +25,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
         logicalTimestamp: performance.now(),
       },
       matrix,
+      matrixHistory: [],
       notes: DEFAULT_STATE.notes,
       valuePickerOpenAt: null,
     }
@@ -85,12 +86,29 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
           return state
         }
 
+        const historyIndex = state.matrixHistory.indexOf(state.matrix)
         return {
           ...state,
           matrix: updatedMatrix,
+          matrixHistory: state.matrixHistory
+            .slice(0, historyIndex === -1 ? state.matrixHistory.length : historyIndex)
+            .concat([state.matrix]),
         }
       default:
         throw new Error(`Unknown entry mode: ${mode}`)
+    }
+  },
+
+  [Action.UNDO](state: IState): IState {
+    const history = state.matrixHistory
+    const historyIndex = history.indexOf(state.matrix)
+    if (!state.matrixHistory.length || historyIndex === 0) {
+      return state
+    }
+
+    return {
+      ...state,
+      matrix: history[(historyIndex === -1 ? history.length : historyIndex) - 1],
     }
   },
 })
