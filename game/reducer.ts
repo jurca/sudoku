@@ -18,6 +18,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     const matrix = createGame(difficulty)
     return {
       ...state,
+      breaks: [],
       difficulty,
       gameStart: {
         absoluteTimestamp: Date.now(),
