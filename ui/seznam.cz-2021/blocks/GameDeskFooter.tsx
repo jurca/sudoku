@@ -25,18 +25,21 @@ export default function GameDeskFooter(props: IProps): React.ReactElement {
           <IconButton
             className={classnames(styles.button, styles.buttonWithMargin)}
             icon={IconType.PAUSE}
+            onAction={props.onPause}
           >
             Pozastavit
           </IconButton>
           <IconButton
             className={classnames(styles.button, styles.buttonWithMargin)}
             icon={IconType.UNDO}
+            onAction={props.onUndo}
           >
             Zpět
           </IconButton>
           <IconButton
             className={classnames(styles.button, styles.buttonWithMargin)}
             icon={IconType.HELP}
+            onAction={props.onHelp}
           >
             Nápověda
           </IconButton>
