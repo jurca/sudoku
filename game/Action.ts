@@ -7,6 +7,9 @@ export enum Action {
   NEW_GAME = 'Action.NEW_GAME',
   SHOW_VALUE_PICKER = 'Action.SHOW_VALUE_PICKER',
   TOGGLE_CELL_VALUE = 'Action.TOGGLE_CELL_VALUE',
+  PAUSE = 'Action.PAUSE',
+  RESUME = 'Action.RESUME',
+  UNDO = 'Action.UNDO',
 }
 
 export type ActionType = ReduxActionType<Action>
@@ -25,3 +28,6 @@ export const showValuePicker = mkActionFactory<[number, number]>(Action.SHOW_VAL
 export const toggleCellValue = mkActionFactory<{cell: ISudokuMatrixCell, value: null | number, mode: ValueEntryMode}>(
   Action.TOGGLE_CELL_VALUE,
 )
+export const pause = mkActionFactory<void>(Action.PAUSE)
+export const resume = mkActionFactory<void>(Action.RESUME)
+export const undo = mkActionFactory<void>(Action.UNDO)
