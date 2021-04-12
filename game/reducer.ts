@@ -68,6 +68,10 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
         }
       case ValueEntryMode.SET_VALUE:
         const row = state.matrix[cell.row].slice()
+        if (!value && !row[cell.column].value) {
+          return state
+        }
+
         row.splice(cell.column, 1, {
           ...row[cell.column],
           value: row[cell.column].value === value ? null : value,
