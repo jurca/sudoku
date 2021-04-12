@@ -1,4 +1,5 @@
-import {IEndedGamePlayBreak, IStartedGamePlayBreak} from './state'
+import {checkBoard} from './boardChecker'
+import {IEndedGamePlayBreak, IStartedGamePlayBreak, SudokuMatrixState} from './state'
 
 export function getGamePlayDuration(
   gameStart: {readonly logicalTimestamp: number},
@@ -19,4 +20,8 @@ export function getGamePlayDuration(
   }
 
   return duration
+}
+
+export function isComplete(sudokuMatrix: SudokuMatrixState): boolean {
+  return checkBoard(sudokuMatrix) && sudokuMatrix.every((row) => row.every((cell) => !!cell.value))
 }
