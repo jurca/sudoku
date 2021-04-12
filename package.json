@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development webpack serve --host ::",
-    "build": "NODE_ENV=production webpack",
+    "build": "rm -r dist/ && NODE_ENV=production webpack && cd dist && posthtml index.html --use posthtml-inline-assets posthtml-minifier --posthtml-minifier.collapseWhitespace true --output sudoku.html && rm main.js main.js.LICENSE.txt index.html",
     "test": "tslint --project . "
   },
   "repository": {
@@ -31,6 +31,10 @@
     "css-loader": "^5.0.2",
     "css-modules-typescript-loader": "^4.0.1",
     "html-webpack-plugin": "^5.2.0",
+    "posthtml": "^0.15.1",
+    "posthtml-cli": "^0.9.1",
+    "posthtml-inline-assets": "^3.1.0",
+    "posthtml-minifier": "^0.1.0",
     "raw-loader": "^4.0.2",
     "style-loader": "^2.0.0",
     "ts-loader": "^8.0.17",

@@ -5,7 +5,7 @@ module.exports = {
 
   entry: './index.ts',
 
-  devtool: 'inline-source-map',
+  devtool: process.env.NODE_ENV !== 'production' ? 'inline-source-map' : false,
 
   module: {
     rules: [

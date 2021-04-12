@@ -4,12 +4,18 @@ import {Provider} from 'react-redux'
 import App from './ui/seznam.cz-2021/App'
 import storeFactory from './ui/seznam.cz-2021/storeFactory'
 
-const appRoot = document.getElementById('app')!
-const store = storeFactory()
+addEventListener('DOMContentLoaded', () => {
+  const appRoot = document.getElementById('app')
+  if (!appRoot) {
+    throw new Error('Cannot find the app container element')
+  }
 
-render(
-  createElement(Provider, {store},
-    createElement(App),
-  ),
-  appRoot,
-)
+  const store = storeFactory()
+
+  render(
+    createElement(Provider, {store},
+      createElement(App),
+    ),
+    appRoot,
+  )
+})
