@@ -44,10 +44,12 @@ export default function Matrix(
   `
 
   function onShowValuePicker(x: number, y: number): void {
-    dispatch(actions.showValuePicker([x, y]))
+    dispatch(actions.showValuePicker({column: x, row: y}))
   }
 
   function onCellValueToggled(cell: ISudokuMatrixCell, value: null | number): void {
-    dispatch(actions.toggleCellValue({cell, value, mode: entryMode}))
+    const rowIndex = matrix.findIndex((matrixRow) => matrixRow.includes(cell))
+    const columnIndex = matrix[rowIndex].indexOf(cell)
+    dispatch(actions.toggleCellValue({cell: {column: columnIndex, row: rowIndex}, value, mode: entryMode}))
   }
 }

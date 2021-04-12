@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import Difficulty from '../../../conf/Difficulty'
 import {pause, toggleCellValue, undo, ValueEntryMode} from '../../../game/Action'
-import {IEndedGamePlayBreak, IStartedGamePlayBreak, ISudokuMatrixCell, SudokuMatrix} from '../../../game/state'
-import { openHelpDialog, openNewGameDialog, openSettingsDialog } from '../Action'
+import {IEndedGamePlayBreak, IMatrixCoordinates, IStartedGamePlayBreak, SudokuMatrix} from '../../../game/state'
+import {openHelpDialog, openNewGameDialog, openSettingsDialog} from '../Action'
 import GameDesk from '../blocks/GameDesk'
 import {InputMode} from '../blocks/InputModeSwitch'
 import {
@@ -32,7 +32,7 @@ interface IDataProps {
 }
 
 interface ICallbackProps {
-  onToggleCellValue(change: {cell: ISudokuMatrixCell, value: null | number, mode: ValueEntryMode}): void,
+  onToggleCellValue(change: {cell: IMatrixCoordinates, value: null | number, mode: ValueEntryMode}): void,
   onOpenSettingsDialog(): void
   onOpenNewGameDialog(): void
   onPause(): void
@@ -50,10 +50,10 @@ type Props = IDataProps & ICallbackProps & IExternalProps
 
 export function Main(props: Props) {
   const onToggleCellValue = React.useMemo(
-    () => (cell: ISudokuMatrixCell, value: null | number, mode: InputMode) => {
+    () => (cell: IMatrixCoordinates, value: null | number, mode: InputMode) => {
       switch (mode) {
         case InputMode.INPUT:
-          props.onToggleCellValue({cell, value: cell.value === value ? 0 : value, mode: ValueEntryMode.SET_VALUE})
+          props.onToggleCellValue({cell, value, mode: ValueEntryMode.SET_VALUE})
           break
         case InputMode.NOTES:
           props.onToggleCellValue({cell, value, mode: ValueEntryMode.MAKE_NOTE})

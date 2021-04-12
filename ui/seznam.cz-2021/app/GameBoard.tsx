@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {createHierarchicalCellMatrix} from '../../../game/selectors'
-import {ISudokuMatrixCell, SudokuMatrix} from '../../../game/state'
+import {IMatrixCoordinates, ISudokuMatrixCell, SudokuMatrix} from '../../../game/state'
 import GameBoardUI from '../blocks/GameBoard'
 import {InputMode} from '../blocks/InputModeSwitch'
 import GameBoardTheme from '../theme/GameBoardTheme'
@@ -15,7 +15,7 @@ interface IProps {
   readonly uniqueClassName: string
   readonly primaryColor: PrimaryColor
   readonly theme: Theme
-  onToggleCellValue(cell: ISudokuMatrixCell, value: null | number, mode: InputMode): void
+  onToggleCellValue(cell: IMatrixCoordinates, value: null | number, mode: InputMode): void
 }
 
 export default function GameBoard(props: IProps) {
@@ -30,13 +30,14 @@ export default function GameBoard(props: IProps) {
         return
       }
 
+      const row = props.gameState.findIndex((matrixRow) => matrixRow.includes(cell))
+      const column = row > -1 ? props.gameState[row].findIndex((otherCell) => otherCell === cell) : -1
+
       if (inputMode === InputMode.ERASE) {
-        props.onToggleCellValue(cell, null, inputMode)
+        props.onToggleCellValue({column, row}, null, inputMode)
         return
       }
 
-      const row = props.gameState.findIndex((matrixRow) => matrixRow.includes(cell))
-      const column = row > -1 ? props.gameState[row].findIndex((otherCell) => otherCell === cell) : -1
       setSelectedCell({row, column})
     },
     [props.gameState, inputMode, setSelectedCell, props.onToggleCellValue],
@@ -52,16 +53,16 @@ export default function GameBoard(props: IProps) {
   )
   const onInput = React.useMemo(
     () => (pressedKey: number) => {
-      if (inputMode === InputMode.ERASE || !selectedCellObject) {
+      if (inputMode === InputMode.ERASE || !selectedCell || !selectedCellObject) {
         return
       }
       if (inputMode === InputMode.NOTES && selectedCellObject.value) {
         return
       }
 
-      props.onToggleCellValue(selectedCellObject, pressedKey, inputMode)
+      props.onToggleCellValue(selectedCell, pressedKey, inputMode)
     },
-    [selectedCellObject, inputMode],
+    [selectedCell, selectedCellObject, inputMode],
   )
 
   const stateAttributes = {

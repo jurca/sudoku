@@ -1,9 +1,17 @@
 import createReducer from 'redux-create-fsa-reducer'
 import Difficulty from '../conf/Difficulty'
-import {Action, ValueEntryMode} from './Action'
+import {Action, IToggleCellValuePayload, ValueEntryMode} from './Action'
 import {checkBoard} from './boardChecker'
 import createGame from './gameGenerator'
-import {DEFAULT_STATE, IState, ISudokuMatrixCell, SudokuMatrix, SudokuMatrixRow} from './state'
+import {
+  DEFAULT_STATE,
+  IMatrixCoordinates,
+  IState,
+  SudokuMatrixNotes,
+  SudokuMatrixNotesRow,
+  SudokuMatrixState,
+  SudokuMatrixStateRow,
+} from './state'
 
 export default createReducer<IState, any>(DEFAULT_STATE, {
   [Action.NEW_GAME](state: IState, difficulty: Difficulty): IState {
@@ -16,13 +24,14 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
         logicalTimestamp: performance.now(),
       },
       matrix,
+      notes: DEFAULT_STATE.notes,
       valuePickerOpenAt: null,
     }
   },
 
   [Action.SHOW_VALUE_PICKER](
     state: IState,
-    valuePickerCoordinates: {readonly row: number, readonly column: number},
+    valuePickerCoordinates: IMatrixCoordinates,
   ): IState {
     return {
       ...state,
@@ -32,48 +41,51 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
 
   [Action.TOGGLE_CELL_VALUE](
     state: IState,
-    {cell, mode, value}: {cell: ISudokuMatrixCell, mode: ValueEntryMode, value: number},
+    {cell, mode, value}: IToggleCellValuePayload,
   ): IState {
-    const cellRow = state.matrix.findIndex((row) => row.includes(cell))
-    if (cellRow === -1) {
-      return state
-    }
-    const cellColumn = state.matrix[cellRow].findIndex((otherCell) => otherCell === cell)
-    const updatedRow = state.matrix[cellRow].slice()
-    const updatedUserMarkedOptions = cell.userMarkedOptions.slice()
-    if (mode === ValueEntryMode.MAKE_NOTE) {
-      if (value === null) {
-        updatedUserMarkedOptions.splice(0)
-      } else {
-        const existingValueIndex = updatedUserMarkedOptions.indexOf(value)
-        if (existingValueIndex > -1) {
-          updatedUserMarkedOptions.splice(existingValueIndex, 1)
-        } else {
-          updatedUserMarkedOptions.push(value)
+    switch (mode) {
+      case ValueEntryMode.MAKE_NOTE:
+        if (!value) {
+          return state
         }
-      }
-    }
-    const updatedCell = {
-      ...cell,
-      userMarkedOptions: updatedUserMarkedOptions,
-      value: mode === ValueEntryMode.SET_VALUE ? value : cell.value,
-    }
-    updatedRow.splice(cellColumn, 1, updatedCell)
-    const updatedMatrixData = state.matrix.slice()
-    updatedMatrixData.splice(cellRow, 1, updatedRow as unknown as SudokuMatrixRow)
-    const updatedMatrix = updatedMatrixData as unknown as SudokuMatrix
 
-    if (!checkBoard(updatedMatrix)) {
-      return {
-        ...state,
-        valuePickerOpenAt: null,
-      }
-    }
+        const notesRow = state.notes[cell.row].slice()
+        const cellNotes = notesRow[cell.column].userMarkedOptions
+        notesRow.splice(cell.column, 1, {
+          ...notesRow[cell.column],
+          userMarkedOptions: (
+            cellNotes.includes(value) ? cellNotes.filter((otherValue) => otherValue !== value) : cellNotes.concat(value)
+          ),
+        })
+        return {
+          ...state,
+          notes: [
+            ...state.notes.slice(0, cell.row),
+            notesRow as unknown as SudokuMatrixNotesRow,
+            ...state.notes.slice(cell.row + 1),
+          ] as unknown as SudokuMatrixNotes,
+        }
+      case ValueEntryMode.SET_VALUE:
+        const row = state.matrix[cell.row].slice()
+        row.splice(cell.column, 1, {
+          ...row[cell.column],
+          value: row[cell.column].value === value ? null : value,
+        })
+        const updatedMatrix = [
+          ...state.matrix.slice(0, cell.row),
+          row as unknown as SudokuMatrixStateRow,
+          ...state.matrix.slice(cell.row + 1),
+        ] as unknown as SudokuMatrixState
+        if (!checkBoard(updatedMatrix)) {
+          return state
+        }
 
-    return {
-      ...state,
-      matrix: updatedMatrix,
-      valuePickerOpenAt: null,
+        return {
+          ...state,
+          matrix: updatedMatrix,
+        }
+      default:
+        throw new Error(`Unknown entry mode: ${mode}`)
     }
   },
 })

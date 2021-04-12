@@ -1,9 +1,22 @@
 import {createSelector} from 'reselect'
-import {IState, ISudokuMatrixCell, SudokuMatrix} from './state'
+import {IState, ISudokuMatrixCell, SudokuMatrix, SudokuMatrixNotes, SudokuMatrixRow, SudokuMatrixState} from './state'
 
 export const difficultySelector = (globalState: IState) => globalState.difficulty
-export const matrixSelector = (globalState: IState) => globalState.matrix
+export const matrixStateSelector = (globalState: IState): SudokuMatrixState => globalState.matrix
+export const matrixNotesSelector = (globalState: IState): SudokuMatrixNotes => globalState.notes
 export const valuePickerOpenAtSelector = (globalState: IState) => globalState.valuePickerOpenAt
+
+export const matrixSelector = createSelector(
+  matrixStateSelector,
+  matrixNotesSelector,
+  (state, notes): SudokuMatrix => {
+    return state.map(
+      (row, rowIndex) => row.map(
+        (cell, cellIndex) => ({...cell, ...notes[rowIndex][cellIndex]}),
+      ) as unknown as SudokuMatrixRow,
+    ) as unknown as SudokuMatrix
+  },
+)
 
 type MatrixCellBlock = readonly [
   readonly [ISudokuMatrixCell, ISudokuMatrixCell, ISudokuMatrixCell],

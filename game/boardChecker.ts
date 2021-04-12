@@ -1,6 +1,6 @@
-import {ISudokuMatrixCell, SudokuMatrix} from './state'
+import {ISudokuMatrixCellState, SudokuMatrixState} from './state'
 
-export function checkBoard(matrix: SudokuMatrix): boolean {
+export function checkBoard(matrix: SudokuMatrixState): boolean {
   for (let row = 0; row < matrix.length; row++) {
     for (let column = 0; column < matrix[row].length; column++) {
       const {value} = matrix[row][column]
@@ -13,14 +13,19 @@ export function checkBoard(matrix: SudokuMatrix): boolean {
   return true
 }
 
-export function isCellValueAllowed(matrix: SudokuMatrix, cellRow: number, cellColumn: number, value: number): boolean {
+export function isCellValueAllowed(
+  matrix: SudokuMatrixState,
+  cellRow: number,
+  cellColumn: number,
+  value: number,
+): boolean {
   const otherRowCells = matrix[cellRow].slice(0, cellColumn).concat(matrix[cellRow].slice(cellColumn + 1))
   const otherColumnCells = matrix.slice(0, cellRow).concat(matrix.slice(cellRow + 1)).map(
     (boardRow) => boardRow[cellColumn],
   )
   const subSquareRow = cellRow - cellRow % 3
   const subSquareColumn = cellColumn - cellColumn % 3
-  const otherSubSquareCells: ISudokuMatrixCell[] = []
+  const otherSubSquareCells: ISudokuMatrixCellState[] = []
   for (let row = subSquareRow; row < subSquareRow + 3; row++) {
     for (let column = subSquareColumn; column < subSquareColumn + 3; column++) {
       if (row !== cellRow && column !== cellColumn) {
