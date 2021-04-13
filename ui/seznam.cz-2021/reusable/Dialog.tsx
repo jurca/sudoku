@@ -12,21 +12,25 @@ interface IProps {
 
 export default function Dialog(props: IProps) {
   return (
-    <div className={classnames(styles.dialog, props.isNested && styles.isNested, props.title && styles.hasTitle)}>
-      <div className={styles.ui}>
-        <div className={styles.header}>
-          <div className={styles.buttonWrapper}>
-            <IconButton className={styles.back} icon={IconType.ARROW_LEFT} onAction={props.onClose}/>
+    <div
+      className={classnames(styles.dialogWrapper, props.isNested && styles.isNested, props.title && styles.hasTitle)}
+    >
+      <div className={styles.dialog}>
+        <div className={styles.ui}>
+          <div className={styles.header}>
+            <div className={styles.buttonWrapper}>
+              <IconButton className={styles.back} icon={IconType.ARROW_LEFT} onAction={props.onClose}/>
+            </div>
+            <div className={styles.title}>
+              {props.title}
+            </div>
+            <div className={styles.buttonWrapper}>
+              <IconButton className={styles.close} icon={IconType.CLOSE} onAction={props.onClose}/>
+            </div>
           </div>
-          <div className={styles.title}>
-            {props.title}
+          <div className={styles.content}>
+            {props.children}
           </div>
-          <div className={styles.buttonWrapper}>
-            <IconButton className={styles.close} icon={IconType.CLOSE} onAction={props.onClose}/>
-          </div>
-        </div>
-        <div className={styles.content}>
-          {props.children}
         </div>
       </div>
     </div>

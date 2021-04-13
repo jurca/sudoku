@@ -6,6 +6,7 @@ interface CssExports {
   'close': string;
   'content': string;
   'dialog': string;
+  'dialogWrapper': string;
   'hasTitle': string;
   'header': string;
   'isNested': string;
