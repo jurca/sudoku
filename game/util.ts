@@ -25,3 +25,8 @@ export function getGamePlayDuration(
 export function isComplete(sudokuMatrix: SudokuMatrixState): boolean {
   return checkBoard(sudokuMatrix) && sudokuMatrix.every((row) => row.every((cell) => !!cell.value))
 }
+
+// https://github.com/tc39/proposal-array-last (stage 1 proposal at 2021-04-13)
+export function lastItem<E>(array: readonly E[]): undefined | E {
+  return array[array.length - 1]
+}
