@@ -4,9 +4,10 @@ import {createStructuredSelector} from 'reselect'
 import Difficulty from '../../../conf/Difficulty'
 import {pause, toggleCellValue, undo, ValueEntryMode} from '../../../game/Action'
 import {IEndedGamePlayBreak, IMatrixCoordinates, IStartedGamePlayBreak, SudokuMatrix} from '../../../game/state'
-import {openHelpDialog, openNewGameDialog, openSettingsDialog} from '../Action'
+import {openHelpDialog, openSettingsDialog, showDialog} from '../Action'
 import GameDesk from '../blocks/GameDesk'
 import {InputMode} from '../blocks/InputModeSwitch'
+import Dialog from '../dialog/Dialog'
 import {
   breaksSelector,
   gameBoardStateSelector,
@@ -103,7 +104,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
   }),
   {
     onOpenHelpDialog: openHelpDialog,
-    onOpenNewGameDialog: openNewGameDialog,
+    onOpenNewGameDialog: showDialog.bind(null, {dialog: Dialog.NEW_GAME, stack: false}),
     onOpenSettingsDialog: openSettingsDialog,
     onPause: pause,
     onToggleCellValue: toggleCellValue,

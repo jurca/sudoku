@@ -2,6 +2,7 @@ import * as React from 'react'
 import style from './app.css'
 import Main from './app/Main'
 import {InputMode} from './blocks/InputModeSwitch'
+import DialogHost from './dialog/DialogHost'
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         defaultInputMode={InputMode.INPUT}
         themeStyleNameSpacingClassName="main"
       />
+      <DialogHost/>
     </div>
   )
 }

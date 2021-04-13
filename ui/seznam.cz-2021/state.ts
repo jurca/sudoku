@@ -1,13 +1,16 @@
 import {DEFAULT_STATE as DEFAULT_GAME_STATE, IState as IGameState} from '../../game/state'
+import Dialog from './dialog/Dialog'
 import PrimaryColor from './theme/PrimaryColor'
 import Theme from './theme/Theme'
 
 export interface IAppState {
-  primaryColor: PrimaryColor
-  theme: Theme
+  readonly dialogStack: readonly Dialog[]
+  readonly primaryColor: PrimaryColor
+  readonly theme: Theme
 }
 
 export const DEFAULT_APP_STATE: IAppState = {
+  dialogStack: [Dialog.NEW_GAME],
   primaryColor: PrimaryColor.RED,
   theme: Theme.LIGHT,
 }

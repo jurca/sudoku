@@ -1,6 +1,8 @@
 @import url(font/font.css);
 
 :local(.app) {
+  position: relative;
+
   width: 100%;
   height: 100%;
 
