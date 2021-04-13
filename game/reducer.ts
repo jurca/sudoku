@@ -5,7 +5,9 @@ import {checkBoard} from './boardChecker'
 import createGame from './gameGenerator'
 import {
   DEFAULT_STATE,
+  IEndedGamePlayBreak,
   IMatrixCoordinates,
+  IStartedGamePlayBreak,
   IState,
   SudokuMatrixNotes,
   SudokuMatrixNotesRow,
@@ -109,6 +111,31 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     return {
       ...state,
       matrix: history[(historyIndex === -1 ? history.length : historyIndex) - 1],
+    }
+  },
+
+  [Action.PAUSE](state: IState): IState {
+    const {breaks} = state
+    if (breaks[0] && !('endLogicalTimestamp' in breaks[0])) {
+      return state
+    }
+
+    const updatedBreaks = [{startLogicalTimestamp: performance.now()}].concat(breaks) as unknown
+    return {
+      ...state,
+      breaks: updatedBreaks as readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]],
+    }
+  },
+
+  [Action.RESUME](state: IState): IState {
+    const {breaks} = state
+    if (!breaks[0] || ('endLogicalTimestamp' in breaks[0])) {
+      return state
+    }
+
+    return {
+      ...state,
+      breaks: [{...breaks[0], endLogicalTimestamp: performance.now()}, ...breaks.slice(1) as IEndedGamePlayBreak[]],
     }
   },
 })
