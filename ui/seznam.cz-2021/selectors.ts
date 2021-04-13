@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect'
-import {difficultySelector, matrixSelector} from '../../game/selectors'
+import {difficultySelector, isGameWonSelector as isGameStateWonSelector, matrixSelector} from '../../game/selectors'
 import {lastItem} from '../../game/util'
 import {IState} from './state'
 
@@ -44,6 +44,11 @@ export const breaksSelector = createSelector(
 export const isGamePausedSelector = createSelector(
   breaksSelector,
   (breaks) => !!(breaks[0] && !('endLogicalTimestamp' in breaks[0])),
+)
+
+export const isGameWonSelector = createSelector(
+  gameStateSelector,
+  isGameStateWonSelector,
 )
 
 export const dialogSelector = createSelector(

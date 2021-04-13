@@ -1,5 +1,6 @@
 import {createSelector} from 'reselect'
 import {IState, ISudokuMatrixCell, SudokuMatrix, SudokuMatrixNotes, SudokuMatrixRow, SudokuMatrixState} from './state'
+import {isComplete} from './util'
 
 export const difficultySelector = (globalState: IState) => globalState.difficulty
 export const matrixStateSelector = (globalState: IState): SudokuMatrixState => globalState.matrix
@@ -33,6 +34,11 @@ export type HierarchicalMatrix = readonly [
 export const hierarchicalCellsSelector = createSelector(
   matrixSelector,
   createHierarchicalCellMatrix,
+)
+
+export const isGameWonSelector = createSelector(
+  matrixStateSelector,
+  isComplete,
 )
 
 export function createHierarchicalCellMatrix(plainMatrix: SudokuMatrix): HierarchicalMatrix {

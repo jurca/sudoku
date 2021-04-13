@@ -1,0 +1,24 @@
+:local(.congratulations) {
+  display: flex;
+
+  padding: 2px 32px 92px;
+
+  flex-direction: column;
+  align-items: center;
+}
+
+:local(.illustration) {
+  width: 100%;
+  max-width: 260px;
+}
+
+:local(.title) {
+  margin: 26px 0 8px;
+
+  font-size: 21px;
+  font-weight: bold;
+}
+
+:local(.text) {
+  margin: 0;
+}

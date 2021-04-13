@@ -6,6 +6,7 @@ import Dialog from '../reusable/Dialog'
 import DialogHostBackground from '../reusable/DialogHost'
 import {dialogSelector, isNestedDialogSelector} from '../selectors'
 import {IState} from '../state'
+import Congratulations from './Congratulations'
 import DialogType from './Dialog'
 import styles from './dialogHost.css'
 import NewGame from './NewGame'
@@ -66,6 +67,8 @@ export default connect<IDataProps, ICallbackProps, {}, IState>(
 
 function getDialog(type: DialogType): React.ComponentType<IDialogProps> & IDialog {
   switch (type) {
+    case DialogType.CONGRATULATIONS:
+      return Congratulations
     case DialogType.NEW_GAME:
       return NewGame
     case DialogType.PAUSE:

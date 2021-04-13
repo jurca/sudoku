@@ -8,6 +8,7 @@ import {openHelpDialog, openSettingsDialog, showDialog} from '../Action'
 import GameDesk from '../blocks/GameDesk'
 import {InputMode} from '../blocks/InputModeSwitch'
 import Dialog from '../dialog/Dialog'
+import usePrevious from '../reusable/usePrevious'
 import {
   breaksSelector,
   dialogSelector,
@@ -15,6 +16,7 @@ import {
   gameDifficultySelector,
   gameStartSelector,
   isGamePausedSelector,
+  isGameWonSelector,
   primaryColorSelector,
   themeSelector,
 } from '../selectors'
@@ -32,6 +34,7 @@ interface IDataProps {
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
   readonly isPaused: boolean
   readonly currentDialog: null | Dialog
+  readonly isWon: boolean
   readonly primaryColor: PrimaryColor
   readonly theme: Theme
 }
@@ -44,6 +47,7 @@ interface ICallbackProps {
   onPause(): void
   onUndo(): void
   onOpenHelpDialog(): void
+  onOpenCongratulationsDialog(): void
 }
 
 interface IExternalProps {
@@ -80,6 +84,13 @@ export function Main(props: Props) {
     }
   })
 
+  const previousIsWon = usePrevious(props.isWon)
+  React.useEffect(() => {
+    if (!previousIsWon && props.isWon) {
+      props.onOpenCongratulationsDialog()
+    }
+  })
+
   return (
     <GameDesk
       difficulty={props.difficulty}
@@ -112,10 +123,12 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     gameStart: gameStartSelector,
     gameState: gameBoardStateSelector,
     isPaused: isGamePausedSelector,
+    isWon: isGameWonSelector,
     primaryColor: primaryColorSelector,
     theme: themeSelector,
   }),
   {
+    onOpenCongratulationsDialog: showDialog.bind(null, {dialog: Dialog.CONGRATULATIONS, stack: false}),
     onOpenHelpDialog: openHelpDialog,
     onOpenNewGameDialog: showDialog.bind(null, {dialog: Dialog.NEW_GAME, stack: false}),
     onOpenPauseDialog: showDialog.bind(null, {dialog: Dialog.PAUSE, stack: false}),
