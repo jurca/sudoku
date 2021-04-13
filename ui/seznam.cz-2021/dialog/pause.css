@@ -1,0 +1,28 @@
+:local(.pause) {
+  display: flex;
+
+  padding: 2px 32px 64px;
+
+  flex-direction: column;
+  align-items: center;
+}
+
+:local(.illustration) {
+  width: 100%;
+  max-width: 250px;
+}
+
+:local(.title) {
+  margin: 40px 0 22px;
+
+  font-size: 21px;
+  font-weight: bold;
+}
+
+:local(.buttons) {
+  display: flex;
+
+  width: 100%;
+
+  justify-content: space-between;
+}

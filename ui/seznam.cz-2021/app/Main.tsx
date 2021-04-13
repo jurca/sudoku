@@ -10,9 +10,11 @@ import {InputMode} from '../blocks/InputModeSwitch'
 import Dialog from '../dialog/Dialog'
 import {
   breaksSelector,
+  dialogSelector,
   gameBoardStateSelector,
   gameDifficultySelector,
   gameStartSelector,
+  isGamePausedSelector,
   primaryColorSelector,
   themeSelector,
 } from '../selectors'
@@ -28,6 +30,8 @@ interface IDataProps {
     readonly logicalTimestamp: number,
   }
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
+  readonly isPaused: boolean
+  readonly currentDialog: null | Dialog
   readonly primaryColor: PrimaryColor
   readonly theme: Theme
 }
@@ -36,6 +40,7 @@ interface ICallbackProps {
   onToggleCellValue(change: {cell: IMatrixCoordinates, value: null | number, mode: ValueEntryMode}): void,
   onOpenSettingsDialog(): void
   onOpenNewGameDialog(): void
+  onOpenPauseDialog(): void
   onPause(): void
   onUndo(): void
   onOpenHelpDialog(): void
@@ -69,6 +74,12 @@ export function Main(props: Props) {
     [props.onToggleCellValue],
   )
 
+  React.useEffect(() => {
+    if (props.isPaused && !props.currentDialog) {
+      props.onOpenPauseDialog()
+    }
+  })
+
   return (
     <GameDesk
       difficulty={props.difficulty}
@@ -96,15 +107,18 @@ export function Main(props: Props) {
 export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
   createStructuredSelector({
     breaks: breaksSelector,
+    currentDialog: dialogSelector,
     difficulty: gameDifficultySelector,
     gameStart: gameStartSelector,
     gameState: gameBoardStateSelector,
+    isPaused: isGamePausedSelector,
     primaryColor: primaryColorSelector,
     theme: themeSelector,
   }),
   {
     onOpenHelpDialog: openHelpDialog,
     onOpenNewGameDialog: showDialog.bind(null, {dialog: Dialog.NEW_GAME, stack: false}),
+    onOpenPauseDialog: showDialog.bind(null, {dialog: Dialog.PAUSE, stack: false}),
     onOpenSettingsDialog: openSettingsDialog,
     onPause: pause,
     onToggleCellValue: toggleCellValue,

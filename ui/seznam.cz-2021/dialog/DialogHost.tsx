@@ -9,6 +9,7 @@ import {IState} from '../state'
 import DialogType from './Dialog'
 import styles from './dialogHost.css'
 import NewGame from './NewGame'
+import Pause from './Pause'
 
 export interface IDialog {
   readonly title?: string
@@ -67,6 +68,8 @@ function getDialog(type: DialogType): React.ComponentType<IDialogProps> & IDialo
   switch (type) {
     case DialogType.NEW_GAME:
       return NewGame
+    case DialogType.PAUSE:
+      return Pause
     default:
       throw new Error(`Unknown dialog type: ${type}`)
   }
