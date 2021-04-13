@@ -41,6 +41,10 @@ export const breaksSelector = createSelector(
   (gameState) => gameState.breaks,
 )
 
+export const isGamePausedSelector = createSelector(
+  breaksSelector,
+  (breaks) => breaks[0] && !('endLogicalTimestamp' in breaks[0]),
+)
 
 export const dialogSelector = createSelector(
   dialogStackSelector,
