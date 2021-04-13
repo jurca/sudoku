@@ -3,11 +3,10 @@
 
   box-sizing: border-box;
   border: 26px solid transparent;
-  width: 100%;
+  width: auto;
   max-width: 600px;
-  height: 100%;
+  height: auto;
   max-height: 592px;
-
 }
 
 :local(.ui) {
