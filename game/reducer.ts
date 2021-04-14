@@ -72,6 +72,22 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
       case ValueEntryMode.SET_VALUE:
         const row = state.matrix[cell.row].slice()
         if (!value && !row[cell.column].value) {
+          if (state.notes[cell.row][cell.column].userMarkedOptions.length) {
+            const notesToClearRow = state.notes[cell.row].slice()
+            notesToClearRow.splice(cell.column, 1, {
+              ...notesToClearRow[cell.column],
+              userMarkedOptions: [],
+            })
+            return {
+              ...state,
+              notes: [
+                ...state.notes.slice(0, cell.row),
+                notesToClearRow as unknown as SudokuMatrixNotesRow,
+                ...state.notes.slice(cell.row + 1),
+              ] as unknown as SudokuMatrixNotes,
+            }
+          }
+
           return state
         }
 
