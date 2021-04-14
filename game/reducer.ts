@@ -15,6 +15,7 @@ import {
   SudokuMatrixState,
   SudokuMatrixStateRow,
 } from './state'
+import {isComplete} from './util'
 
 export default createReducer<IState, any>(DEFAULT_STATE, {
   [Action.NEW_GAME](state: IState, difficulty: Difficulty): IState {
@@ -48,6 +49,10 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     state: IState,
     {cell, mode, value}: IToggleCellValuePayload,
   ): IState {
+    if (isComplete(state.matrix)) {
+      return state
+    }
+
     switch (mode) {
       case ValueEntryMode.MAKE_NOTE:
         if (!value) {
@@ -121,7 +126,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
   [Action.UNDO](state: IState): IState {
     const history = state.matrixHistory
     const historyIndex = history.indexOf(state.matrix)
-    if (!state.matrixHistory.length || historyIndex === 0) {
+    if (!state.matrixHistory.length || historyIndex === 0 || isComplete(state.matrix)) {
       return state
     }
 
@@ -133,7 +138,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
 
   [Action.PAUSE](state: IState): IState {
     const {breaks} = state
-    if (breaks[0] && !('endLogicalTimestamp' in breaks[0])) {
+    if (breaks[0] && !('endLogicalTimestamp' in breaks[0]) || isComplete(state.matrix)) {
       return state
     }
 
