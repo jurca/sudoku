@@ -10,6 +10,8 @@ export enum Action {
   PAUSE = 'Action.PAUSE',
   RESUME = 'Action.RESUME',
   UNDO = 'Action.UNDO',
+  REVEAL_IMMEDIATE_HINT = 'Action.REVEAL_IMMEDIATE_HINT',
+  REVEAL_ALL_IMMEDIATE_HINTS = 'Action.REVEAL_ALL_IMMEDIATE_HINTS',
 }
 
 export type ActionType = ReduxActionType<Action>
@@ -33,6 +35,8 @@ export const toggleCellValue = mkActionFactory<IToggleCellValuePayload>(
 export const pause = mkActionFactory<void>(Action.PAUSE)
 export const resume = mkActionFactory<void>(Action.RESUME)
 export const undo = mkActionFactory<void>(Action.UNDO)
+export const revealImmediateHint = mkActionFactory<void>(Action.REVEAL_IMMEDIATE_HINT)
+export const revealAllImmediateHints = mkActionFactory<void>(Action.REVEAL_ALL_IMMEDIATE_HINTS)
 
 function mkActionFactory<Payload>(type: Action) {
   return createAction<Payload>(type) as (payload: Payload) => ActionType

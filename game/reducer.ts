@@ -3,6 +3,7 @@ import Difficulty from '../conf/Difficulty'
 import {Action, IToggleCellValuePayload, ValueEntryMode} from './Action'
 import {checkBoard} from './boardChecker'
 import createGame from './gameGenerator'
+import getDeterministicImmediateHints from './hintGenerator'
 import {
   DEFAULT_STATE,
   IEndedGamePlayBreak,
@@ -152,6 +153,51 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     return {
       ...state,
       breaks: [{...breaks[0], endLogicalTimestamp: performance.now()}, ...breaks.slice(1) as IEndedGamePlayBreak[]],
+    }
+  },
+
+  [Action.REVEAL_IMMEDIATE_HINT](state: IState): IState {
+    const hints = getDeterministicImmediateHints(state.matrix)
+    if (!hints.length) {
+      return state
+    }
+
+    const [hint] = hints
+    const notesRow = state.notes[hint.cell.row].slice()
+    notesRow.splice(hint.cell.column, 1, {
+      ...notesRow[hint.cell.column],
+      userMarkedOptions: [hint.value],
+    })
+    return {
+      ...state,
+      notes: [
+        ...state.notes.slice(0, hint.cell.row),
+        notesRow as unknown as SudokuMatrixNotesRow,
+        ...state.notes.slice(hint.cell.row + 1),
+      ] as unknown as SudokuMatrixNotes,
+      valuePickerOpenAt: hint.cell,
+    }
+  },
+
+  [Action.REVEAL_ALL_IMMEDIATE_HINTS](state: IState): IState {
+    const hints = getDeterministicImmediateHints(state.matrix)
+    if (!hints.length) {
+      return state
+    }
+
+    const notes = state.notes.map((row) => row.slice())
+    for (const hint of hints) {
+      const cell = notes[hint.cell.row][hint.cell.column]
+      notes[hint.cell.row][hint.cell.column] = {
+        ...cell,
+        userMarkedOptions: [hint.value],
+      }
+    }
+
+    return {
+      ...state,
+      notes: notes as unknown as SudokuMatrixNotes,
+      valuePickerOpenAt: null,
     }
   },
 })

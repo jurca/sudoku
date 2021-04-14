@@ -2,9 +2,16 @@ import * as React from 'react'
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import Difficulty from '../../../conf/Difficulty'
-import {pause, showValuePicker, toggleCellValue, undo, ValueEntryMode} from '../../../game/Action'
+import {
+  pause,
+  revealAllImmediateHints,
+  showValuePicker,
+  toggleCellValue,
+  undo,
+  ValueEntryMode,
+} from '../../../game/Action'
 import {IEndedGamePlayBreak, IMatrixCoordinates, IStartedGamePlayBreak, SudokuMatrix} from '../../../game/state'
-import {openHelpDialog, openSettingsDialog, showDialog} from '../Action'
+import {openSettingsDialog, showDialog} from '../Action'
 import GameDesk from '../blocks/GameDesk'
 import {InputMode} from '../blocks/InputModeSwitch'
 import Dialog from '../dialog/Dialog'
@@ -141,7 +148,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
   }),
   {
     onOpenCongratulationsDialog: showDialog.bind(null, {dialog: Dialog.CONGRATULATIONS, stack: false}),
-    onOpenHelpDialog: openHelpDialog,
+    onOpenHelpDialog: revealAllImmediateHints,
     onOpenNewGameDialog: showDialog.bind(null, {dialog: Dialog.NEW_GAME, stack: false}),
     onOpenPauseDialog: showDialog.bind(null, {dialog: Dialog.PAUSE, stack: false}),
     onOpenSettingsDialog: openSettingsDialog,
