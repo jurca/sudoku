@@ -20,15 +20,16 @@ interface IProps {
   readonly onPause: () => void
   readonly onUndo: () => void
   readonly onHelp: () => void
+  readonly onDeselectCell: () => void
 }
 
 export default function GameDesk(props: IProps) {
   return (
     <div className={classnames(styles.gameDesk, isAndroidOrIOS() && styles.forceMobileLayout)}>
       <BackgroundPattern/>
-      <div className={styles.container}>
+      <div className={styles.container} onClick={props.onDeselectCell}>
         <div className={styles.topContentOffset}/>
-        <div className={styles.content}>
+        <div className={styles.content} onClick={onBlockClickPropagation}>
           {props.children}
         </div>
         <div className={styles.bottomContentOffset}/>
@@ -49,4 +50,8 @@ export default function GameDesk(props: IProps) {
       />
     </div>
   )
+}
+
+const onBlockClickPropagation = (event: React.MouseEvent) => {
+  event.stopPropagation()
 }

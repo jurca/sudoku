@@ -119,6 +119,7 @@ export default function ComponentDemo() {
           onPause={NOOP}
           onUndo={NOOP}
           onHelp={NOOP}
+          onDeselectCell={NOOP}
         >
           <h1 style={{marginTop: 0}}>Game desk</h1>
           <p>

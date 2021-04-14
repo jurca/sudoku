@@ -81,6 +81,11 @@ export function Main(props: Props) {
     [props.onToggleCellValue],
   )
 
+  const onClearSelectedCell = React.useMemo(
+    () => props.onSetSelectedCell.bind(null, null),
+    [props.onSetSelectedCell],
+  )
+
   React.useEffect(() => {
     if (props.isPaused && !props.currentDialog) {
       props.onOpenPauseDialog()
@@ -104,6 +109,7 @@ export function Main(props: Props) {
       onPause={props.onPause}
       onUndo={props.onUndo}
       onHelp={props.onOpenHelpDialog}
+      onDeselectCell={onClearSelectedCell}
     >
       <GameBoard
         gameState={props.gameState}
