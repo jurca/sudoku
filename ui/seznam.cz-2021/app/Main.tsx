@@ -21,6 +21,7 @@ import {
   dialogSelector,
   gameBoardStateSelector,
   gameDifficultySelector,
+  gameEndSelector,
   gameStartSelector,
   isGamePausedSelector,
   isGameWonSelector,
@@ -41,6 +42,7 @@ interface IDataProps {
     readonly logicalTimestamp: number,
   }
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
+  readonly gameEnd: null | number
   readonly isPaused: boolean
   readonly currentDialog: null | Dialog
   readonly isWon: boolean
@@ -111,6 +113,7 @@ export function Main(props: Props) {
       difficulty={props.difficulty}
       breaks={props.breaks}
       gameStart={props.gameStart}
+      gameEnd={props.gameEnd}
       onOpenSettings={props.onOpenSettingsDialog}
       onNewGame={props.onOpenNewGameDialog}
       onPause={props.onPause}
@@ -138,6 +141,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     breaks: breaksSelector,
     currentDialog: dialogSelector,
     difficulty: gameDifficultySelector,
+    gameEnd: gameEndSelector,
     gameStart: gameStartSelector,
     gameState: gameBoardStateSelector,
     isPaused: isGamePausedSelector,

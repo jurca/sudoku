@@ -24,6 +24,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
       ...state,
       breaks: [],
       difficulty,
+      gameEnd: null,
       gameStart: {
         absoluteTimestamp: Date.now(),
         logicalTimestamp: performance.now(),
@@ -113,6 +114,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
         const historyIndex = state.matrixHistory.indexOf(state.matrix)
         return {
           ...state,
+          gameEnd: isComplete(updatedMatrix) ? performance.now() : state.gameEnd,
           matrix: updatedMatrix,
           matrixHistory: state.matrixHistory
             .slice(0, historyIndex === -1 ? state.matrixHistory.length : historyIndex)

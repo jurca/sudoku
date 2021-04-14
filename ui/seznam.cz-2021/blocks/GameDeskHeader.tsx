@@ -14,13 +14,14 @@ interface IProps {
     readonly logicalTimestamp: number,
   }
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
+  readonly gameEnd: null | number
   readonly onOpenSettings: () => void
 }
 
 export default function GameDeskHeader(props: IProps) {
   const [, updateTick] = React.useState<number>(-1)
 
-  const gamePlayDuration = props.gameStart && getGamePlayDuration(props.gameStart, props.breaks)
+  const gamePlayDuration = props.gameStart && getGamePlayDuration(props.gameStart, props.breaks, props.gameEnd)
   React.useEffect(() => {
     if (typeof gamePlayDuration === 'number') {
       const tickId = setTimeout(updateTick, 1_000 - gamePlayDuration % 1_000, gamePlayDuration)

@@ -6,6 +6,7 @@ export const difficultySelector = (globalState: IState) => globalState.difficult
 export const matrixStateSelector = (globalState: IState): SudokuMatrixState => globalState.matrix
 export const matrixNotesSelector = (globalState: IState): SudokuMatrixNotes => globalState.notes
 export const valuePickerOpenAtSelector = (globalState: IState) => globalState.valuePickerOpenAt
+export const gameEndSelector = (globalState: IState) => globalState.gameEnd
 
 export const matrixSelector = createSelector(
   matrixStateSelector,

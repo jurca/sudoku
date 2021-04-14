@@ -103,6 +103,7 @@ export default function ComponentDemo() {
           difficulty={Difficulty.MEDIUM}
           gameStart={{logicalTimestamp: performance.now()}}
           breaks={[]}
+          gameEnd={null}
           onOpenSettings={NOOP}
         />
       </ComponentWrapper>
@@ -114,6 +115,7 @@ export default function ComponentDemo() {
           difficulty={Difficulty.MEDIUM}
           gameStart={{logicalTimestamp: performance.now()}}
           breaks={[]}
+          gameEnd={null}
           onOpenSettings={NOOP}
           onNewGame={NOOP}
           onPause={NOOP}

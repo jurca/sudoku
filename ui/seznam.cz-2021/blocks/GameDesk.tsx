@@ -14,6 +14,7 @@ interface IProps {
     readonly logicalTimestamp: number,
   }
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
+  readonly gameEnd: null | number
   readonly children: React.ReactChild | readonly React.ReactChild[]
   readonly onOpenSettings: () => void
   readonly onNewGame: () => void
@@ -39,6 +40,7 @@ export default function GameDesk(props: IProps) {
         difficulty={props.difficulty}
         gameStart={props.gameStart}
         breaks={props.breaks}
+        gameEnd={props.gameEnd}
         onOpenSettings={props.onOpenSettings}
       />
       <GameDeskFooter

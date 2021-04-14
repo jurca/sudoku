@@ -1,5 +1,11 @@
 import {createSelector} from 'reselect'
-import {difficultySelector, isGameWonSelector as isGameStateWonSelector, matrixSelector, valuePickerOpenAtSelector} from '../../game/selectors'
+import {
+  difficultySelector,
+  gameEndSelector as gameEndGameStateSelector,
+  isGameWonSelector as isGameStateWonSelector,
+  matrixSelector,
+  valuePickerOpenAtSelector,
+} from '../../game/selectors'
 import {lastItem} from '../../game/util'
 import {IState} from './state'
 
@@ -34,6 +40,11 @@ export const gameDifficultySelector = createSelector(
 export const gameStartSelector = createSelector(
   gameStateSelector,
   (gameState) => gameState.gameStart,
+)
+
+export const gameEndSelector = createSelector(
+  gameStateSelector,
+  gameEndGameStateSelector,
 )
 
 export const breaksSelector = createSelector(

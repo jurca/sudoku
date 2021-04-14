@@ -4,6 +4,7 @@ import {IEndedGamePlayBreak, IStartedGamePlayBreak, SudokuMatrixState} from './s
 export function getGamePlayDuration(
   gameStart: {readonly logicalTimestamp: number},
   breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]],
+  gameEnd: null | number,
 ): number {
   let lastGamePlayStart = gameStart.logicalTimestamp
   let duration = 0
@@ -16,7 +17,11 @@ export function getGamePlayDuration(
   }
 
   if (!breaks.length || (breaks[0] && 'endLogicalTimestamp' in breaks[0])) {
-    duration += performance.now() - lastGamePlayStart
+    if (gameEnd) {
+      duration += gameEnd - lastGamePlayStart
+    } else {
+      duration += performance.now() - lastGamePlayStart
+    }
   }
 
   return duration
