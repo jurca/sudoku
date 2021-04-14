@@ -18,6 +18,27 @@ interface IProps {
 const KEYS = new Array(9).fill(0).map((_, i) => i + 1)
 
 export default function InputKeyboard(props: IProps) {
+  const onKeyUp = React.useMemo(
+    () => (event: KeyboardEvent) => {
+      const pressedKey = event.key
+      const numericValue = parseInt(pressedKey, 10)
+      if (numericValue >= 1 && numericValue <= 9) {
+        props.onAction(numericValue)
+      }
+    },
+    [props.onAction],
+  )
+
+  React.useEffect(
+    () => {
+      addEventListener('keyup', onKeyUp)
+      return () => {
+        removeEventListener('keyup', onKeyUp)
+      }
+    },
+    [onKeyUp],
+  )
+
   return (
     <div className={classnames(CssClassNames.ROOT, styles.keyboard)}>
       <div className={styles.keyboardContent}>
