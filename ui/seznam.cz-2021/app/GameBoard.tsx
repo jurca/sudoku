@@ -10,19 +10,20 @@ import Theme from '../theme/Theme'
 
 interface IProps {
   readonly gameState: SudokuMatrix
+  readonly selectedCell: null | IMatrixCoordinates
   readonly inputModeSwitchName: string
   readonly defaultInputMode: InputMode
   readonly uniqueClassName: string
   readonly primaryColor: PrimaryColor
   readonly theme: Theme
   onToggleCellValue(cell: IMatrixCoordinates, value: null | number, mode: InputMode): void
+  onSetSelectedCell(cell: null | IMatrixCoordinates): void
 }
 
 export default function GameBoard(props: IProps) {
-  const [selectedCell, setSelectedCell] = React.useState<null | {readonly row: number, readonly column: number}>(null)
   const [inputMode, setInputMode] = React.useState(props.defaultInputMode)
 
-  const selectedCellObject = selectedCell && props.gameState[selectedCell.row][selectedCell.column]
+  const selectedCellObject = props.selectedCell && props.gameState[props.selectedCell.row][props.selectedCell.column]
 
   const onCellAction = React.useMemo(
     () => (cell: ISudokuMatrixCell) => {
@@ -38,31 +39,31 @@ export default function GameBoard(props: IProps) {
         return
       }
 
-      setSelectedCell({row, column})
+      props.onSetSelectedCell({row, column})
     },
-    [props.gameState, inputMode, setSelectedCell, props.onToggleCellValue],
+    [props.gameState, inputMode, props.onSetSelectedCell, props.onToggleCellValue],
   )
   const onInputModeChange = React.useMemo(
     () => (newInputMode: InputMode) => {
       if (newInputMode === InputMode.ERASE) {
-        setSelectedCell(null)
+        props.onSetSelectedCell(null)
       }
       setInputMode(newInputMode)
     },
-    [setSelectedCell, setInputMode],
+    [props.onSetSelectedCell, setInputMode],
   )
   const onInput = React.useMemo(
     () => (pressedKey: number) => {
-      if (inputMode === InputMode.ERASE || !selectedCell || !selectedCellObject) {
+      if (inputMode === InputMode.ERASE || !props.selectedCell || !selectedCellObject) {
         return
       }
       if (inputMode === InputMode.NOTES && selectedCellObject.value) {
         return
       }
 
-      props.onToggleCellValue(selectedCell, pressedKey, inputMode)
+      props.onToggleCellValue(props.selectedCell, pressedKey, inputMode)
     },
-    [selectedCell, selectedCellObject, inputMode],
+    [props.selectedCell, selectedCellObject, inputMode],
   )
 
   const stateAttributes = {

@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect'
-import {difficultySelector, isGameWonSelector as isGameStateWonSelector, matrixSelector} from '../../game/selectors'
+import {difficultySelector, isGameWonSelector as isGameStateWonSelector, matrixSelector, valuePickerOpenAtSelector} from '../../game/selectors'
 import {lastItem} from '../../game/util'
 import {IState} from './state'
 
@@ -49,6 +49,11 @@ export const isGamePausedSelector = createSelector(
 export const isGameWonSelector = createSelector(
   gameStateSelector,
   isGameStateWonSelector,
+)
+
+export const selectedCellSelector = createSelector(
+  gameStateSelector,
+  valuePickerOpenAtSelector,
 )
 
 export const dialogSelector = createSelector(

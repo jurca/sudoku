@@ -2,7 +2,7 @@ import * as React from 'react'
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import Difficulty from '../../../conf/Difficulty'
-import {pause, toggleCellValue, undo, ValueEntryMode} from '../../../game/Action'
+import {pause, showValuePicker, toggleCellValue, undo, ValueEntryMode} from '../../../game/Action'
 import {IEndedGamePlayBreak, IMatrixCoordinates, IStartedGamePlayBreak, SudokuMatrix} from '../../../game/state'
 import {openHelpDialog, openSettingsDialog, showDialog} from '../Action'
 import GameDesk from '../blocks/GameDesk'
@@ -18,6 +18,7 @@ import {
   isGamePausedSelector,
   isGameWonSelector,
   primaryColorSelector,
+  selectedCellSelector,
   themeSelector,
 } from '../selectors'
 import {IState} from '../state'
@@ -27,6 +28,7 @@ import GameBoard from './GameBoard'
 
 interface IDataProps {
   readonly gameState: SudokuMatrix
+  readonly selectedCell: null | IMatrixCoordinates
   readonly difficulty: null | Difficulty
   readonly gameStart: null | {
     readonly logicalTimestamp: number,
@@ -48,6 +50,7 @@ interface ICallbackProps {
   onUndo(): void
   onOpenHelpDialog(): void
   onOpenCongratulationsDialog(): void
+  onSetSelectedCell(cell: null | IMatrixCoordinates): void
 }
 
 interface IExternalProps {
@@ -104,12 +107,14 @@ export function Main(props: Props) {
     >
       <GameBoard
         gameState={props.gameState}
+        selectedCell={props.selectedCell}
         defaultInputMode={props.defaultInputMode}
         inputModeSwitchName={props.inputModeSwitchName}
         primaryColor={props.primaryColor}
         theme={props.theme}
         uniqueClassName={props.themeStyleNameSpacingClassName}
         onToggleCellValue={onToggleCellValue}
+        onSetSelectedCell={props.onSetSelectedCell}
       />
     </GameDesk>
   )
@@ -125,6 +130,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     isPaused: isGamePausedSelector,
     isWon: isGameWonSelector,
     primaryColor: primaryColorSelector,
+    selectedCell: selectedCellSelector,
     theme: themeSelector,
   }),
   {
@@ -134,6 +140,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     onOpenPauseDialog: showDialog.bind(null, {dialog: Dialog.PAUSE, stack: false}),
     onOpenSettingsDialog: openSettingsDialog,
     onPause: pause,
+    onSetSelectedCell: showValuePicker,
     onToggleCellValue: toggleCellValue,
     onUndo: undo,
   },
