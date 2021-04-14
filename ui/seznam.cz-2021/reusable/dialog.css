@@ -31,6 +31,16 @@
   }
 }
 
+@media
+  (min-width: 90mm),
+  (min-width: 652px)
+{
+  :local(.dialog) {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 :local(.ui) {
   display: flex;
 
