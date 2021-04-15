@@ -1,12 +1,24 @@
 @import url(font/font.css);
 
 :local(.app) {
+  display: flex;
+
   position: relative;
 
   width: 100%;
   height: 100%;
 
+  flex-direction: column;
+
   font: 16px PTSans;
   font-weight: normal;
   color: #404040;
+}
+
+:local(.phoneHeader) {
+  flex: 0 0;
+}
+
+:local(.main) {
+  flex: 1 1 auto;
 }
