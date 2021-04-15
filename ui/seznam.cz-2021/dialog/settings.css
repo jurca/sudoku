@@ -7,6 +7,8 @@
 
   width: 24px;
   height: 24px;
+
+  color: #a0a0a0;
 }
 
 :local(.switch) {
