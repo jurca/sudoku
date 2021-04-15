@@ -1,0 +1,16 @@
+:local(.item) {
+  cursor: pointer;
+}
+
+:local(.arrow) {
+  display: block;
+
+  width: 24px;
+  height: 24px;
+}
+
+:local(.switch) {
+  display: block;
+
+  width: 51px;
+}

@@ -11,7 +11,7 @@ import {
   ValueEntryMode,
 } from '../../../game/Action'
 import {IEndedGamePlayBreak, IMatrixCoordinates, IStartedGamePlayBreak, SudokuMatrix} from '../../../game/state'
-import {openSettingsDialog, showDialog} from '../Action'
+import {showDialog} from '../Action'
 import GameDesk from '../blocks/GameDesk'
 import {InputMode} from '../blocks/InputModeSwitch'
 import Dialog from '../dialog/Dialog'
@@ -155,7 +155,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     onOpenHelpDialog: revealAllImmediateHints,
     onOpenNewGameDialog: showDialog.bind(null, {dialog: Dialog.NEW_GAME, stack: false}),
     onOpenPauseDialog: showDialog.bind(null, {dialog: Dialog.PAUSE, stack: false}),
-    onOpenSettingsDialog: openSettingsDialog,
+    onOpenSettingsDialog: showDialog.bind(null, {dialog: Dialog.SETTINGS, stack: false}),
     onPause: pause,
     onSetSelectedCell: showValuePicker,
     onToggleCellValue: toggleCellValue,

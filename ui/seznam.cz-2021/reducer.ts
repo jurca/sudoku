@@ -18,6 +18,13 @@ const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
       dialogStack: state.dialogStack.slice(0, -1),
     }
   },
+
+  [AppAction.CLOSE_DIALOGS](state: IAppState): IAppState {
+    return {
+      ...state,
+      dialogStack: [],
+    }
+  },
 })
 
 export default combineReducers<IState>({

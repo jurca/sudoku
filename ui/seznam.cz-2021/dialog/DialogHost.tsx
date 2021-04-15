@@ -4,6 +4,7 @@ import {createStructuredSelector} from 'reselect'
 import {leaveDialog, showDialog} from '../Action'
 import Dialog from '../reusable/Dialog'
 import DialogHostBackground from '../reusable/DialogHost'
+import Drawer from '../reusable/Drawer'
 import {dialogSelector, isNestedDialogSelector} from '../selectors'
 import {IState} from '../state'
 import Congratulations from './Congratulations'
@@ -11,12 +12,15 @@ import DialogType from './Dialog'
 import styles from './dialogHost.css'
 import NewGame from './NewGame'
 import Pause from './Pause'
+import Settings from './Settings'
 
 export interface IDialog {
   readonly title?: string
+  readonly drawerActionLabel?: string,
 }
 
 export interface IDialogProps {
+  readonly drawerActionHandler: React.RefObject<() => void>
   onShowDialog(dialog: DialogType, stack?: boolean): void
   onLeaveDialog(): void
 }
@@ -39,12 +43,43 @@ function DialogHost(props: Props) {
     return null
   }
 
+  const {drawerActionLabel} = DialogComponent
+  const drawerActionHandler = React.useRef<() => void>(null)
+  const onDrawerAction = React.useMemo(
+    () => () => {
+      if (drawerActionHandler.current) {
+        drawerActionHandler.current()
+      }
+    },
+    [drawerActionHandler],
+  )
+
   return (
     <div className={styles.dialogHost}>
       <DialogHostBackground>
-        <Dialog title={DialogComponent.title} isNested={props.isNestedDialog} onClose={props.onLeaveDialog}>
-          <DialogComponent onShowDialog={props.onShowDialog} onLeaveDialog={props.onLeaveDialog}/>
-        </Dialog>
+        {drawerActionLabel ?
+          <Drawer
+            title={DialogComponent.title || ''}
+            isNested={props.isNestedDialog}
+            actionLabel={drawerActionLabel}
+            onAction={onDrawerAction}
+            onClose={props.onLeaveDialog}
+          >
+            <DialogComponent
+              drawerActionHandler={drawerActionHandler}
+              onShowDialog={props.onShowDialog}
+              onLeaveDialog={props.onLeaveDialog}
+            />
+          </Drawer>
+        :
+          <Dialog title={DialogComponent.title} isNested={props.isNestedDialog} onClose={props.onLeaveDialog}>
+            <DialogComponent
+              drawerActionHandler={drawerActionHandler}
+              onShowDialog={props.onShowDialog}
+              onLeaveDialog={props.onLeaveDialog}
+            />
+          </Dialog>
+        }
       </DialogHostBackground>
     </div>
   )
@@ -73,6 +108,8 @@ function getDialog(type: DialogType): React.ComponentType<IDialogProps> & IDialo
       return NewGame
     case DialogType.PAUSE:
       return Pause
+    case DialogType.SETTINGS:
+      return Settings
     default:
       throw new Error(`Unknown dialog type: ${type}`)
   }

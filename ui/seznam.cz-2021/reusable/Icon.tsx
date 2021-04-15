@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styles from './icon.css'
 import IconArrowLeft from './icon/arrow - left.svg'
+import IconArrowRight from './icon/arrow - right.svg'
 import IconCircledPlus from './icon/circled-plus.svg'
 import IconClose from './icon/close.svg'
 import IconEraser from './icon/eraser.svg'
@@ -19,6 +20,8 @@ export default function Icon({icon}: IProps) {
   switch (icon) {
     case IconType.ARROW_LEFT:
       return <IconArrowLeft className={styles.icon}/>
+    case IconType.ARROW_RIGHT:
+      return <IconArrowRight className={styles.icon}/>
     case IconType.CIRCLED_PLUS:
       return <IconCircledPlus className={styles.icon}/>
     case IconType.CLOSE:
@@ -44,6 +47,7 @@ export default function Icon({icon}: IProps) {
 
 export enum IconType {
   ARROW_LEFT = 'IconType.ARROW_LEFT',
+  ARROW_RIGHT = 'IconType.ARROW_RIGHT',
   CIRCLED_PLUS = 'IconType.CIRCLED_PLUS',
   CLOSE = 'IconType.CLOSE',
   ERASER = 'IconType.ERASER',
