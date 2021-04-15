@@ -10,6 +10,7 @@ import {IState} from '../state'
 import Congratulations from './Congratulations'
 import DialogType from './Dialog'
 import styles from './dialogHost.css'
+import GameplayGuide from './GameplayGuide'
 import NewGame from './NewGame'
 import Pause from './Pause'
 import Settings from './Settings'
@@ -104,6 +105,8 @@ function getDialog(type: DialogType): React.ComponentType<IDialogProps> & IDialo
   switch (type) {
     case DialogType.CONGRATULATIONS:
       return Congratulations
+    case DialogType.GAMEPLAY_GUIDE:
+      return GameplayGuide
     case DialogType.NEW_GAME:
       return NewGame
     case DialogType.PAUSE:

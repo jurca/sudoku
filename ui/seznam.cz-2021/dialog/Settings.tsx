@@ -5,6 +5,7 @@ import SettingsListItem from '../blocks/SettingsListItem'
 import Icon, { IconType } from '../reusable/Icon'
 import Switch from '../reusable/Switch'
 import {IState} from '../state'
+import Dialog from './Dialog'
 import {IDialogProps} from './DialogHost'
 import styles from './settings.css'
 
@@ -18,6 +19,11 @@ function Settings(props: Props) {
   Object.assign(props.drawerActionHandler, {
     current: props.onCloseDialogs,
   })
+
+  const onShowGuide = React.useMemo(
+    () => () => props.onShowDialog(Dialog.GAMEPLAY_GUIDE),
+    [props.onShowDialog],
+  )
 
   return (
     <div>
@@ -51,7 +57,7 @@ function Settings(props: Props) {
           }
         />
       </label>
-      <div className={styles.item}>
+      <div className={styles.item} onClick={onShowGuide} tabIndex={0}>
         <SettingsListItem leftContent="Jak hrát sudoku"/>
       </div>
     </div>
