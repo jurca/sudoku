@@ -4,6 +4,7 @@ import {
   gameEndSelector as gameEndGameStateSelector,
   isGameWonSelector as isGameStateWonSelector,
   matrixSelector,
+  moveValidationEnabledSelector as gameMoveValidationEnabledSelector,
   valuePickerOpenAtSelector,
 } from '../../game/selectors'
 import {lastItem} from '../../game/util'
@@ -45,6 +46,11 @@ export const gameStartSelector = createSelector(
 export const gameEndSelector = createSelector(
   gameStateSelector,
   gameEndGameStateSelector,
+)
+
+export const moveValidationEnabledSelector = createSelector(
+  gameStateSelector,
+  gameMoveValidationEnabledSelector,
 )
 
 export const breaksSelector = createSelector(

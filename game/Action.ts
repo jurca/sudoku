@@ -12,6 +12,7 @@ export enum Action {
   UNDO = 'Action.UNDO',
   REVEAL_IMMEDIATE_HINT = 'Action.REVEAL_IMMEDIATE_HINT',
   REVEAL_ALL_IMMEDIATE_HINTS = 'Action.REVEAL_ALL_IMMEDIATE_HINTS',
+  SET_MOVE_VALIDATION = 'Action.SET_MOVE_VALIDATION',
 }
 
 export type ActionType = ReduxActionType<Action>
@@ -37,6 +38,7 @@ export const resume = mkActionFactory<void>(Action.RESUME)
 export const undo = mkActionFactory<void>(Action.UNDO)
 export const revealImmediateHint = mkActionFactory<void>(Action.REVEAL_IMMEDIATE_HINT)
 export const revealAllImmediateHints = mkActionFactory<void>(Action.REVEAL_ALL_IMMEDIATE_HINTS)
+export const setMoveValidation = mkActionFactory<boolean>(Action.SET_MOVE_VALIDATION)
 
 function mkActionFactory<Payload>(type: Action) {
   return createAction<Payload>(type) as (payload: Payload) => ActionType

@@ -7,6 +7,7 @@ export const matrixStateSelector = (globalState: IState): SudokuMatrixState => g
 export const matrixNotesSelector = (globalState: IState): SudokuMatrixNotes => globalState.notes
 export const valuePickerOpenAtSelector = (globalState: IState) => globalState.valuePickerOpenAt
 export const gameEndSelector = (globalState: IState) => globalState.gameEnd
+export const moveValidationEnabledSelector = (globalState: IState) => globalState.moveValidationEnabled
 
 export const matrixSelector = createSelector(
   matrixStateSelector,

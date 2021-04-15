@@ -3,6 +3,7 @@ import createReducer from 'redux-create-fsa-reducer'
 import gameReducer from '../../game/reducer'
 import {AppAction, IShowDialogPayload} from './Action'
 import {DEFAULT_APP_STATE, IAppState, IState} from './state'
+import {ISettings} from './storage/SettingsStorage'
 
 const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
   [AppAction.SHOW_DIALOG](state: IAppState, payload: IShowDialogPayload): IAppState {
@@ -23,6 +24,14 @@ const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
     return {
       ...state,
       dialogStack: [],
+    }
+  },
+
+  [AppAction.SETTINGS_CHANGED](state: IAppState, settings: ISettings): IAppState {
+    return {
+      ...state,
+      primaryColor: settings.primaryColor,
+      theme: settings.theme,
     }
   },
 })

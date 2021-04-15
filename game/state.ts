@@ -107,6 +107,7 @@ export interface IState {
   readonly notes: SudokuMatrixNotes
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
   readonly valuePickerOpenAt: null | IMatrixCoordinates
+  readonly moveValidationEnabled: boolean
 }
 
 const emptyNotes: ISudokuMatrixCellNotes = {
@@ -122,6 +123,7 @@ export const DEFAULT_STATE: IState = {
   },
   matrix: createGame(Difficulty.MEDIUM),
   matrixHistory: [],
+  moveValidationEnabled: true,
   notes: [
     [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
     [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],

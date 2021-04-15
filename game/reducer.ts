@@ -107,7 +107,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
           row as unknown as SudokuMatrixStateRow,
           ...state.matrix.slice(cell.row + 1),
         ] as unknown as SudokuMatrixState
-        if (!checkBoard(updatedMatrix)) {
+        if (state.moveValidationEnabled && !checkBoard(updatedMatrix)) {
           return state
         }
 
@@ -205,6 +205,17 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
       ...state,
       notes: notes as unknown as SudokuMatrixNotes,
       valuePickerOpenAt: null,
+    }
+  },
+
+  [Action.SET_MOVE_VALIDATION](state: IState, enableValidation: boolean): IState {
+    if (enableValidation === state.moveValidationEnabled) {
+      return state
+    }
+
+    return {
+      ...state,
+      moveValidationEnabled: enableValidation,
     }
   },
 })
