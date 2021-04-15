@@ -1,3 +1,4 @@
+import {objectValues} from '../../../game/util'
 import PrimaryColor from '../theme/PrimaryColor'
 import Theme from '../theme/Theme'
 import IStorage, { ReadOnlySerializable } from './IStorage'
@@ -69,8 +70,4 @@ function importSettings(value: ReadOnlySerializable): ISettings {
 
 function importEnumValue<E>(value: unknown, values: readonly E[], defaultValue: E): E {
   return values.includes(value as E) ? value as E : defaultValue
-}
-
-function objectValues<T>(obj: {[key: string]: T}): T[] {
-  return Object.keys(obj).map((key) => obj[key])
 }
