@@ -1,0 +1,44 @@
+:local(.chooser) {
+  display: flex;
+
+  padding: 32px 16px;
+
+  flex-direction: column;
+  align-items: center;
+}
+
+:local(.optionRow) {
+  display: flex;
+
+  margin-top: 10px;
+  width: 100%;
+  max-width: 344px;
+
+  justify-content: space-between;
+}
+
+:local(.optionRow):first-child {
+  margin-top: 0;
+}
+
+:local(.option) {
+  margin-left: 10px;
+  width: 100%;
+  max-width: 108px;
+}
+
+:local(.option):first-child {
+  margin-left: 0;
+}
+
+@media (max-width: 400px) {
+  :local(.option) :global(.game-board-cell__content) {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  :local(.option) :global(.game-board-cell__content) {
+    font-size: 18px;
+  }
+}

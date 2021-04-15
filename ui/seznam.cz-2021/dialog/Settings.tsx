@@ -27,6 +27,10 @@ function Settings(props: Props) {
     current: props.onCloseDialogs,
   })
 
+  const onShowThemeChooser = React.useMemo(
+    () => () => props.onShowDialog(Dialog.THEME_CHOOSER),
+    [props.onShowDialog],
+  )
   const settingsStorage = React.useContext(settingsContext)
   const onSetMoveValidation = React.useMemo(
     () => async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +61,7 @@ function Settings(props: Props) {
           }
         />
       </div>
-      <div className={styles.item}>
+      <div className={styles.item} onClick={onShowThemeChooser} tabIndex={0}>
         <SettingsListItem
           leftContent="Změnit barevné schéma"
           rightContent={

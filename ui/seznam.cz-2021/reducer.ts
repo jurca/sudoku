@@ -2,7 +2,7 @@ import {combineReducers} from 'redux'
 import createReducer from 'redux-create-fsa-reducer'
 import gameReducer from '../../game/reducer'
 import {AppAction, IShowDialogPayload} from './Action'
-import {DEFAULT_APP_STATE, IAppState, IState} from './state'
+import {DEFAULT_APP_STATE, IAppState, IState, IThemeConfiguration} from './state'
 import {ISettings} from './storage/SettingsStorage'
 
 const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
@@ -32,6 +32,13 @@ const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
       ...state,
       primaryColor: settings.primaryColor,
       theme: settings.theme,
+    }
+  },
+
+  [AppAction.SET_THEME_PREVIEW](state: IAppState, preview: IThemeConfiguration): IAppState {
+    return {
+      ...state,
+      themePreview: preview,
     }
   },
 })

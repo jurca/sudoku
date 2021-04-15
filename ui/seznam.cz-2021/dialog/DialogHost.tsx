@@ -14,6 +14,8 @@ import GameplayGuide from './GameplayGuide'
 import NewGame from './NewGame'
 import Pause from './Pause'
 import Settings from './Settings'
+import ThemeChooser from './ThemeChooser'
+import ThemePreview from './ThemePreview'
 
 export interface IDialog {
   readonly title?: string
@@ -113,6 +115,10 @@ function getDialog(type: DialogType): React.ComponentType<IDialogProps> & IDialo
       return Pause
     case DialogType.SETTINGS:
       return Settings
+    case DialogType.THEME_CHOOSER:
+      return ThemeChooser
+    case DialogType.THEME_PREVIEW:
+      return ThemePreview
     default:
       throw new Error(`Unknown dialog type: ${type}`)
   }
