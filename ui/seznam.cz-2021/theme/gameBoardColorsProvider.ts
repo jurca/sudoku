@@ -1,3 +1,4 @@
+import {fromEntries} from '../../../game/util'
 import defaultColorMapping from './defaultGameBoardColorMapping'
 import gameBoardPalletteProvider from './gameBoardPalletteProvider'
 import IGameBoardColors from './IGameBoardColors'
@@ -19,12 +20,4 @@ export default function gameBoardColorsProvider(theme: Theme, primaryColor: Prim
 
 function objectEntries<T>(obj: {[s: string]: T}): Array<[string, T]> {
   return Object.keys(obj).map((key) => [key, (obj as any)[key]])
-}
-
-function fromEntries<T = any>(entries: ReadonlyArray<readonly [string, T]>): {[k: string]: T} {
-  const result: {[k: string]: T} = {}
-  for (const [key, value] of entries) {
-    result[key] = value
-  }
-  return result
 }

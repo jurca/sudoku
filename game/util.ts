@@ -35,6 +35,14 @@ export function objectValues<T>(obj: {[key: string]: T}): T[] {
   return Object.keys(obj).map((key) => obj[key])
 }
 
+export function fromEntries<T = any>(entries: ReadonlyArray<readonly [string, T]>): {[k: string]: T} {
+  const result: {[k: string]: T} = {}
+  for (const [key, value] of entries) {
+    result[key] = value
+  }
+  return result
+}
+
 // https://github.com/tc39/proposal-array-last (stage 1 proposal at 2021-04-13)
 export function lastItem<E>(array: readonly E[]): undefined | E {
   return array[array.length - 1]
