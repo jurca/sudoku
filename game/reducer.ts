@@ -32,6 +32,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
       matrix,
       matrixHistory: [],
       notes: DEFAULT_STATE.notes,
+      usedHints: false,
       valuePickerOpenAt: null,
     }
   },
@@ -182,6 +183,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
         notesRow as unknown as SudokuMatrixNotesRow,
         ...state.notes.slice(hint.cell.row + 1),
       ] as unknown as SudokuMatrixNotes,
+      usedHints: true,
       valuePickerOpenAt: hint.cell,
     }
   },
@@ -204,6 +206,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     return {
       ...state,
       notes: notes as unknown as SudokuMatrixNotes,
+      usedHints: true,
       valuePickerOpenAt: null,
     }
   },

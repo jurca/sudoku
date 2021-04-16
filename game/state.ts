@@ -108,6 +108,7 @@ export interface IState {
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
   readonly valuePickerOpenAt: null | IMatrixCoordinates
   readonly moveValidationEnabled: boolean
+  readonly usedHints: boolean
 }
 
 const emptyNotes: ISudokuMatrixCellNotes = {
@@ -135,5 +136,6 @@ export const DEFAULT_STATE: IState = {
     [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
     [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
   ],
+  usedHints: false,
   valuePickerOpenAt: null,
 }

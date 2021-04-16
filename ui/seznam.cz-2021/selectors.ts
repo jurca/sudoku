@@ -5,6 +5,7 @@ import {
   isGameWonSelector as isGameStateWonSelector,
   matrixSelector,
   moveValidationEnabledSelector as gameMoveValidationEnabledSelector,
+  usedHintsSelector as usedMoveHintsSelector,
   valuePickerOpenAtSelector,
 } from '../../game/selectors'
 import {lastItem} from '../../game/util'
@@ -71,6 +72,11 @@ export const isGameWonSelector = createSelector(
 export const selectedCellSelector = createSelector(
   gameStateSelector,
   valuePickerOpenAtSelector,
+)
+
+export const usedHintsSelector = createSelector(
+  gameStateSelector,
+  usedMoveHintsSelector,
 )
 
 export const dialogSelector = createSelector(
