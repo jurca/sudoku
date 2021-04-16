@@ -46,8 +46,8 @@ function ThemeChooser(props: Props) {
     <div className={styles.chooser}>
       {optionRows.map((row, rowIndex) =>
         <div key={rowIndex} className={styles.optionRow}>
-          {row.map((option) =>
-            <div className={styles.option} tabIndex={0} onClick={option[1]}>
+          {row.map((option, optionIndex) =>
+            <div key={optionIndex} className={styles.option} tabIndex={0} onClick={option[1]}>
               <GameBoardBlockPreview
                 uniqueClassName={createThemeUniqueClassName(option[0])}
                 themePreview={option[0]}
