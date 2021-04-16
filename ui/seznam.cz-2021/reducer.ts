@@ -3,6 +3,7 @@ import createReducer from 'redux-create-fsa-reducer'
 import gameReducer from '../../game/reducer'
 import {AppAction, IShowDialogPayload} from './Action'
 import {DEFAULT_APP_STATE, IAppState, IState, IThemeConfiguration} from './state'
+import {HighScores} from './storage/HighScoreStorage'
 import {ISettings} from './storage/SettingsStorage'
 
 const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
@@ -39,6 +40,13 @@ const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
     return {
       ...state,
       themePreview: preview,
+    }
+  },
+
+  [AppAction.HIGH_SCORES_UPDATED](state: IAppState, highScores: HighScores): IAppState {
+    return {
+      ...state,
+      highScores,
     }
   },
 })

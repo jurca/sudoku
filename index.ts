@@ -1,10 +1,12 @@
 import {createElement} from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
-import { setMoveValidation } from './game/Action'
-import { settingsChanged } from './ui/seznam.cz-2021/Action'
+import {setMoveValidation} from './game/Action'
+import {highScoresUpdated, settingsChanged} from './ui/seznam.cz-2021/Action'
 import App from './ui/seznam.cz-2021/App'
+import highScoresContext from './ui/seznam.cz-2021/app/highScoresContext'
 import settingsContext from './ui/seznam.cz-2021/app/settingsContext'
+import HighScoreStorage from './ui/seznam.cz-2021/storage/HighScoreStorage'
 import primaryStorageFactory from './ui/seznam.cz-2021/storage/primaryStorageFactory'
 import SettingsStorage from './ui/seznam.cz-2021/storage/SettingsStorage'
 import storeFactory from './ui/seznam.cz-2021/storeFactory'
@@ -26,14 +28,20 @@ addEventListener('DOMContentLoaded', async () => {
     store.dispatch(settingsChanged(newSettings))
     store.dispatch(setMoveValidation(newSettings.automaticValidation))
   })
+  const highScoresStorage = new HighScoreStorage(storage)
+  highScoresStorage.addObserver((newHighScores) => {
+    store.dispatch(highScoresUpdated(newHighScores))
+  })
 
   const settings = await settingsStorage.get()
   store.dispatch(settingsChanged(settings))
 
   render(
     createElement(settingsContext.Provider, {value: settingsStorage},
-      createElement(Provider, {store},
-        createElement(App),
+      createElement(highScoresContext.Provider, {value: highScoresStorage},
+        createElement(Provider, {store},
+          createElement(App),
+        ),
       ),
     ),
     appRoot,

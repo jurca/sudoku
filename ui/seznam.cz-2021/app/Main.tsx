@@ -11,6 +11,7 @@ import {
   ValueEntryMode,
 } from '../../../game/Action'
 import {IEndedGamePlayBreak, IMatrixCoordinates, IStartedGamePlayBreak, SudokuMatrix} from '../../../game/state'
+import {getGamePlayDuration} from '../../../game/util'
 import {showDialog} from '../Action'
 import GameDesk from '../blocks/GameDesk'
 import {InputMode} from '../blocks/InputModeSwitch'
@@ -28,11 +29,13 @@ import {
   primaryColorSelector,
   selectedCellSelector,
   themeSelector,
+  usedHintsSelector,
 } from '../selectors'
 import {IState} from '../state'
 import PrimaryColor from '../theme/PrimaryColor'
 import Theme from '../theme/Theme'
 import GameBoard from './GameBoard'
+import highScoresContext from './highScoresContext'
 
 interface IDataProps {
   readonly gameState: SudokuMatrix
@@ -43,6 +46,7 @@ interface IDataProps {
   }
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
   readonly gameEnd: null | number
+  readonly usedHints: boolean
   readonly isPaused: boolean
   readonly currentDialog: null | Dialog
   readonly isWon: boolean
@@ -101,9 +105,17 @@ export function Main(props: Props) {
     }
   })
 
+  const highScores = React.useContext(highScoresContext)
   const previousIsWon = usePrevious(props.isWon)
   React.useEffect(() => {
     if (!previousIsWon && props.isWon) {
+      if (highScores && props.difficulty && props.gameStart) {
+        const gameplayDuration = getGamePlayDuration(props.gameStart, props.breaks, props.gameEnd)
+        highScores.addWonGame(props.difficulty, gameplayDuration, props.usedHints)
+      } else {
+        // tslint:disable-next-line:no-console
+        console.warn('Cannot save high scores - storage, difficulty or game start is missing')
+      }
       props.onOpenCongratulationsDialog()
     }
   })
@@ -149,6 +161,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     primaryColor: primaryColorSelector,
     selectedCell: selectedCellSelector,
     theme: themeSelector,
+    usedHints: usedHintsSelector,
   }),
   {
     onOpenCongratulationsDialog: showDialog.bind(null, {dialog: Dialog.CONGRATULATIONS, stack: false}),

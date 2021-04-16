@@ -89,6 +89,11 @@ export const isNestedDialogSelector = createSelector(
   (dialogs) => dialogs.length > 1,
 )
 
+export const highScoresSelector = createSelector(
+  appStateSelector,
+  (appState) => appState.highScores,
+)
+
 export const themePreviewSelector = createSelector(
   appStateSelector,
   (appState) => appState.themePreview,

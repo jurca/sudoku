@@ -1,5 +1,6 @@
 import {DEFAULT_STATE as DEFAULT_GAME_STATE, IState as IGameState} from '../../game/state'
 import Dialog from './dialog/Dialog'
+import {DEFAULT_HIGH_SCORES, HighScores} from './storage/HighScoreStorage'
 import PrimaryColor from './theme/PrimaryColor'
 import Theme from './theme/Theme'
 
@@ -13,10 +14,12 @@ export interface IAppState {
   readonly primaryColor: PrimaryColor
   readonly theme: Theme
   readonly themePreview: IThemeConfiguration
+  readonly highScores: HighScores
 }
 
 export const DEFAULT_APP_STATE: IAppState = {
   dialogStack: [Dialog.NEW_GAME],
+  highScores: DEFAULT_HIGH_SCORES,
   primaryColor: PrimaryColor.RED,
   theme: Theme.LIGHT,
   themePreview: {
