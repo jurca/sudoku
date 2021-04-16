@@ -1,5 +1,15 @@
 import {createSelector} from 'reselect'
-import {IState, ISudokuMatrixCell, SudokuMatrix, SudokuMatrixNotes, SudokuMatrixRow, SudokuMatrixState} from './state'
+import {
+  DEFAULT_STATE,
+  EMPTY_MATRIX_NOTES,
+  EMPTY_MATRIX_STATE,
+  IState,
+  ISudokuMatrixCell,
+  SudokuMatrix,
+  SudokuMatrixNotes,
+  SudokuMatrixRow,
+  SudokuMatrixState,
+} from './state'
 import {isComplete} from './util'
 
 export const difficultySelector = (globalState: IState) => globalState.difficulty
@@ -21,6 +31,14 @@ export const matrixSelector = createSelector(
     ) as unknown as SudokuMatrix
   },
 )
+
+export const emptyMatrixSelector = () => {
+  return matrixSelector({
+    ...DEFAULT_STATE,
+    matrix: EMPTY_MATRIX_STATE,
+    notes: EMPTY_MATRIX_NOTES,
+  })
+}
 
 type MatrixCellBlock = readonly [
   readonly [ISudokuMatrixCell, ISudokuMatrixCell, ISudokuMatrixCell],

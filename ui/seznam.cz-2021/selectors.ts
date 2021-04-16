@@ -1,6 +1,7 @@
 import {createSelector} from 'reselect'
 import {
   difficultySelector,
+  emptyMatrixSelector,
   gameEndSelector as gameEndGameStateSelector,
   isGameWonSelector as isGameStateWonSelector,
   matrixSelector,
@@ -27,11 +28,6 @@ export const themeSelector = createSelector(
 export const primaryColorSelector = createSelector(
   appStateSelector,
   (appState) => appState.primaryColor,
-)
-
-export const gameBoardStateSelector = createSelector(
-  gameStateSelector,
-  matrixSelector,
 )
 
 export const gameDifficultySelector = createSelector(
@@ -62,6 +58,16 @@ export const breaksSelector = createSelector(
 export const isGamePausedSelector = createSelector(
   breaksSelector,
   (breaks) => !!(breaks[0] && !('endLogicalTimestamp' in breaks[0])),
+)
+
+export const gameBoardStateSelector = createSelector(
+  createSelector(
+    gameStateSelector,
+    matrixSelector,
+  ),
+  emptyMatrixSelector,
+  isGamePausedSelector,
+  (matrixState, emptyMatrix, isPaused) => isPaused ? emptyMatrix : matrixState,
 )
 
 export const isGameWonSelector = createSelector(

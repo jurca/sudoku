@@ -111,9 +111,63 @@ export interface IState {
   readonly usedHints: boolean
 }
 
+const emptyCell: ISudokuMatrixCellState = {
+  initialValue: null,
+  value: null,
+}
+
+const emptyStateRow: SudokuMatrixStateRow = [
+  emptyCell,
+  emptyCell,
+  emptyCell,
+  emptyCell,
+  emptyCell,
+  emptyCell,
+  emptyCell,
+  emptyCell,
+  emptyCell,
+]
+
+export const EMPTY_MATRIX_STATE: SudokuMatrixState = [
+  emptyStateRow,
+  emptyStateRow,
+  emptyStateRow,
+  emptyStateRow,
+  emptyStateRow,
+  emptyStateRow,
+  emptyStateRow,
+  emptyStateRow,
+  emptyStateRow,
+]
+
 const emptyNotes: ISudokuMatrixCellNotes = {
   userMarkedOptions: [],
 }
+
+const emptyNotesRow: SudokuMatrixNotesRow = [
+  emptyNotes,
+  emptyNotes,
+  emptyNotes,
+  emptyNotes,
+  emptyNotes,
+  emptyNotes,
+  emptyNotes,
+  emptyNotes,
+  emptyNotes,
+]
+
+export const EMPTY_MATRIX_NOTES: SudokuMatrixNotes = [
+  emptyNotesRow,
+  emptyNotesRow,
+  emptyNotesRow,
+  emptyNotesRow,
+  emptyNotesRow,
+  emptyNotesRow,
+  emptyNotesRow,
+  emptyNotesRow,
+  emptyNotesRow,
+]
+
 export const DEFAULT_STATE: IState = {
   breaks: [],
   difficulty: Difficulty.MEDIUM,
@@ -125,17 +179,7 @@ export const DEFAULT_STATE: IState = {
   matrix: createGame(Difficulty.MEDIUM),
   matrixHistory: [],
   moveValidationEnabled: true,
-  notes: [
-    [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
-    [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
-    [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
-    [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
-    [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
-    [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
-    [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
-    [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
-    [emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes, emptyNotes],
-  ],
+  notes: EMPTY_MATRIX_NOTES,
   usedHints: false,
   valuePickerOpenAt: null,
 }
