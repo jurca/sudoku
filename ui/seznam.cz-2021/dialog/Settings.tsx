@@ -27,6 +27,10 @@ function Settings(props: Props) {
     current: props.onCloseDialogs,
   })
 
+  const onShowHighScores = React.useMemo(
+    () => () => props.onShowDialog(Dialog.HIGH_SCORES),
+    [props.onShowDialog],
+  )
   const onShowThemeChooser = React.useMemo(
     () => () => props.onShowDialog(Dialog.THEME_CHOOSER),
     [props.onShowDialog],
@@ -51,7 +55,7 @@ function Settings(props: Props) {
 
   return (
     <div>
-      <div className={styles.item}>
+      <div className={styles.item} onClick={onShowHighScores} tabIndex={0}>
         <SettingsListItem
           leftContent="Skóre"
           rightContent={

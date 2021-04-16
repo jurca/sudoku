@@ -1,6 +1,7 @@
 enum Dialog {
   CONGRATULATIONS = 'Dialog.CONGRATULATIONS',
   GAMEPLAY_GUIDE = 'Dialog.GAMEPLAY_GUIDE',
+  HIGH_SCORES = 'Dialog.HIGH_SCORES',
   NEW_GAME = 'Dialog.NEW_GAME',
   PAUSE = 'Dialog.PAUSE',
   SETTINGS = 'Dialog.SETTINGS',

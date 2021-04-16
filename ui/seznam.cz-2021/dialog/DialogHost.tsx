@@ -11,6 +11,7 @@ import Congratulations from './Congratulations'
 import DialogType from './Dialog'
 import styles from './dialogHost.css'
 import GameplayGuide from './GameplayGuide'
+import HighScores from './HighScores'
 import NewGame from './NewGame'
 import Pause from './Pause'
 import Settings from './Settings'
@@ -109,6 +110,8 @@ function getDialog(type: DialogType): React.ComponentType<IDialogProps> & IDialo
       return Congratulations
     case DialogType.GAMEPLAY_GUIDE:
       return GameplayGuide
+    case DialogType.HIGH_SCORES:
+      return HighScores
     case DialogType.NEW_GAME:
       return NewGame
     case DialogType.PAUSE:
