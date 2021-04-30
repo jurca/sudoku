@@ -64,6 +64,10 @@
   (max-width: 604px),
   (max-width: 83mm)
 {
+  :local(.header) {
+    height: 36px;
+  }
+
   :local(.title),
   :local(.rightSide) {
     display: none;
@@ -72,6 +76,10 @@
   :local(.leftSide) {
     justify-content: space-between;
   }
+}
+
+:local(.forceMobileLayout) :local(.header) {
+  height: 36px;
 }
 
 :local(.forceMobileLayout) :local(.title),

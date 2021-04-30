@@ -35,6 +35,15 @@
 }
 
 @media
+  (max-width: 604px),
+  (max-width: 83mm)
+{
+  :local(.container) {
+    padding-top: 36px;
+  }
+}
+
+@media
   (max-width: 595px),
   (max-width: 83mm)
 {
@@ -44,7 +53,7 @@
 }
 
 :local(.forceMobileLayout) :local(.container) {
-  padding-bottom: 64px;
+  padding: 36px 0 64px;
 }
 
 :local(.topContentOffset) {
