@@ -20,7 +20,8 @@ import ThemePreview from './ThemePreview'
 
 export interface IDialog {
   readonly title?: string
-  readonly drawerActionLabel?: string,
+  readonly drawerActionLabel?: string
+  readonly nonCloseable?: boolean
 }
 
 export interface IDialogProps {
@@ -76,7 +77,12 @@ function DialogHost(props: Props) {
             />
           </Drawer>
         :
-          <Dialog title={DialogComponent.title} isNested={props.isNestedDialog} onClose={props.onLeaveDialog}>
+          <Dialog
+            title={DialogComponent.title}
+            isNested={props.isNestedDialog}
+            nonCloseable={DialogComponent.nonCloseable}
+            onClose={props.onLeaveDialog}
+          >
             <DialogComponent
               drawerActionHandler={drawerActionHandler}
               onShowDialog={props.onShowDialog}

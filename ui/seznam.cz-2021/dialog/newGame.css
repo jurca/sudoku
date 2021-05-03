@@ -1,9 +1,12 @@
 :local(.dialog) {
   display: flex;
 
+  box-sizing: border-box;
+  height: 100%;
   padding: 2px 18px 74px;
 
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 

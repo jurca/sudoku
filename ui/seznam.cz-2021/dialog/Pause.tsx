@@ -51,7 +51,7 @@ function Pause(props: Props) {
   )
 }
 
-export default connect<{}, ICallbackProps, IDialogProps, IState>(
+export default Object.assign(connect<{}, ICallbackProps, IDialogProps, IState>(
   null,
   {
     onNewGame: showDialog.bind(null, {dialog: Dialog.NEW_GAME, stack: false}),
@@ -59,4 +59,6 @@ export default connect<{}, ICallbackProps, IDialogProps, IState>(
   },
 )(
   Pause,
-)
+), {
+  nonCloseable: true,
+})

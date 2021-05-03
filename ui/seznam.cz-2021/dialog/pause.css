@@ -1,9 +1,12 @@
 :local(.pause) {
   display: flex;
 
+  box-sizing: border-box;
+  height: 100%;
   padding: 2px 32px 64px;
 
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 

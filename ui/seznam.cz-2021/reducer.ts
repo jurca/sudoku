@@ -1,12 +1,28 @@
 import {combineReducers} from 'redux'
 import createReducer from 'redux-create-fsa-reducer'
+import {Action} from '../../game/Action'
 import gameReducer from '../../game/reducer'
 import {AppAction, IShowDialogPayload} from './Action'
+import {InputMode} from './blocks/InputModeSwitch'
 import {DEFAULT_APP_STATE, IAppState, IState, IThemeConfiguration} from './state'
 import {HighScores} from './storage/HighScoreStorage'
 import {ISettings} from './storage/SettingsStorage'
 
 const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
+  [Action.NEW_GAME](state: IAppState): IAppState {
+    return {
+      ...state,
+      inputMode: DEFAULT_APP_STATE.inputMode,
+    }
+  },
+
+  [AppAction.SET_INPUT_MODE](state: IAppState, inputMode: InputMode): IAppState {
+    return {
+      ...state,
+      inputMode,
+    }
+  },
+
   [AppAction.SHOW_DIALOG](state: IAppState, payload: IShowDialogPayload): IAppState {
     return {
       ...state,

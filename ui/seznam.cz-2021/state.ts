@@ -1,4 +1,5 @@
 import {DEFAULT_STATE as DEFAULT_GAME_STATE, IState as IGameState} from '../../game/state'
+import {InputMode} from './blocks/InputModeSwitch'
 import Dialog from './dialog/Dialog'
 import {DEFAULT_HIGH_SCORES, HighScores} from './storage/HighScoreStorage'
 import PrimaryColor from './theme/PrimaryColor'
@@ -10,6 +11,7 @@ export interface IThemeConfiguration {
 }
 
 export interface IAppState {
+  readonly inputMode: InputMode
   readonly dialogStack: readonly Dialog[]
   readonly primaryColor: PrimaryColor
   readonly theme: Theme
@@ -20,6 +22,7 @@ export interface IAppState {
 export const DEFAULT_APP_STATE: IAppState = {
   dialogStack: [Dialog.NEW_GAME],
   highScores: DEFAULT_HIGH_SCORES,
+  inputMode: InputMode.INPUT,
   primaryColor: PrimaryColor.RED,
   theme: Theme.LIGHT,
   themePreview: {

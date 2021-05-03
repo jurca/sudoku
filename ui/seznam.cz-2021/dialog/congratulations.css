@@ -1,9 +1,12 @@
 :local(.congratulations) {
   display: flex;
 
+  box-sizing: border-box;
+  height: 100%;
   padding: 2px 32px 92px;
 
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -20,5 +23,14 @@
 }
 
 :local(.text) {
-  margin: 0;
+  margin: 0 0 22px;
+}
+
+:local(.buttons) {
+  display: flex;
+
+  width: 100%;
+  max-width: 287px;
+
+  justify-content: space-between;
 }

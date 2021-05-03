@@ -12,58 +12,57 @@ interface IProps {
   readonly gameState: SudokuMatrix
   readonly selectedCell: null | IMatrixCoordinates
   readonly inputModeSwitchName: string
-  readonly defaultInputMode: InputMode
+  readonly inputMode: InputMode
   readonly uniqueClassName: string
   readonly primaryColor: PrimaryColor
   readonly theme: Theme
   onToggleCellValue(cell: IMatrixCoordinates, value: null | number, mode: InputMode): void
   onSetSelectedCell(cell: null | IMatrixCoordinates): void
+  onSetInputMode(inputMode: InputMode): void
 }
 
 export default function GameBoard(props: IProps) {
-  const [inputMode, setInputMode] = React.useState(props.defaultInputMode)
-
   const selectedCellObject = props.selectedCell && props.gameState[props.selectedCell.row][props.selectedCell.column]
 
   const onCellAction = React.useMemo(
     () => (cell: ISudokuMatrixCell) => {
-      if (cell.initialValue) {
+      if (cell.initialValue && props.inputMode === InputMode.ERASE) {
         return
       }
 
       const row = props.gameState.findIndex((matrixRow) => matrixRow.includes(cell))
       const column = row > -1 ? props.gameState[row].findIndex((otherCell) => otherCell === cell) : -1
 
-      if (inputMode === InputMode.ERASE) {
-        props.onToggleCellValue({column, row}, null, inputMode)
+      if (props.inputMode === InputMode.ERASE) {
+        props.onToggleCellValue({column, row}, null, props.inputMode)
         return
       }
 
       props.onSetSelectedCell({row, column})
     },
-    [props.gameState, inputMode, props.onSetSelectedCell, props.onToggleCellValue],
+    [props.gameState, props.inputMode, props.onSetSelectedCell, props.onToggleCellValue],
   )
   const onInputModeChange = React.useMemo(
     () => (newInputMode: InputMode) => {
       if (newInputMode === InputMode.ERASE) {
         props.onSetSelectedCell(null)
       }
-      setInputMode(newInputMode)
+      props.onSetInputMode(newInputMode)
     },
-    [props.onSetSelectedCell, setInputMode],
+    [props.onSetSelectedCell, props.onSetInputMode],
   )
   const onInput = React.useMemo(
     () => (pressedKey: number) => {
-      if (inputMode === InputMode.ERASE || !props.selectedCell || !selectedCellObject) {
+      if (props.inputMode === InputMode.ERASE || !props.selectedCell || !selectedCellObject) {
         return
       }
-      if (inputMode === InputMode.NOTES && selectedCellObject.value) {
+      if (props.inputMode === InputMode.NOTES && selectedCellObject.value) {
         return
       }
 
-      props.onToggleCellValue(props.selectedCell, pressedKey, inputMode)
+      props.onToggleCellValue(props.selectedCell, pressedKey, props.inputMode)
     },
-    [props.selectedCell, selectedCellObject, inputMode],
+    [props.selectedCell, selectedCellObject, props.inputMode],
   )
 
   const stateAttributes = {
@@ -81,7 +80,7 @@ export default function GameBoard(props: IProps) {
         <GameBoardUI
           gameState={createHierarchicalCellMatrix(props.gameState)}
           selectedCell={selectedCellObject}
-          defaultInputMode={inputMode}
+          inputMode={props.inputMode}
           inputModeSwitchName={props.inputModeSwitchName}
           onInputModeChange={onInputModeChange}
           onCellAction={onCellAction}

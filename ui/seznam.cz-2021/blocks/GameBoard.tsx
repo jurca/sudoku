@@ -21,7 +21,7 @@ interface IProps {
   readonly gameState: HierarchicalMatrix
   readonly selectedCell: null | ISudokuMatrixCell
   readonly inputModeSwitchName: string
-  readonly defaultInputMode: InputMode
+  readonly inputMode: InputMode
   onCellAction(cell: ISudokuMatrixCell): void
   onInput(pressedKey: number): void
   onInputModeChange(currentMode: InputMode): void
@@ -90,7 +90,7 @@ export default function GameBoard(props: IProps) {
       <div className={styles.switch}>
         <InputModeSwitch
           name={props.inputModeSwitchName}
-          defaultMode={props.defaultInputMode}
+          mode={props.inputMode}
           onModeChange={props.onInputModeChange}
         />
       </div>

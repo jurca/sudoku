@@ -12,7 +12,7 @@ import {
 } from '../../../game/Action'
 import {IEndedGamePlayBreak, IMatrixCoordinates, IStartedGamePlayBreak, SudokuMatrix} from '../../../game/state'
 import {getGamePlayDuration} from '../../../game/util'
-import {showDialog} from '../Action'
+import {setInputMode, showDialog} from '../Action'
 import GameDesk from '../blocks/GameDesk'
 import {InputMode} from '../blocks/InputModeSwitch'
 import Dialog from '../dialog/Dialog'
@@ -24,6 +24,7 @@ import {
   gameDifficultySelector,
   gameEndSelector,
   gameStartSelector,
+  inputModeSelector,
   isGamePausedSelector,
   isGameWonSelector,
   primaryColorSelector,
@@ -39,6 +40,7 @@ import highScoresContext from './highScoresContext'
 
 interface IDataProps {
   readonly gameState: SudokuMatrix
+  readonly inputMode: InputMode
   readonly selectedCell: null | IMatrixCoordinates
   readonly difficulty: null | Difficulty
   readonly gameStart: null | {
@@ -55,7 +57,8 @@ interface IDataProps {
 }
 
 interface ICallbackProps {
-  onToggleCellValue(change: {cell: IMatrixCoordinates, value: null | number, mode: ValueEntryMode}): void,
+  onSetInputMode(inputMode: InputMode): void
+  onToggleCellValue(change: {cell: IMatrixCoordinates, value: null | number, mode: ValueEntryMode}): void
   onOpenSettingsDialog(): void
   onOpenNewGameDialog(): void
   onOpenPauseDialog(): void
@@ -136,11 +139,12 @@ export function Main(props: Props) {
       <GameBoard
         gameState={props.gameState}
         selectedCell={props.selectedCell}
-        defaultInputMode={props.defaultInputMode}
+        inputMode={props.inputMode}
         inputModeSwitchName={props.inputModeSwitchName}
         primaryColor={props.primaryColor}
         theme={props.theme}
         uniqueClassName={props.themeStyleNameSpacingClassName}
+        onSetInputMode={props.onSetInputMode}
         onToggleCellValue={onToggleCellValue}
         onSetSelectedCell={props.onSetSelectedCell}
       />
@@ -156,6 +160,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     gameEnd: gameEndSelector,
     gameStart: gameStartSelector,
     gameState: gameBoardStateSelector,
+    inputMode: inputModeSelector,
     isPaused: isGamePausedSelector,
     isWon: isGameWonSelector,
     primaryColor: primaryColorSelector,
@@ -170,6 +175,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     onOpenPauseDialog: showDialog.bind(null, {dialog: Dialog.PAUSE, stack: false}),
     onOpenSettingsDialog: showDialog.bind(null, {dialog: Dialog.SETTINGS, stack: false}),
     onPause: pause,
+    onSetInputMode: setInputMode,
     onSetSelectedCell: showValuePicker,
     onToggleCellValue: toggleCellValue,
     onUndo: undo,

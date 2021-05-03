@@ -30,6 +30,11 @@ export const primaryColorSelector = createSelector(
   (appState) => appState.primaryColor,
 )
 
+export const inputModeSelector = createSelector(
+  appStateSelector,
+  (appState) => appState.inputMode,
+)
+
 export const gameDifficultySelector = createSelector(
   gameStateSelector,
   difficultySelector,

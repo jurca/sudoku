@@ -1,12 +1,14 @@
 import {Action as ReduxActionType} from 'redux'
 import {createAction} from 'redux-actions'
 import {ActionType as GameActionType} from '../../game/Action'
+import {InputMode} from './blocks/InputModeSwitch'
 import Dialog from './dialog/Dialog'
 import {IThemeConfiguration} from './state'
 import {HighScores} from './storage/HighScoreStorage'
 import {ISettings} from './storage/SettingsStorage'
 
 export enum AppAction {
+  SET_INPUT_MODE = 'AppAction.SET_INPUT_MODE',
   SHOW_DIALOG = 'AppAction.SHOW_DIALOG',
   LEAVE_DIALOG = 'AppAction.LEAVE_DIALOG',
   CLOSE_DIALOGS = 'AppAction.CLOSE_DIALOGS',
@@ -22,6 +24,7 @@ export interface IShowDialogPayload {
   readonly stack: boolean
 }
 
+export const setInputMode = mkActionFactory<InputMode>(AppAction.SET_INPUT_MODE)
 export const showDialog = mkActionFactory<IShowDialogPayload>(AppAction.SHOW_DIALOG)
 export const leaveDialog = mkActionFactory<void>(AppAction.LEAVE_DIALOG)
 export const closeDialogs = mkActionFactory<void>(AppAction.CLOSE_DIALOGS)

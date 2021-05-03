@@ -12,7 +12,7 @@ export enum CssClassNames {
 
 interface IProps {
   readonly name: string
-  readonly defaultMode: InputMode
+  readonly mode: InputMode
   onModeChange(currentMode: InputMode): void
 }
 
@@ -45,7 +45,7 @@ export default function InputModeSwitch(props: IProps) {
                 type="radio"
                 name={props.name}
                 value={mode}
-                defaultChecked={mode === props.defaultMode}
+                checked={mode === props.mode}
                 onChange={onChange}
               />
               <span className={classnames(CssClassNames.MODE, styles.modeUI)}>

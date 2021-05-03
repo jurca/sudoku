@@ -6,6 +6,7 @@ import IconButton, {IconType} from './IconButton'
 interface IProps {
   readonly title?: string
   readonly isNested: boolean
+  readonly nonCloseable?: boolean
   readonly children: React.ReactChild | readonly React.ReactChild[]
   readonly onClose?: () => void
 }
@@ -19,13 +20,17 @@ export default function Dialog(props: IProps) {
         <div className={styles.ui}>
           <div className={styles.header}>
             <div className={styles.buttonWrapper}>
-              <IconButton className={styles.back} icon={IconType.ARROW_LEFT} onAction={props.onClose}/>
+              {!props.nonCloseable &&
+                <IconButton className={styles.back} icon={IconType.ARROW_LEFT} onAction={props.onClose}/>
+              }
             </div>
             <div className={styles.title}>
               {props.title}
             </div>
             <div className={styles.buttonWrapper}>
-              <IconButton className={styles.close} icon={IconType.CLOSE} onAction={props.onClose}/>
+              {!props.nonCloseable &&
+                <IconButton className={styles.close} icon={IconType.CLOSE} onAction={props.onClose}/>
+              }
             </div>
           </div>
           <div className={styles.content}>

@@ -388,7 +388,7 @@ export default function ComponentDemo() {
       <ComponentWrapper id="input-mode" style={{boxSizing: 'border-box', width: '100%', maxWidth: 118}}>
         <InputModeSwitch
           name="inputMode"
-          defaultMode={InputMode.NOTES}
+          mode={InputMode.NOTES}
           onModeChange={NOOP}
         />
         <style>{`
@@ -417,7 +417,7 @@ export default function ComponentDemo() {
         <GameBoard
           gameState={getDemoGame()}
           selectedCell={getDemoGame()[1][0][1][2]}
-          defaultInputMode={InputMode.INPUT}
+          inputMode={InputMode.INPUT}
           inputModeSwitchName="gameBoardInputModeSwitch"
           onCellAction={NOOP}
           onInput={NOOP}
