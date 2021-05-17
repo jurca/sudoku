@@ -12,7 +12,7 @@ import {
 } from '../../../game/Action'
 import {IEndedGamePlayBreak, IMatrixCoordinates, IStartedGamePlayBreak, SudokuMatrix} from '../../../game/state'
 import {getGamePlayDuration} from '../../../game/util'
-import {setInputMode, showDialog} from '../Action'
+import {gameWon, setInputMode, showDialog} from '../Action'
 import GameDesk from '../blocks/GameDesk'
 import {InputMode} from '../blocks/InputModeSwitch'
 import Dialog from '../dialog/Dialog'
@@ -69,6 +69,7 @@ interface ICallbackProps {
   onOpenHelpDialog(): void
   onOpenCongratulationsDialog(): void
   onSetSelectedCell(cell: null | IMatrixCoordinates): void
+  onGameWon(): void
 }
 
 interface IExternalProps {
@@ -121,6 +122,7 @@ export function Main(props: Props) {
         // tslint:disable-next-line:no-console
         console.warn('Cannot save high scores - storage, difficulty or game start is missing')
       }
+      props.onGameWon()
       props.onOpenCongratulationsDialog()
     }
   })
@@ -182,6 +184,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     onSetSelectedCell: showValuePicker,
     onToggleCellValue: toggleCellValue,
     onUndo: undo,
+    onGameWon: gameWon,
   },
 )(
   Main,

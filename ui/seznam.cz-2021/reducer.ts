@@ -13,6 +13,10 @@ const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
     return {
       ...state,
       inputMode: DEFAULT_APP_STATE.inputMode,
+      sessionStatistics: {
+        ...state.sessionStatistics,
+        newGames: state.sessionStatistics.newGames + 1,
+      },
     }
   },
 
@@ -63,6 +67,16 @@ const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
     return {
       ...state,
       highScores,
+    }
+  },
+
+  [AppAction.GAME_WON](state: IAppState): IAppState {
+    return {
+      ...state,
+      sessionStatistics: {
+        ...state.sessionStatistics,
+        wonGames: state.sessionStatistics.wonGames + 1,
+      },
     }
   },
 })

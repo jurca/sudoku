@@ -10,6 +10,11 @@ export interface IThemeConfiguration {
   readonly theme: Theme
 }
 
+export interface ISessionStatistics {
+  readonly newGames: number
+  readonly wonGames: number
+}
+
 export interface IAppState {
   readonly inputMode: InputMode
   readonly dialogStack: readonly Dialog[]
@@ -17,6 +22,7 @@ export interface IAppState {
   readonly theme: Theme
   readonly themePreview: IThemeConfiguration
   readonly highScores: HighScores
+  readonly sessionStatistics: ISessionStatistics
 }
 
 export const DEFAULT_APP_STATE: IAppState = {
@@ -28,6 +34,10 @@ export const DEFAULT_APP_STATE: IAppState = {
   themePreview: {
     primaryColor: PrimaryColor.RED,
     theme: Theme.LIGHT,
+  },
+  sessionStatistics: {
+    newGames: 0,
+    wonGames: 0,
   },
 }
 
