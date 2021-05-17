@@ -40,7 +40,23 @@ export function isTablet(): boolean {
 }
 
 export function terminateApp(): void {
-    callNativeVoidReturningMethod('terminateApp', [], ['terminate'])
+    if (typeof sbrowserAndroidApiBindings.terminateApp === 'function') {
+        try {
+            sbrowserAndroidApiBindings.terminateApp()
+            return
+        } catch (sbrowserApiError) {
+            console.error('SBrowser API.terminateApp: Failed to execute the terminateApp method', sbrowserApiError)
+        }
+    }
+
+    if (sbrowserIOSApiBindings.terminate && (sbrowserIOSApiBindings.terminate as any).postMessage === 'function') {
+        try {
+            (sbrowserIOSApiBindings.terminate as any).postMessage('terminate')
+            return
+        } catch (sbrowserApiError) {
+            console.error(`SBrowser API.terminateApp: Failed to execute the terminate method`, sbrowserApiError)
+        }
+    }
 }
 
 export function gamesPlay(gameId: string): void {
