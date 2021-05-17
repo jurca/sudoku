@@ -25,6 +25,7 @@ import {
   gameEndSelector,
   gameStartSelector,
   inputModeSelector,
+  isGameMatrixEmptySelector,
   isGamePausedSelector,
   isGameWonSelector,
   primaryColorSelector,
@@ -54,6 +55,7 @@ interface IDataProps {
   readonly isWon: boolean
   readonly primaryColor: PrimaryColor
   readonly theme: Theme
+  readonly isGameMatrixEmpty: boolean
 }
 
 interface ICallbackProps {
@@ -125,10 +127,10 @@ export function Main(props: Props) {
 
   return (
     <GameDesk
-      difficulty={props.difficulty}
-      breaks={props.breaks}
-      gameStart={props.gameStart}
-      gameEnd={props.gameEnd}
+      difficulty={props.isGameMatrixEmpty ? null : props.difficulty}
+      breaks={props.isGameMatrixEmpty ? [] : props.breaks}
+      gameStart={props.isGameMatrixEmpty ? null : props.gameStart}
+      gameEnd={props.isGameMatrixEmpty ? null : props.gameEnd}
       onOpenSettings={props.onOpenSettingsDialog}
       onNewGame={props.onOpenNewGameDialog}
       onPause={props.onPause}
@@ -167,6 +169,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     selectedCell: selectedCellSelector,
     theme: themeSelector,
     usedHints: usedHintsSelector,
+    isGameMatrixEmpty: isGameMatrixEmptySelector,
   }),
   {
     onOpenCongratulationsDialog: showDialog.bind(null, {dialog: Dialog.CONGRATULATIONS, stack: false}),

@@ -5,7 +5,7 @@ import {leaveDialog, showDialog} from '../Action'
 import Dialog from '../reusable/Dialog'
 import DialogHostBackground from '../reusable/DialogHost'
 import Drawer from '../reusable/Drawer'
-import {dialogSelector, isNestedDialogSelector} from '../selectors'
+import {dialogSelector, isGameMatrixEmptySelector, isNestedDialogSelector} from '../selectors'
 import {IState} from '../state'
 import Congratulations from './Congratulations'
 import DialogType from './Dialog'
@@ -33,6 +33,7 @@ export interface IDialogProps {
 interface IDataProps {
   readonly dialogType: null | DialogType
   readonly isNestedDialog: boolean
+  readonly isGameMatrixEmpty: boolean
 }
 
 interface ICallbackProps {
@@ -59,6 +60,8 @@ function DialogHost(props: Props) {
     [drawerActionHandler],
   )
 
+  const forceNonCloseable = props.dialogType === DialogType.NEW_GAME && props.isGameMatrixEmpty
+
   return (
     <div className={styles.dialogHost}>
       <DialogHostBackground>
@@ -80,7 +83,7 @@ function DialogHost(props: Props) {
           <Dialog
             title={DialogComponent.title}
             isNested={props.isNestedDialog}
-            nonCloseable={DialogComponent.nonCloseable}
+            nonCloseable={forceNonCloseable || DialogComponent.nonCloseable}
             onClose={props.onLeaveDialog}
           >
             <DialogComponent
@@ -99,6 +102,7 @@ export default connect<IDataProps, ICallbackProps, {}, IState>(
   createStructuredSelector({
     dialogType: dialogSelector,
     isNestedDialog: isNestedDialogSelector,
+    isGameMatrixEmpty: isGameMatrixEmptySelector,
   }),
   {
     onShowDialog(dialog: DialogType, stack: boolean = true) {

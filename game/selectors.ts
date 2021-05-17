@@ -62,6 +62,11 @@ export const isGameWonSelector = createSelector(
   isComplete,
 )
 
+export const isGameMatrixEmptySelector = createSelector(
+  matrixStateSelector,
+  matrixState => matrixState === EMPTY_MATRIX_STATE,
+)
+
 export function createHierarchicalCellMatrix(plainMatrix: SudokuMatrix): HierarchicalMatrix {
   const hierarchicalMatrix: ISudokuMatrixCell[][][][] = [
     [],

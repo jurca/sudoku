@@ -3,6 +3,7 @@ import {
   difficultySelector,
   emptyMatrixSelector,
   gameEndSelector as gameEndGameStateSelector,
+  isGameMatrixEmptySelector as isGameStateMatrixEmptySelector,
   isGameWonSelector as isGameStateWonSelector,
   matrixSelector,
   moveValidationEnabledSelector as gameMoveValidationEnabledSelector,
@@ -108,4 +109,9 @@ export const highScoresSelector = createSelector(
 export const themePreviewSelector = createSelector(
   appStateSelector,
   (appState) => appState.themePreview,
+)
+
+export const isGameMatrixEmptySelector = createSelector(
+  gameStateSelector,
+  isGameStateMatrixEmptySelector,
 )

@@ -1,5 +1,4 @@
 import Difficulty from '../conf/Difficulty'
-import createGame from './gameGenerator'
 
 export interface ISudokuMatrixCellState {
   readonly initialValue: null | number
@@ -176,7 +175,7 @@ export const DEFAULT_STATE: IState = {
     absoluteTimestamp: Date.now(),
     logicalTimestamp: performance.now(),
   },
-  matrix: createGame(Difficulty.MEDIUM),
+  matrix: EMPTY_MATRIX_STATE,
   matrixHistory: [],
   moveValidationEnabled: true,
   notes: EMPTY_MATRIX_NOTES,
