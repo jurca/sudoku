@@ -10,9 +10,12 @@ import HighScoreStorage from './ui/seznam.cz-2021/storage/HighScoreStorage'
 import primaryStorageFactory from './ui/seznam.cz-2021/storage/primaryStorageFactory'
 import SettingsStorage from './ui/seznam.cz-2021/storage/SettingsStorage'
 import storeFactory from './ui/seznam.cz-2021/storeFactory'
+import * as sbrowserApis from './sbrowserGamesApi'
+import {sessionStatisticsSelector} from './ui/seznam.cz-2021/selectors'
 
 const UI_CONTAINER_ID = 'app'
 const STORAGE_KEY_PREFIX = 'io.github.jurca/sudoku/seznam.cz-2021/'
+const GAME_ID = 'sudoku'
 
 addEventListener('DOMContentLoaded', async () => {
   const appRoot = document.getElementById(UI_CONTAINER_ID)
@@ -35,6 +38,11 @@ addEventListener('DOMContentLoaded', async () => {
 
   const settings = await settingsStorage.get()
   store.dispatch(settingsChanged(settings))
+
+  addEventListener('beforeunload', () => {
+    const statistics = sessionStatisticsSelector(store.getState())
+    sbrowserApis.gamesExit(GAME_ID, statistics.newGames, statistics.wonGames)
+  })
 
   render(
     createElement(settingsContext.Provider, {value: settingsStorage},
