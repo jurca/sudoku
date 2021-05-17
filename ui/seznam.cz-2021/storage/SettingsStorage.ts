@@ -1,7 +1,7 @@
 import {objectValues} from '../../../game/util'
 import PrimaryColor from '../theme/PrimaryColor'
 import Theme from '../theme/Theme'
-import IStorage, { ReadOnlySerializable } from './IStorage'
+import IStorage, {ReadOnlySerializable} from './IStorage'
 
 export interface ISettings {
   readonly automaticValidation: boolean
