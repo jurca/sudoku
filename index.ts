@@ -2,7 +2,7 @@ import {createElement} from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 import {setMoveValidation} from './game/Action'
-import {highScoresUpdated, settingsChanged} from './ui/seznam.cz-2021/Action'
+import {highScoresUpdated, settingsChanged, setUserAuthenticationStatus, statisticsUpdated} from './ui/seznam.cz-2021/Action'
 import App from './ui/seznam.cz-2021/App'
 import highScoresContext from './ui/seznam.cz-2021/app/highScoresContext'
 import settingsContext from './ui/seznam.cz-2021/app/settingsContext'
@@ -12,6 +12,7 @@ import SettingsStorage from './ui/seznam.cz-2021/storage/SettingsStorage'
 import storeFactory from './ui/seznam.cz-2021/storeFactory'
 import * as sbrowserApis from './sbrowserGamesApi'
 import {sessionStatisticsSelector} from './ui/seznam.cz-2021/selectors'
+import StatisticsStorage from './ui/seznam.cz-2021/storage/StatisticsStorage'
 
 const UI_CONTAINER_ID = 'app'
 const STORAGE_KEY_PREFIX = 'io.github.jurca/sudoku/seznam.cz-2021/'
@@ -36,8 +37,19 @@ addEventListener('DOMContentLoaded', async () => {
     store.dispatch(highScoresUpdated(newHighScores))
   })
 
+  const statisticsStorage = new StatisticsStorage(storage)
+  store.dispatch(statisticsUpdated({
+    statistics: await statisticsStorage.get(),
+    storage: statisticsStorage,
+  }))
+
   const settings = await settingsStorage.get()
   store.dispatch(settingsChanged(settings))
+
+  try {
+    const isSignedIn = await sbrowserApis.isSignedIn()
+    store.dispatch(setUserAuthenticationStatus(isSignedIn))
+  } catch {}
 
   addEventListener('beforeunload', () => {
     const statistics = sessionStatisticsSelector(store.getState())

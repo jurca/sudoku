@@ -15,6 +15,7 @@ import HighScores from './HighScores'
 import NewGame from './NewGame'
 import Pause from './Pause'
 import Settings from './Settings'
+import SignIn from './SignIn'
 import ThemeChooser from './ThemeChooser'
 import ThemePreview from './ThemePreview'
 
@@ -128,6 +129,8 @@ function getDialog(type: DialogType): React.ComponentType<IDialogProps> & IDialo
       return Pause
     case DialogType.SETTINGS:
       return Settings
+    case DialogType.SIGN_IN:
+      return SignIn
     case DialogType.THEME_CHOOSER:
       return ThemeChooser
     case DialogType.THEME_PREVIEW:

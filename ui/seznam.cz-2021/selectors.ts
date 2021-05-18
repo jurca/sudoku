@@ -116,6 +116,16 @@ export const isGameMatrixEmptySelector = createSelector(
   isGameStateMatrixEmptySelector,
 )
 
+export const statisticsSelector = createSelector(
+  appStateSelector,
+  appState => appState.statistics,
+)
+
+export const startedGamesSelector = createSelector(
+  statisticsSelector,
+  statistics => statistics.gamesStarted,
+)
+
 export const sessionStatisticsSelector = createSelector(
   appStateSelector,
   appState => appState.sessionStatistics,

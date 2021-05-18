@@ -2,6 +2,7 @@ import {DEFAULT_STATE as DEFAULT_GAME_STATE, IState as IGameState} from '../../g
 import {InputMode} from './blocks/InputModeSwitch'
 import Dialog from './dialog/Dialog'
 import {DEFAULT_HIGH_SCORES, HighScores} from './storage/HighScoreStorage'
+import {DEFAULT_STATISTICS, IStatistics} from './storage/StatisticsStorage'
 import PrimaryColor from './theme/PrimaryColor'
 import Theme from './theme/Theme'
 
@@ -22,7 +23,9 @@ export interface IAppState {
   readonly theme: Theme
   readonly themePreview: IThemeConfiguration
   readonly highScores: HighScores
+  readonly statistics: IStatistics
   readonly sessionStatistics: ISessionStatistics
+  readonly isUserAuthenticated: null | boolean
 }
 
 export const DEFAULT_APP_STATE: IAppState = {
@@ -35,10 +38,12 @@ export const DEFAULT_APP_STATE: IAppState = {
     primaryColor: PrimaryColor.RED,
     theme: Theme.LIGHT,
   },
+  statistics: DEFAULT_STATISTICS,
   sessionStatistics: {
     newGames: 0,
     wonGames: 0,
   },
+  isUserAuthenticated: null,
 }
 
 export interface IState {

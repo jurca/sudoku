@@ -39,11 +39,11 @@ export function isTablet(): boolean {
     return false
 }
 
-export function terminateApp(): void {
+export function terminateApp(): boolean {
     if (typeof sbrowserAndroidApiBindings.terminateApp === 'function') {
         try {
             sbrowserAndroidApiBindings.terminateApp()
-            return
+            return true
         } catch (sbrowserApiError) {
             console.error('SBrowser API.terminateApp: Failed to execute the terminateApp method', sbrowserApiError)
         }
@@ -52,11 +52,13 @@ export function terminateApp(): void {
     if (sbrowserIOSApiBindings.terminate && (sbrowserIOSApiBindings.terminate as any).postMessage === 'function') {
         try {
             (sbrowserIOSApiBindings.terminate as any).postMessage('terminate')
-            return
+            return true
         } catch (sbrowserApiError) {
             console.error(`SBrowser API.terminateApp: Failed to execute the terminate method`, sbrowserApiError)
         }
     }
+
+    return false
 }
 
 export function gamesPlay(gameId: string): void {
@@ -71,8 +73,8 @@ export function gamesExit(gameId: string, gamesPlayed: number, gamesWon: number)
     })])
 }
 
-export function openLoginForm(): void {
-    callNativeVoidReturningMethod('openLoginForm')
+export function openLoginForm(): boolean {
+    return callNativeVoidReturningMethod('openLoginForm')
 }
 
 export function isSignedIn(): Promise<boolean> {

@@ -17,22 +17,22 @@ type Props = ICallbackProps & IDialogProps
 function NewGame(props: Props) {
   const onNewEasyGame = React.useMemo(
     () => () => {
-      props.onNewGame(Difficulty.EASY)
       props.onLeaveDialog()
+      props.onNewGame(Difficulty.EASY)
     },
     [props.onNewGame, props.onLeaveDialog],
   )
   const onNewMediumGame = React.useMemo(
     () => () => {
-      props.onNewGame(Difficulty.MEDIUM)
       props.onLeaveDialog()
+      props.onNewGame(Difficulty.MEDIUM)
     },
     [props.onNewGame, props.onLeaveDialog],
   )
   const onNewHardGame = React.useMemo(
     () => () => {
-      props.onNewGame(Difficulty.HARD)
       props.onLeaveDialog()
+      props.onNewGame(Difficulty.HARD)
     },
     [props.onNewGame, props.onLeaveDialog],
   )

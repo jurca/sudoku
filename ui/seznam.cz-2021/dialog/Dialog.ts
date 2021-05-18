@@ -7,6 +7,7 @@ enum Dialog {
   SETTINGS = 'Dialog.SETTINGS',
   THEME_CHOOSER = 'Dialog.THEME_CHOOSER',
   THEME_PREVIEW = 'Dialog.THEME_PREVIEW',
+  SIGN_IN = 'Dialog.SIGN_IN',
 }
 
 export default Dialog
