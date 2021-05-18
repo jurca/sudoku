@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -50,7 +51,10 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
-    })
+    }),
+    new webpack.EnvironmentPlugin([
+      'ENABLE_FILE_SYSTEM_LOCAL_STORAGE',
+    ]),
   ],
 
   performance: {
