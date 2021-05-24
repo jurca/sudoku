@@ -1,7 +1,7 @@
 import {createElement} from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
-import {setMoveValidation} from './game/Action'
+import {setMoveValidation, setNotesCulling} from './game/Action'
 import {highScoresUpdated, settingsChanged, setUserAuthenticationStatus, statisticsUpdated} from './ui/seznam.cz-2021/Action'
 import App from './ui/seznam.cz-2021/App'
 import highScoresContext from './ui/seznam.cz-2021/app/highScoresContext'
@@ -31,6 +31,7 @@ addEventListener('DOMContentLoaded', async () => {
   settingsStorage.addObserver((newSettings) => {
     store.dispatch(settingsChanged(newSettings))
     store.dispatch(setMoveValidation(newSettings.automaticValidation))
+    store.dispatch(setNotesCulling(newSettings.automaticNotesCulling))
   })
   const highScoresStorage = new HighScoreStorage(storage)
   highScoresStorage.addObserver((newHighScores) => {

@@ -19,6 +19,7 @@ export const valuePickerOpenAtSelector = (globalState: IState) => globalState.va
 export const gameEndSelector = (globalState: IState) => globalState.gameEnd
 export const usedHintsSelector = (globalState: IState) => globalState.usedHints
 export const moveValidationEnabledSelector = (globalState: IState) => globalState.moveValidationEnabled
+export const automaticNotesCullingEnabledSelector = (globalState: IState) => globalState.automaticNotesCulling
 
 export const matrixSelector = createSelector(
   matrixStateSelector,

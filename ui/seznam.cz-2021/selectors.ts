@@ -1,5 +1,6 @@
 import {createSelector} from 'reselect'
 import {
+  automaticNotesCullingEnabledSelector,
   difficultySelector,
   emptyMatrixSelector,
   gameEndSelector as gameEndGameStateSelector,
@@ -54,6 +55,11 @@ export const gameEndSelector = createSelector(
 export const moveValidationEnabledSelector = createSelector(
   gameStateSelector,
   gameMoveValidationEnabledSelector,
+)
+
+export const notesCullingEnabledSelector = createSelector(
+  gameStateSelector,
+  automaticNotesCullingEnabledSelector,
 )
 
 export const breaksSelector = createSelector(

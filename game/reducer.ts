@@ -1,7 +1,9 @@
 import createReducer from 'redux-create-fsa-reducer'
 import Difficulty from '../conf/Difficulty'
+import {AppAction} from '../ui/seznam.cz-2021/Action'
+import {ISettings} from '../ui/seznam.cz-2021/storage/SettingsStorage'
 import {Action, IToggleCellValuePayload, ValueEntryMode} from './Action'
-import {checkBoard} from './boardChecker'
+import {checkBoard, cullNotes} from './boardChecker'
 import createGame from './gameGenerator'
 import getDeterministicImmediateHints from './hintGenerator'
 import {
@@ -73,13 +75,14 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
             cellNotes.includes(value) ? cellNotes.filter((otherValue) => otherValue !== value) : cellNotes.concat(value)
           ),
         })
+        const updatedNotes = [
+          ...state.notes.slice(0, cell.row),
+          notesRow as unknown as SudokuMatrixNotesRow,
+          ...state.notes.slice(cell.row + 1),
+        ] as unknown as SudokuMatrixNotes
         return {
           ...state,
-          notes: [
-            ...state.notes.slice(0, cell.row),
-            notesRow as unknown as SudokuMatrixNotesRow,
-            ...state.notes.slice(cell.row + 1),
-          ] as unknown as SudokuMatrixNotes,
+          notes: state.automaticNotesCulling ? cullNotes(state.matrix, updatedNotes) : updatedNotes,
           history: state.history
             .slice(0, historyIndex === -1 ? state.history.length : historyIndex)
             .concat({matrix: state.matrix, notes: state.notes}),
@@ -123,6 +126,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
           ...state,
           gameEnd: isComplete(updatedMatrix) ? performance.now() : state.gameEnd,
           matrix: updatedMatrix,
+          notes: state.automaticNotesCulling ? cullNotes(updatedMatrix, state.notes) : state.notes,
           history: state.history
             .slice(0, historyIndex === -1 ? state.history.length : historyIndex)
             .concat({matrix: state.matrix, notes: state.notes}),
@@ -218,6 +222,14 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     }
   },
 
+  [AppAction.SETTINGS_CHANGED](state: IState, settings: ISettings): IState {
+    return {
+      ...state,
+      moveValidationEnabled: settings.automaticValidation,
+      automaticNotesCulling: settings.automaticNotesCulling,
+    }
+  },
+
   [Action.SET_MOVE_VALIDATION](state: IState, enableValidation: boolean): IState {
     if (enableValidation === state.moveValidationEnabled) {
       return state
@@ -226,6 +238,17 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     return {
       ...state,
       moveValidationEnabled: enableValidation,
+    }
+  },
+
+  [Action.SET_NOTES_CULLING](state: IState, enableCulling: boolean): IState {
+    if (enableCulling === state.automaticNotesCulling) {
+      return state
+    }
+
+    return {
+      ...state,
+      automaticNotesCulling: enableCulling,
     }
   },
 })

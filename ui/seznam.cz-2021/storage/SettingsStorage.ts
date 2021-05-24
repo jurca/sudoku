@@ -5,6 +5,7 @@ import IStorage, {ReadOnlySerializable} from './IStorage'
 
 export interface ISettings {
   readonly automaticValidation: boolean
+  readonly automaticNotesCulling: boolean
   readonly theme: Theme
   readonly primaryColor: PrimaryColor
 }
@@ -14,6 +15,7 @@ export type Observer = (state: ISettings) => void
 const STORAGE_KEY = 'settings'
 
 const DEFAULT_SETTINGS: ISettings = {
+  automaticNotesCulling: true,
   automaticValidation: true,
   primaryColor: PrimaryColor.RED,
   theme: Theme.LIGHT,
@@ -63,6 +65,7 @@ function importSettings(value: ReadOnlySerializable): ISettings {
   return {
     ...DEFAULT_SETTINGS,
     automaticValidation: !!value.automaticValidation,
+    automaticNotesCulling: !!value.automaticNotesCulling,
     primaryColor: importEnumValue(value.primaryColor, primaryColors, DEFAULT_SETTINGS.primaryColor),
     theme: importEnumValue(value.theme, themes, DEFAULT_SETTINGS.theme),
   }

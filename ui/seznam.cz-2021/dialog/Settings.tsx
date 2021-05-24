@@ -6,7 +6,7 @@ import settingsContext from '../app/settingsContext'
 import SettingsListItem from '../blocks/SettingsListItem'
 import Icon, { IconType } from '../reusable/Icon'
 import Switch from '../reusable/Switch'
-import {moveValidationEnabledSelector} from '../selectors'
+import {moveValidationEnabledSelector, notesCullingEnabledSelector} from '../selectors'
 import {IState} from '../state'
 import Dialog from './Dialog'
 import {IDialogProps} from './DialogHost'
@@ -14,6 +14,7 @@ import styles from './settings.css'
 
 interface IDataProps {
   readonly moveValidationEnabled: boolean
+  readonly notesCullingEnabled: boolean
 }
 
 interface ICallbackProps {
@@ -43,6 +44,18 @@ function Settings(props: Props) {
         return settingsStorage.set({
           ...settings,
           automaticValidation: event.target.checked,
+        })
+      }
+    },
+    [settingsStorage],
+  )
+  const onSetNotesCulling = React.useMemo(
+    () => async (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (settingsStorage) {
+        const settings = await settingsStorage.get()
+        return settingsStorage.set({
+          ...settings,
+          automaticNotesCulling: event.target.checked,
         })
       }
     },
@@ -85,6 +98,16 @@ function Settings(props: Props) {
           }
         />
       </label>
+      <label className={styles.item}>
+        <SettingsListItem
+          leftContent="Automatická aktualizace poznámek"
+          rightContent={
+            <span className={styles.switch}>
+              <Switch name="notesUpdates" defaultChecked={props.notesCullingEnabled} onChange={onSetNotesCulling}/>
+            </span>
+          }
+        />
+      </label>
       <div className={styles.item} onClick={onShowGuide} tabIndex={0}>
         <SettingsListItem leftContent="Jak hrát sudoku"/>
       </div>
@@ -95,6 +118,7 @@ function Settings(props: Props) {
 export default Object.assign(connect<IDataProps, ICallbackProps, IDialogProps, IState>(
   createStructuredSelector({
     moveValidationEnabled: moveValidationEnabledSelector,
+    notesCullingEnabled: notesCullingEnabledSelector,
   }),
   {
     onCloseDialogs: closeDialogs,

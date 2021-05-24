@@ -1,4 +1,4 @@
-import {ISudokuMatrixCellState, SudokuMatrixState} from './state'
+import {ISudokuMatrixCellState, SudokuMatrixNotes, SudokuMatrixState} from './state'
 
 export function checkBoard(matrix: SudokuMatrixState): boolean {
   for (let row = 0; row < matrix.length; row++) {
@@ -11,6 +11,15 @@ export function checkBoard(matrix: SudokuMatrixState): boolean {
   }
 
   return true
+}
+
+export function cullNotes(matrix: SudokuMatrixState, notes: SudokuMatrixNotes): SudokuMatrixNotes {
+  return notes.map((row, rowIndex) => row.map((cell, cellIndex) => {
+    return {
+      ...cell,
+      userMarkedOptions: cell.userMarkedOptions.filter(value => isCellValueAllowed(matrix, rowIndex, cellIndex, value)),
+    }
+  })) as unknown as SudokuMatrixNotes
 }
 
 export function isCellValueAllowed(

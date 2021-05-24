@@ -112,6 +112,7 @@ export interface IState {
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
   readonly valuePickerOpenAt: null | IMatrixCoordinates
   readonly moveValidationEnabled: boolean
+  readonly automaticNotesCulling: boolean
   readonly usedHints: boolean
 }
 
@@ -173,6 +174,7 @@ export const EMPTY_MATRIX_NOTES: SudokuMatrixNotes = [
 ]
 
 export const DEFAULT_STATE: IState = {
+  automaticNotesCulling: true,
   breaks: [],
   difficulty: Difficulty.MEDIUM,
   gameEnd: null,
