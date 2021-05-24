@@ -29,8 +29,8 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
         absoluteTimestamp: Date.now(),
         logicalTimestamp: performance.now(),
       },
+      history: [],
       matrix,
-      matrixHistory: [],
       notes: DEFAULT_STATE.notes,
       usedHints: false,
       valuePickerOpenAt: null,
@@ -55,6 +55,10 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
       return state
     }
 
+    const historyIndex = state.history.findIndex(
+      entry => entry.matrix === state.matrix && entry.notes === state.notes,
+    )
+
     switch (mode) {
       case ValueEntryMode.MAKE_NOTE:
         if (!value) {
@@ -76,6 +80,9 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
             notesRow as unknown as SudokuMatrixNotesRow,
             ...state.notes.slice(cell.row + 1),
           ] as unknown as SudokuMatrixNotes,
+          history: state.history
+            .slice(0, historyIndex === -1 ? state.history.length : historyIndex)
+            .concat({matrix: state.matrix, notes: state.notes}),
         }
       case ValueEntryMode.SET_VALUE:
         const row = state.matrix[cell.row].slice()
@@ -112,14 +119,13 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
           return state
         }
 
-        const historyIndex = state.matrixHistory.indexOf(state.matrix)
         return {
           ...state,
           gameEnd: isComplete(updatedMatrix) ? performance.now() : state.gameEnd,
           matrix: updatedMatrix,
-          matrixHistory: state.matrixHistory
-            .slice(0, historyIndex === -1 ? state.matrixHistory.length : historyIndex)
-            .concat([state.matrix]),
+          history: state.history
+            .slice(0, historyIndex === -1 ? state.history.length : historyIndex)
+            .concat({matrix: state.matrix, notes: state.notes}),
         }
       default:
         throw new Error(`Unknown entry mode: ${mode}`)
@@ -127,15 +133,16 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
   },
 
   [Action.UNDO](state: IState): IState {
-    const history = state.matrixHistory
-    const historyIndex = history.indexOf(state.matrix)
-    if (!state.matrixHistory.length || historyIndex === 0 || isComplete(state.matrix)) {
+    const {history} = state
+    const historyIndex = history.findIndex(entry => entry.matrix === state.matrix && entry.notes === state.notes)
+    if (!state.history.length || historyIndex === 0 || isComplete(state.matrix)) {
       return state
     }
 
     return {
       ...state,
-      matrix: history[(historyIndex === -1 ? history.length : historyIndex) - 1],
+      matrix: history[(historyIndex === -1 ? history.length : historyIndex) - 1].matrix,
+      notes: history[(historyIndex === -1 ? history.length : historyIndex) - 1].notes,
     }
   },
 

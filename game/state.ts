@@ -94,6 +94,11 @@ export interface IEndedGamePlayBreak extends IStartedGamePlayBreak {
   readonly endLogicalTimestamp: number
 }
 
+export interface IHistoryEntry {
+  readonly matrix: SudokuMatrixState
+  readonly notes: SudokuMatrixNotes
+}
+
 export interface IState {
   readonly difficulty: Difficulty
   readonly gameStart: {
@@ -102,8 +107,8 @@ export interface IState {
   }
   readonly gameEnd: null | number
   readonly matrix: SudokuMatrixState
-  readonly matrixHistory: readonly SudokuMatrixState[]
   readonly notes: SudokuMatrixNotes
+  readonly history: readonly IHistoryEntry[]
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
   readonly valuePickerOpenAt: null | IMatrixCoordinates
   readonly moveValidationEnabled: boolean
@@ -175,8 +180,8 @@ export const DEFAULT_STATE: IState = {
     absoluteTimestamp: Date.now(),
     logicalTimestamp: performance.now(),
   },
+  history: [],
   matrix: EMPTY_MATRIX_STATE,
-  matrixHistory: [],
   moveValidationEnabled: true,
   notes: EMPTY_MATRIX_NOTES,
   usedHints: false,
