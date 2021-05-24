@@ -27,6 +27,7 @@ export interface IDialog {
 
 export interface IDialogProps {
   readonly drawerActionHandler: React.RefObject<() => void>
+  readonly headerCloseHandler: React.RefObject<() => void>
   onShowDialog(dialog: DialogType, stack?: boolean): void
   onLeaveDialog(): void
 }
@@ -60,6 +61,16 @@ function DialogHost(props: Props) {
     },
     [drawerActionHandler],
   )
+  const headerCloseHandler = React.useRef<() => void>(null)
+  const onCloseDialogFromHeader = React.useMemo(
+    () => () => {
+      if (headerCloseHandler.current) {
+        headerCloseHandler.current()
+      }
+      props.onLeaveDialog()
+    },
+    [headerCloseHandler, props.onLeaveDialog],
+  )
 
   const forceNonCloseable = props.dialogType === DialogType.NEW_GAME && props.isGameMatrixEmpty
 
@@ -72,10 +83,11 @@ function DialogHost(props: Props) {
             isNested={props.isNestedDialog}
             actionLabel={drawerActionLabel}
             onAction={onDrawerAction}
-            onClose={props.onLeaveDialog}
+            onClose={onCloseDialogFromHeader}
           >
             <DialogComponent
               drawerActionHandler={drawerActionHandler}
+              headerCloseHandler={headerCloseHandler}
               onShowDialog={props.onShowDialog}
               onLeaveDialog={props.onLeaveDialog}
             />
@@ -85,10 +97,11 @@ function DialogHost(props: Props) {
             title={DialogComponent.title}
             isNested={props.isNestedDialog}
             nonCloseable={forceNonCloseable || DialogComponent.nonCloseable}
-            onClose={props.onLeaveDialog}
+            onClose={onCloseDialogFromHeader}
           >
             <DialogComponent
               drawerActionHandler={drawerActionHandler}
+              headerCloseHandler={headerCloseHandler}
               onShowDialog={props.onShowDialog}
               onLeaveDialog={props.onLeaveDialog}
             />

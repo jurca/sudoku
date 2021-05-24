@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {connect} from 'react-redux'
 import Difficulty from '../../../conf/Difficulty'
-import {newGame} from '../../../game/Action'
+import {newGame, resume} from '../../../game/Action'
 import PrimaryActionButton from '../reusable/PrimaryActionButton'
 import {IState} from '../state'
 import {IDialogProps} from './DialogHost'
@@ -10,6 +10,7 @@ import styles from './newGame.css'
 
 interface ICallbackProps {
   onNewGame(difficulty: Difficulty): void
+  onResume(): void
 }
 
 type Props = ICallbackProps & IDialogProps
@@ -36,6 +37,10 @@ function NewGame(props: Props) {
     },
     [props.onNewGame, props.onLeaveDialog],
   )
+
+  React.useEffect(() => {
+    Object.assign(props.headerCloseHandler, {current: props.onResume})
+  }, [props.headerCloseHandler, props.onResume])
 
   return (
     <div className={styles.dialog}>
@@ -64,6 +69,7 @@ export default connect<{}, ICallbackProps, IDialogProps, IState>(
   null,
   {
     onNewGame: newGame,
+    onResume: resume,
   },
 )(
   NewGame,

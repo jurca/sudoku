@@ -105,6 +105,14 @@ export function Main(props: Props) {
     [props.onSetSelectedCell],
   )
 
+  const onOpenNewGameDialog = React.useMemo(
+    () => () => {
+      props.onPause()
+      props.onOpenNewGameDialog()
+    },
+    [props.onOpenNewGameDialog, props.onPause],
+  )
+
   React.useEffect(() => {
     if (props.isPaused && !props.currentDialog) {
       props.onOpenPauseDialog()
@@ -134,7 +142,7 @@ export function Main(props: Props) {
       gameStart={props.isGameMatrixEmpty ? null : props.gameStart}
       gameEnd={props.isGameMatrixEmpty ? null : props.gameEnd}
       onOpenSettings={props.onOpenSettingsDialog}
-      onNewGame={props.onOpenNewGameDialog}
+      onNewGame={onOpenNewGameDialog}
       onPause={props.onPause}
       onUndo={props.onUndo}
       onHelp={props.onOpenHelpDialog}
