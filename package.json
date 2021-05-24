@@ -4,7 +4,7 @@
   "description": "Sudoku game with UI providing hints and notes, based on the Sudoku.js library.",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development webpack serve --host ::",
+    "dev": "NODE_ENV=development ENABLE_FILE_SYSTEM_LOCAL_STORAGE= webpack serve --host ::",
     "build": "rm -rf dist/ && NODE_ENV=production webpack && cd dist && posthtml index.html --use posthtml-inline-assets posthtml-minifier --posthtml-minifier.collapseWhitespace true --output sudoku.html && rm main.js main.js.LICENSE.txt index.html",
     "test": "tslint --project . "
   },
