@@ -53,7 +53,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     state: IState,
     {cell, mode, value}: IToggleCellValuePayload,
   ): IState {
-    if (isComplete(state.matrix)) {
+    if (isComplete(state.matrix) || state.matrix[cell.row][cell.column].initialValue) {
       return state
     }
 
