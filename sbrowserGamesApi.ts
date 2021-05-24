@@ -49,7 +49,10 @@ export function terminateApp(): boolean {
         }
     }
 
-    if (sbrowserIOSApiBindings.terminate && (sbrowserIOSApiBindings.terminate as any).postMessage === 'function') {
+    if (
+        sbrowserIOSApiBindings.terminate &&
+        typeof (sbrowserIOSApiBindings.terminate as any).postMessage === 'function'
+    ) {
         try {
             (sbrowserIOSApiBindings.terminate as any).postMessage('terminate')
             return true
@@ -89,11 +92,9 @@ export function isSignedIn(): Promise<boolean> {
                 reject(sbrowserApiError)
                 return
             }
-        }
-
-        if (
+        } else if (
             sbrowserIOSApiBindings.isSignedIn &&
-            (sbrowserIOSApiBindings.isSignedIn as any).postMessage === 'function'
+            typeof (sbrowserIOSApiBindings.isSignedIn as any).postMessage === 'function'
         ) {
             try {
                 window.sbrowser = window.sbrowser || {}
@@ -110,9 +111,9 @@ export function isSignedIn(): Promise<boolean> {
                 reject(sbrowserApiError)
                 return
             }
+        } else {
+            reject(new Error('No supported native SBrowser API is available'))
         }
-
-        reject(new Error('No supported native SBrowser API is available'))
     })
 }
 
@@ -130,7 +131,10 @@ function callNativeVoidReturningMethod(
         }
     }
 
-    if (sbrowserIOSApiBindings[methodName] && (sbrowserIOSApiBindings[methodName] as any).postMessage === 'function') {
+    if (
+        sbrowserIOSApiBindings[methodName] &&
+        typeof (sbrowserIOSApiBindings[methodName] as any).postMessage === 'function'
+    ) {
         try {
             (sbrowserIOSApiBindings[methodName] as any).postMessage(...iosArguments)
             return true
