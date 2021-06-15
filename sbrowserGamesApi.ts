@@ -40,28 +40,10 @@ export function isTablet(): boolean {
 }
 
 export function terminateApp(): boolean {
-    if (typeof sbrowserAndroidApiBindings.terminateApp === 'function') {
-        try {
-            sbrowserAndroidApiBindings.terminateApp()
-            return true
-        } catch (sbrowserApiError) {
-            console.error('SBrowser API.terminateApp: Failed to execute the terminateApp method', sbrowserApiError)
-        }
-    }
-
-    if (
-        sbrowserIOSApiBindings.terminate &&
-        typeof (sbrowserIOSApiBindings.terminate as any).postMessage === 'function'
-    ) {
-        try {
-            (sbrowserIOSApiBindings.terminate as any).postMessage('terminate')
-            return true
-        } catch (sbrowserApiError) {
-            console.error(`SBrowser API.terminateApp: Failed to execute the terminate method`, sbrowserApiError)
-        }
-    }
-
-    return false
+    return (
+        callNativeVoidReturningMethod('terminateApp') ||
+        callNativeVoidReturningMethod('terminate', [], ['terminate'])
+    )
 }
 
 export function gamesPlay(gameId: string): void {
@@ -77,7 +59,7 @@ export function gamesExit(gameId: string, gamesPlayed: number, gamesWon: number)
 }
 
 export function openLoginForm(): boolean {
-    return callNativeVoidReturningMethod('openLoginForm')
+    return callNativeVoidReturningMethod('openLoginForm', [], [''])
 }
 
 export function isSignedIn(): Promise<boolean> {
@@ -104,7 +86,7 @@ export function isSignedIn(): Promise<boolean> {
                         delete window.sbrowser.isSignedIn
                     }
                 }
-                ;(sbrowserIOSApiBindings.isSignedIn as any).postMessage()
+                ;(sbrowserIOSApiBindings.isSignedIn as any).postMessage('')
                 return
             } catch (sbrowserApiError) {
                 console.error('SBrowser API.isSignedIn: Failed to execute the isSignedIn method', sbrowserApiError)
