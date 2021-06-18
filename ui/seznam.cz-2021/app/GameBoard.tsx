@@ -13,6 +13,7 @@ interface IProps {
   readonly selectedCell: null | IMatrixCoordinates
   readonly inputModeSwitchName: string
   readonly inputMode: InputMode
+  readonly usedUpValues: readonly number[]
   readonly uniqueClassName: string
   readonly primaryColor: PrimaryColor
   readonly theme: Theme
@@ -82,6 +83,7 @@ export default function GameBoard(props: IProps) {
           selectedCell={selectedCellObject}
           inputMode={props.inputMode}
           inputModeSwitchName={props.inputModeSwitchName}
+          usedUpValues={props.usedUpValues}
           onInputModeChange={onInputModeChange}
           onCellAction={onCellAction}
           onInput={onInput}

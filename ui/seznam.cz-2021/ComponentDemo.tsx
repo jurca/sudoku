@@ -374,7 +374,7 @@ export default function ComponentDemo() {
         id="input-keyboard"
         style={{boxSizing: 'border-box', width: '100%', maxWidth: 440, color: '#4c411f'}}
       >
-        <InputKeyboard onAction={NOOP}/>
+        <InputKeyboard usedUpValues={[3, 7]} onAction={NOOP}/>
         <style>{`
           #input-keyboard .game-board-cell {
             color: #f5dcdc;
@@ -419,6 +419,7 @@ export default function ComponentDemo() {
           selectedCell={getDemoGame()[1][0][1][2]}
           inputMode={InputMode.INPUT}
           inputModeSwitchName="gameBoardInputModeSwitch"
+          usedUpValues={[4]}
           onCellAction={NOOP}
           onInput={NOOP}
           onInputModeChange={NOOP}

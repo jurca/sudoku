@@ -10,6 +10,7 @@ import IconHelp from './icon/help.svg'
 import IconNotepad from './icon/notepad.svg'
 import IconNumeral from './icon/numeral.svg'
 import IconPause from './icon/pause.svg'
+import IconTick from './icon/tick.svg'
 import IconUndo from './icon/undo.svg'
 
 interface IProps {
@@ -38,6 +39,8 @@ export default function Icon({icon}: IProps) {
       return <IconNumeral className={styles.icon}/>
     case IconType.PAUSE:
       return <IconPause className={styles.icon}/>
+    case IconType.TICK:
+      return <IconTick className={styles.icon}/>
     case IconType.UNDO:
       return <IconUndo className={styles.icon}/>
     default:
@@ -56,5 +59,6 @@ export enum IconType {
   NOTEPAD = 'IconType.NOTEPAD',
   NUMERAL = 'IconType.NUMERAL',
   PAUSE = 'IconType.PAUSE',
+  TICK = 'IconType.TICK',
   UNDO = 'IconType.UNDO',
 }

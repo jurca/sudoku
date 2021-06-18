@@ -13,6 +13,7 @@ interface IProps {
 }
 
 const NOOP = () => undefined
+const EMPTY_NUMBERS_ARRAY: readonly number[] = []
 
 const EMPTY_CELL: ISudokuMatrixCell = {
   initialValue: null,
@@ -62,7 +63,7 @@ export default function GameBoardPreview(props: IProps) {
         </div>
       </div>
       <div className={styles.keyboard}>
-        <InputKeyboard onAction={NOOP}/>
+        <InputKeyboard usedUpValues={EMPTY_NUMBERS_ARRAY} onAction={NOOP}/>
       </div>
     </div>
   )

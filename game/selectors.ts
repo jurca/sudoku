@@ -58,6 +58,23 @@ export const hierarchicalCellsSelector = createSelector(
   createHierarchicalCellMatrix,
 )
 
+export const usedUpValuesSelector = createSelector(
+  matrixStateSelector,
+  (matrix) => Array.from(
+    matrix
+      .flat(2)
+      .reduce((valuesHistogram, cell) => {
+        if (cell.value) {
+          valuesHistogram.set(cell.value, (valuesHistogram.get(cell.value) || 0) + 1)
+        }
+        return valuesHistogram
+      }, new Map<number, number>())
+      .entries(),
+    )
+    .filter(valueOccurrences => valueOccurrences[1] === 9)
+    .map(valueOccurrences => valueOccurrences[0])
+)
+
 export const isGameWonSelector = createSelector(
   matrixStateSelector,
   isComplete,

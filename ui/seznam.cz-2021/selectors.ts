@@ -9,6 +9,7 @@ import {
   matrixSelector,
   moveValidationEnabledSelector as gameMoveValidationEnabledSelector,
   usedHintsSelector as usedMoveHintsSelector,
+  usedUpValuesSelector as usedUpValuesGameSelector,
   valuePickerOpenAtSelector,
 } from '../../game/selectors'
 import {lastItem} from '../../game/util'
@@ -80,6 +81,11 @@ export const gameBoardStateSelector = createSelector(
   emptyMatrixSelector,
   isGamePausedSelector,
   (matrixState, emptyMatrix, isPaused) => isPaused ? emptyMatrix : matrixState,
+)
+
+export const usedUpValuesSelector = createSelector(
+  gameStateSelector,
+  usedUpValuesGameSelector,
 )
 
 export const isGameWonSelector = createSelector(

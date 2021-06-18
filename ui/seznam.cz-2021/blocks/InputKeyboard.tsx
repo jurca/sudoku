@@ -1,5 +1,6 @@
 import classnames from 'classnames'
 import * as React from 'react'
+import {IconType} from '../reusable/Icon'
 import GameBoardCell from './GameBoardCell'
 import styles from './inputKeyboard.css'
 
@@ -12,6 +13,7 @@ export enum CssClassNames {
 export const KEY_VALUE_ATTRIBUTE = 'data-key'
 
 interface IProps {
+  readonly usedUpValues: readonly number[]
   onAction(pressedKey: number): void
 }
 
@@ -51,7 +53,7 @@ export default function InputKeyboard(props: IProps) {
             <React.Fragment key={keyIndex}>
               <div className={classnames(CssClassNames.KEY, styles.key)} {...{[KEY_VALUE_ATTRIBUTE]: key}}>
                 <GameBoardCell onAction={onKeyAction}>
-                  {`${key}`}
+                  {props.usedUpValues.includes(key) ? IconType.TICK : `${key}`}
                 </GameBoardCell>
               </div>
               {keyIndex < keys.length - 1 &&

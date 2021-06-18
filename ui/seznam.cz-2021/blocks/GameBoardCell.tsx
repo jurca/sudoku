@@ -15,7 +15,7 @@ export enum CssClassNames {
 }
 
 interface IProps {
-  className?: string
+  readonly className?: string
   readonly children?: null | IMatrix3x3 | IconType | string
   onAction(): void
 }

@@ -22,6 +22,7 @@ interface IProps {
   readonly selectedCell: null | ISudokuMatrixCell
   readonly inputModeSwitchName: string
   readonly inputMode: InputMode
+  readonly usedUpValues: readonly number[]
   onCellAction(cell: ISudokuMatrixCell): void
   onInput(pressedKey: number): void
   onInputModeChange(currentMode: InputMode): void
@@ -85,7 +86,7 @@ export default function GameBoard(props: IProps) {
         </div>
       </div>
       <div className={styles.keyboard}>
-        <InputKeyboard onAction={props.onInput}/>
+        <InputKeyboard usedUpValues={props.usedUpValues} onAction={props.onInput}/>
       </div>
       <div className={styles.switch}>
         <InputModeSwitch

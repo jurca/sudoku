@@ -32,6 +32,7 @@ import {
   selectedCellSelector,
   themeSelector,
   usedHintsSelector,
+  usedUpValuesSelector,
 } from '../selectors'
 import {IState} from '../state'
 import PrimaryColor from '../theme/PrimaryColor'
@@ -42,6 +43,7 @@ import highScoresContext from './highScoresContext'
 interface IDataProps {
   readonly gameState: SudokuMatrix
   readonly inputMode: InputMode
+  readonly usedUpValues: readonly number[]
   readonly selectedCell: null | IMatrixCoordinates
   readonly difficulty: null | Difficulty
   readonly gameStart: null | {
@@ -153,6 +155,7 @@ export function Main(props: Props) {
         selectedCell={props.selectedCell}
         inputMode={props.inputMode}
         inputModeSwitchName={props.inputModeSwitchName}
+        usedUpValues={props.usedUpValues}
         primaryColor={props.primaryColor}
         theme={props.theme}
         uniqueClassName={props.themeStyleNameSpacingClassName}
@@ -173,6 +176,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     gameStart: gameStartSelector,
     gameState: gameBoardStateSelector,
     inputMode: inputModeSelector,
+    usedUpValues: usedUpValuesSelector,
     isPaused: isGamePausedSelector,
     isWon: isGameWonSelector,
     primaryColor: primaryColorSelector,
