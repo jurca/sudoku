@@ -17,6 +17,7 @@ import StatisticsStorage from './ui/seznam.cz-2021/storage/StatisticsStorage'
 const UI_CONTAINER_ID = 'app'
 const STORAGE_KEY_PREFIX = 'io.github.jurca/sudoku/seznam.cz-2021/'
 const GAME_ID = 'sudoku'
+const USER_SIGNED_IN_CHECK_TIMEOUT = 1_000 // 1 second
 
 addEventListener('DOMContentLoaded', async () => {
   const appRoot = document.getElementById(UI_CONTAINER_ID)
@@ -48,7 +49,12 @@ addEventListener('DOMContentLoaded', async () => {
   store.dispatch(settingsChanged(settings))
 
   try {
-    const isSignedIn = await sbrowserApis.isSignedIn()
+    const isSignedIn = await Promise.race([
+      sbrowserApis.isSignedIn(),
+      new Promise<never>(
+        (_, reject) => setTimeout(reject, USER_SIGNED_IN_CHECK_TIMEOUT, new Error('Sign-in check timed out')),
+      ),
+    ])
     store.dispatch(setUserAuthenticationStatus(isSignedIn))
   } catch {}
 
