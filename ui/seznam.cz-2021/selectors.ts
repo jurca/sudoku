@@ -6,6 +6,7 @@ import {
   gameEndSelector as gameEndGameStateSelector,
   isGameMatrixEmptySelector as isGameStateMatrixEmptySelector,
   isGameWonSelector as isGameStateWonSelector,
+  lastConflictingValueSelector as lastConflictingValueGameSelector,
   matrixSelector,
   moveValidationEnabledSelector as gameMoveValidationEnabledSelector,
   usedHintsSelector as usedMoveHintsSelector,
@@ -101,6 +102,11 @@ export const selectedCellSelector = createSelector(
 export const usedHintsSelector = createSelector(
   gameStateSelector,
   usedMoveHintsSelector,
+)
+
+export const lastConflictingValueSelector = createSelector(
+  gameStateSelector,
+  lastConflictingValueGameSelector,
 )
 
 export const dialogSelector = createSelector(

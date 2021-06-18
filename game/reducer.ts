@@ -3,7 +3,7 @@ import Difficulty from '../conf/Difficulty'
 import {AppAction} from '../ui/seznam.cz-2021/Action'
 import {ISettings} from '../ui/seznam.cz-2021/storage/SettingsStorage'
 import {Action, IToggleCellValuePayload, ValueEntryMode} from './Action'
-import {checkBoard, cullNotes} from './boardChecker'
+import {checkBoard, cullNotes, isCellValueAllowed} from './boardChecker'
 import createGame from './gameGenerator'
 import getDeterministicImmediateHints from './hintGenerator'
 import {
@@ -46,6 +46,7 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     return {
       ...state,
       valuePickerOpenAt: valuePickerCoordinates,
+      lastConflictingValue: null,
     }
   },
 
@@ -65,6 +66,13 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
       case ValueEntryMode.MAKE_NOTE:
         if (!value) {
           return state
+        }
+
+        if (state.automaticNotesCulling && !isCellValueAllowed(state.matrix, cell.row, cell.column, value)) {
+          return {
+            ...state,
+            lastConflictingValue: value,
+          }
         }
 
         const notesRow = state.notes[cell.row].slice()
@@ -119,7 +127,10 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
           ...state.matrix.slice(cell.row + 1),
         ] as unknown as SudokuMatrixState
         if (state.moveValidationEnabled && !checkBoard(updatedMatrix)) {
-          return state
+          return {
+            ...state,
+            lastConflictingValue: value,
+          }
         }
 
         return {
@@ -249,6 +260,13 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     return {
       ...state,
       automaticNotesCulling: enableCulling,
+    }
+  },
+
+  [Action.CLEAR_LAST_CONFLICTING_VALUE](state: IState): IState {
+    return {
+      ...state,
+      lastConflictingValue: null,
     }
   },
 })

@@ -114,6 +114,7 @@ export interface IState {
   readonly moveValidationEnabled: boolean
   readonly automaticNotesCulling: boolean
   readonly usedHints: boolean
+  readonly lastConflictingValue: null | number
 }
 
 const emptyCell: ISudokuMatrixCellState = {
@@ -183,6 +184,7 @@ export const DEFAULT_STATE: IState = {
     logicalTimestamp: performance.now(),
   },
   history: [],
+  lastConflictingValue: null,
   matrix: EMPTY_MATRIX_STATE,
   moveValidationEnabled: true,
   notes: EMPTY_MATRIX_NOTES,

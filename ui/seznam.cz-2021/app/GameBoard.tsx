@@ -6,6 +6,7 @@ import {InputMode} from '../blocks/InputModeSwitch'
 import GameBoardTheme from '../theme/GameBoardTheme'
 import PrimaryColor from '../theme/PrimaryColor'
 import {
+  CONFLICTING_VALUE_ATTRIBUTE,
   INPUT_MODE_ATTRIBUTE,
   NOTED_VALUES_ATTRIBUTE,
   SELECTED_VALUE_ATTRIBUTE,
@@ -18,6 +19,7 @@ interface IProps {
   readonly inputModeSwitchName: string
   readonly inputMode: InputMode
   readonly usedUpValues: readonly number[]
+  readonly lastConflictingValue: null | number
   readonly uniqueClassName: string
   readonly uniqueAnimationNamespace: string
   readonly primaryColor: PrimaryColor
@@ -73,6 +75,9 @@ export default function GameBoard(props: IProps) {
 
   const stateAttributes = {
     [INPUT_MODE_ATTRIBUTE]: props.inputMode,
+    ...(selectedCellObject && {
+      [CONFLICTING_VALUE_ATTRIBUTE]: props.lastConflictingValue,
+    }),
     ...(selectedCellObject && selectedCellObject.value && {
       [SELECTED_VALUE_ATTRIBUTE]: selectedCellObject.value,
     }),

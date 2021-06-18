@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import Difficulty from '../../../conf/Difficulty'
 import {
+  clearLastConflictingValue,
   pause,
   revealAllImmediateHints,
   showValuePicker,
@@ -28,6 +29,7 @@ import {
   isGameMatrixEmptySelector,
   isGamePausedSelector,
   isGameWonSelector,
+  lastConflictingValueSelector,
   primaryColorSelector,
   selectedCellSelector,
   themeSelector,
@@ -52,6 +54,7 @@ interface IDataProps {
   readonly breaks: readonly [] | readonly [IStartedGamePlayBreak | IEndedGamePlayBreak, ...IEndedGamePlayBreak[]]
   readonly gameEnd: null | number
   readonly usedHints: boolean
+  readonly lastConflictingValue: null | number
   readonly isPaused: boolean
   readonly currentDialog: null | Dialog
   readonly isWon: boolean
@@ -72,6 +75,7 @@ interface ICallbackProps {
   onOpenCongratulationsDialog(): void
   onSetSelectedCell(cell: null | IMatrixCoordinates): void
   onGameWon(): void
+  onClearLastConflictingValue(): void
 }
 
 interface IExternalProps {
@@ -84,14 +88,27 @@ interface IExternalProps {
 type Props = IDataProps & ICallbackProps & IExternalProps
 
 export function Main(props: Props) {
+  const pendingCellUpdate = React.useRef<null | [IMatrixCoordinates, null | number, InputMode]>(null)
+
   const onToggleCellValue = React.useMemo(
     () => (cell: IMatrixCoordinates, value: null | number, mode: InputMode) => {
+      pendingCellUpdate.current = null
       switch (mode) {
         case InputMode.INPUT:
-          props.onToggleCellValue({cell, value, mode: ValueEntryMode.SET_VALUE})
+          if (props.lastConflictingValue === value) {
+            pendingCellUpdate.current = [cell, value, mode]
+            props.onClearLastConflictingValue()
+          } else {
+            props.onToggleCellValue({cell, value, mode: ValueEntryMode.SET_VALUE})
+          }
           break
         case InputMode.NOTES:
-          props.onToggleCellValue({cell, value, mode: ValueEntryMode.MAKE_NOTE})
+          if (props.lastConflictingValue === value) {
+            pendingCellUpdate.current = [cell, value, mode]
+            props.onClearLastConflictingValue()
+          } else {
+            props.onToggleCellValue({cell, value, mode: ValueEntryMode.MAKE_NOTE})
+          }
           break
         case InputMode.ERASE:
           props.onToggleCellValue({cell, value: 0, mode: ValueEntryMode.SET_VALUE})
@@ -100,11 +117,20 @@ export function Main(props: Props) {
           throw new Error(`Unknown input mode: ${mode}`)
       }
     },
-    [props.onToggleCellValue],
+    [props.lastConflictingValue, props.onClearLastConflictingValue, props.onToggleCellValue],
   )
 
+  React.useEffect(() => {
+    if (pendingCellUpdate.current) {
+      onToggleCellValue(...pendingCellUpdate.current)
+    }
+  })
+
   const onClearSelectedCell = React.useMemo(
-    () => props.onSetSelectedCell.bind(null, null),
+    () => () => {
+      pendingCellUpdate.current = null
+      props.onSetSelectedCell(null)
+    },
     [props.onSetSelectedCell],
   )
 
@@ -157,6 +183,7 @@ export function Main(props: Props) {
         inputMode={props.inputMode}
         inputModeSwitchName={props.inputModeSwitchName}
         usedUpValues={props.usedUpValues}
+        lastConflictingValue={props.lastConflictingValue}
         primaryColor={props.primaryColor}
         theme={props.theme}
         uniqueClassName={props.themeStyleNameSpacingClassName}
@@ -178,6 +205,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     gameStart: gameStartSelector,
     gameState: gameBoardStateSelector,
     inputMode: inputModeSelector,
+    lastConflictingValue: lastConflictingValueSelector,
     usedUpValues: usedUpValuesSelector,
     isPaused: isGamePausedSelector,
     isWon: isGameWonSelector,
@@ -199,6 +227,7 @@ export default connect<IDataProps, ICallbackProps, IExternalProps, IState>(
     onToggleCellValue: toggleCellValue,
     onUndo: undo,
     onGameWon: gameWon,
+    onClearLastConflictingValue: clearLastConflictingValue,
   },
 )(
   Main,

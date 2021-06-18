@@ -14,6 +14,8 @@ export enum CssClassNames {
   CONTENT = 'game-board-cell__content',
 }
 
+export const VALUE_ATTRIBUTE = 'data-value'
+
 interface IProps {
   readonly className?: string
   readonly children?: null | IMatrix3x3 | IconType | string
@@ -21,8 +23,17 @@ interface IProps {
 }
 
 export default function GameBoardCell({className, children: content, onAction}: IProps) {
+  const dataAttributes = {
+    ...(typeof content === 'string' ? {
+      [VALUE_ATTRIBUTE]: content,
+    } : {})
+  }
   return (
-    <button className={classnames(CssClassNames.ROOT, styles.gameBoardCell, className)} onClick={onAction}>
+    <button
+      className={classnames(CssClassNames.ROOT, styles.gameBoardCell, className)}
+      {...dataAttributes}
+      onClick={onAction}
+    >
       {(() => {
         switch (true) {
           case content === undefined || content === null:

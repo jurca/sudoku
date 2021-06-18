@@ -14,6 +14,7 @@ export enum Action {
   REVEAL_ALL_IMMEDIATE_HINTS = 'Action.REVEAL_ALL_IMMEDIATE_HINTS',
   SET_MOVE_VALIDATION = 'Action.SET_MOVE_VALIDATION',
   SET_NOTES_CULLING = 'Action.SET_NOTES_CULLING',
+  CLEAR_LAST_CONFLICTING_VALUE = 'Action.CLEAR_LAST_CONFLICTING_VALUE',
 }
 
 export type ActionType = ReduxActionType<Action>
@@ -41,6 +42,7 @@ export const revealImmediateHint = mkActionFactory<void>(Action.REVEAL_IMMEDIATE
 export const revealAllImmediateHints = mkActionFactory<void>(Action.REVEAL_ALL_IMMEDIATE_HINTS)
 export const setMoveValidation = mkActionFactory<boolean>(Action.SET_MOVE_VALIDATION)
 export const setNotesCulling = mkActionFactory<boolean>(Action.SET_NOTES_CULLING)
+export const clearLastConflictingValue = mkActionFactory<void>(Action.CLEAR_LAST_CONFLICTING_VALUE)
 
 function mkActionFactory<Payload>(type: Action) {
   return createAction<Payload>(type) as (payload: Payload) => ActionType
