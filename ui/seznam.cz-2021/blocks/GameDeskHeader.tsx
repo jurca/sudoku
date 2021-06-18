@@ -63,7 +63,7 @@ export default function GameDeskHeader(props: IProps) {
 function formatDuration(duration: number): string {
   const durationAsSeconds = Math.floor(duration / 1000)
   const seconds = durationAsSeconds % 60
-  const minutes = Math.floor(durationAsSeconds / 60) % 3600
+  const minutes = Math.floor(durationAsSeconds / 60) % 60
   const hours = Math.floor(durationAsSeconds / 3600)
   return `${hours ? `${hours}:` : ''}${[minutes, seconds].map((part) => `${part}`.padStart(2, '0')).join(':')}`
 }
