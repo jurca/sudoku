@@ -39,6 +39,7 @@
 
   font-family: Viga;
   font-size: 24px;
+  font-weight: normal;
 }
 
 :local(.time) {

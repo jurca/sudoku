@@ -24,12 +24,15 @@
 
 :local(.text) {
   margin: 0 0 22px;
+
+  text-align: center;
 }
 
 :local(.buttons) {
   display: flex;
 
   width: 100%;
+  min-width: 268px;
   max-width: 287px;
 
   justify-content: space-between;

@@ -25,6 +25,8 @@
   margin-left: 10px;
   width: 100%;
   max-width: 108px;
+
+  outline: none;
 }
 
 :local(.option):first-child {

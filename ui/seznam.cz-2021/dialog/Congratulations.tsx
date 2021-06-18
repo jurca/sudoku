@@ -43,10 +43,10 @@ function Congratulations(props: Props) {
         <CongratulationsIllustration/>
       </div>
       <h2 className={styles.title}>
-        Gratulujeme k výhře!
+        Gratulujeme k výhře
       </h2>
       <p className={styles.text}>
-        Chcete začít novou hru? Vyberte si obtížnost:
+        Vyberte si obtížnost a začnete novou hru
       </p>
       <div className={styles.buttons}>
         <PrimaryActionButton onAction={onNewEasyGame}>

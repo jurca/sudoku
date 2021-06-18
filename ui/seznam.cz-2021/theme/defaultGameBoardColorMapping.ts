@@ -11,6 +11,7 @@ const defaultColorMapping: IGameBoardColorMapping = {
     preFilledCellBackground: 'primary2',
     highlightedCellBackground: 'primary3',
     selectedCell: 'primary4',
+    selectedNotesCell: 'secondary',
     cellMatchingSelectedCellBackground: 'primary4',
     cellWithNotesBackground: 'secondary',
     cellContent: 'primary5',

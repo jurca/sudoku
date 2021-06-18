@@ -5,7 +5,11 @@ import GameBoardUI from '../blocks/GameBoard'
 import {InputMode} from '../blocks/InputModeSwitch'
 import GameBoardTheme from '../theme/GameBoardTheme'
 import PrimaryColor from '../theme/PrimaryColor'
-import {NOTED_VALUES_ATTRIBUTE, SELECTED_VALUE_ATTRIBUTE} from '../theme/stateReflectingAttributes'
+import {
+  INPUT_MODE_ATTRIBUTE,
+  NOTED_VALUES_ATTRIBUTE,
+  SELECTED_VALUE_ATTRIBUTE,
+} from '../theme/stateReflectingAttributes'
 import Theme from '../theme/Theme'
 
 interface IProps {
@@ -67,6 +71,7 @@ export default function GameBoard(props: IProps) {
   )
 
   const stateAttributes = {
+    [INPUT_MODE_ATTRIBUTE]: props.inputMode,
     ...(selectedCellObject && selectedCellObject.value && {
       [SELECTED_VALUE_ATTRIBUTE]: selectedCellObject.value,
     }),

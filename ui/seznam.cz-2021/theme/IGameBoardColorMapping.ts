@@ -14,6 +14,7 @@ export interface IGameMatrixColorMapping {
   readonly preFilledCellBackground: keyof IGameBoardPallette
   readonly highlightedCellBackground: keyof IGameBoardPallette
   readonly selectedCell: keyof IGameBoardPallette
+  readonly selectedNotesCell: keyof IGameBoardPallette
   readonly cellMatchingSelectedCellBackground: keyof IGameBoardPallette
   readonly cellWithNotesBackground: keyof IGameBoardPallette
   readonly cellContent: keyof IGameBoardPallette

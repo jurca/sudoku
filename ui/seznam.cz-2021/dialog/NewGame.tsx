@@ -48,7 +48,7 @@ function NewGame(props: Props) {
         <NewGameIllustration/>
       </div>
       <h2 className={styles.title}>
-        Vyberte si obtížnost nové hry
+        Vyberte si obtížnost
       </h2>
       <div className={styles.buttons}>
         <PrimaryActionButton onAction={onNewEasyGame}>

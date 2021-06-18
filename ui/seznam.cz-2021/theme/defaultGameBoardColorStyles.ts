@@ -4,7 +4,7 @@ import {CssClassNames as CellClassNames} from '../blocks/GameBoardCell'
 import {CssClassNames as InputKeysClassNames, KEY_VALUE_ATTRIBUTE} from '../blocks/InputKeyboard'
 import {CssClassNames as InputModeClassNames} from '../blocks/InputModeSwitch'
 import IGameBoardColorStyles from './IGameBoardColorStyles'
-import {NOTED_VALUES_ATTRIBUTE, SELECTED_VALUE_ATTRIBUTE} from './stateReflectingAttributes'
+import {INPUT_MODE_ATTRIBUTE, NOTED_VALUES_ATTRIBUTE, SELECTED_VALUE_ATTRIBUTE} from './stateReflectingAttributes'
 
 const defaultStyles: IGameBoardColorStyles = {
   [`.${BoardClassNames.MATRIX}`]: ['matrix', 'border'],
@@ -16,6 +16,7 @@ const defaultStyles: IGameBoardColorStyles = {
   [`.${BoardClassNames.MATRIX} .${BoardClassNames.CELL_MATCHING_SELECTED_CELL}`]: ['matrix', 'cellMatchingSelectedCellBackground'],
   [`.${BoardClassNames.MATRIX} .${BoardClassNames.CELL_WITH_NOTES}`]: ['matrix', 'cellWithNotesBackground'],
   [`.${BoardClassNames.MATRIX} .${BoardClassNames.SELECTED_CELL}`]: ['matrix', 'selectedCell'],
+  [`[${INPUT_MODE_ATTRIBUTE}='InputMode.NOTES'] .${BoardClassNames.MATRIX} .${BoardClassNames.SELECTED_CELL}`]: ['matrix', 'selectedNotesCell'],
   [`.${BoardClassNames.MATRIX} .${CellClassNames.CONTENT}`]: ['matrix', 'cellContent'],
   [`.${InputKeysClassNames.ROOT}`]: ['inputKeyboard', 'border'],
   [`.${InputKeysClassNames.KEY}`]: ['inputKeyboard', 'keyBackground'],
