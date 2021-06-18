@@ -78,6 +78,7 @@ interface IExternalProps {
   readonly inputModeSwitchName: string
   readonly defaultInputMode: InputMode
   readonly themeStyleNameSpacingClassName: string
+  readonly themeStyleAnimationNamespace: string
 }
 
 type Props = IDataProps & ICallbackProps & IExternalProps
@@ -159,6 +160,7 @@ export function Main(props: Props) {
         primaryColor={props.primaryColor}
         theme={props.theme}
         uniqueClassName={props.themeStyleNameSpacingClassName}
+        uniqueAnimationNamespace={props.themeStyleAnimationNamespace}
         onSetInputMode={props.onSetInputMode}
         onToggleCellValue={onToggleCellValue}
         onSetSelectedCell={props.onSetSelectedCell}

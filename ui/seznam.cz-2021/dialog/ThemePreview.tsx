@@ -17,6 +17,7 @@ import {IDialogProps} from './DialogHost'
 import styles from './themePreview.css'
 
 const CSS_CLASS = 'theme-preview'
+const ANIMATION_NAMESPACE = 'theme-preview--'
 
 interface IDataProps {
   readonly themePreview: IThemeConfiguration
@@ -67,6 +68,7 @@ function ThemePreview(props: Props) {
       </div>
       <GameBoardTheme
         selectorPrefix={`.${CSS_CLASS} `}
+        animationNamePrefix={ANIMATION_NAMESPACE}
         primaryColor={props.themePreview.primaryColor}
         theme={props.themePreview.theme}
       />

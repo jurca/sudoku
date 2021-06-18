@@ -19,6 +19,7 @@ interface IProps {
   readonly inputMode: InputMode
   readonly usedUpValues: readonly number[]
   readonly uniqueClassName: string
+  readonly uniqueAnimationNamespace: string
   readonly primaryColor: PrimaryColor
   readonly theme: Theme
   onToggleCellValue(cell: IMatrixCoordinates, value: null | number, mode: InputMode): void
@@ -95,6 +96,7 @@ export default function GameBoard(props: IProps) {
         />
         <GameBoardTheme
           selectorPrefix={`.${props.uniqueClassName} `}
+          animationNamePrefix={props.uniqueAnimationNamespace}
           primaryColor={props.primaryColor}
           theme={props.theme}
         />

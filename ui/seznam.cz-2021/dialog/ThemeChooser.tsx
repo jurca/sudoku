@@ -49,7 +49,8 @@ function ThemeChooser(props: Props) {
           {row.map((option, optionIndex) =>
             <div key={optionIndex} className={styles.option} tabIndex={0} onClick={option[1]}>
               <GameBoardBlockPreview
-                uniqueClassName={createThemeUniqueClassName(option[0])}
+                uniqueClassName={createThemeUniqueNamespace(option[0])}
+                uniqueAnimationNamespace={`${createThemeUniqueNamespace(option[0])}--`}
                 themePreview={option[0]}
               />
             </div>,
@@ -73,7 +74,7 @@ export default Object.assign(connect<{}, ICallbackProps, IDialogProps, IState>(
   title: 'Změnit barevné schéma',
 })
 
-function createThemeUniqueClassName(themeConfiguration: IThemeConfiguration): string {
+function createThemeUniqueNamespace(themeConfiguration: IThemeConfiguration): string {
   return [themeConfiguration.theme, themeConfiguration.primaryColor].map(
     (part) => part.replaceAll(/[^a-zA-Z_]/g, '-'),
   ).join('--')

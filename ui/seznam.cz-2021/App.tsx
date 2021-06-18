@@ -28,6 +28,7 @@ function App(props: Props) {
           inputModeSwitchName="inputMode"
           defaultInputMode={InputMode.INPUT}
           themeStyleNameSpacingClassName="main"
+          themeStyleAnimationNamespace="main--"
         />
       </div>
       <DialogHost/>

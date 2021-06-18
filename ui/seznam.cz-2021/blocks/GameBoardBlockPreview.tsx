@@ -9,6 +9,7 @@ import GameBoardCell from './GameBoardCell'
 
 interface IProps {
   readonly uniqueClassName: string
+  readonly uniqueAnimationNamespace: string
   readonly themePreview: IThemeConfiguration
 }
 
@@ -38,6 +39,7 @@ export default function GameBoardBlockPreview(props: IProps) {
       </div>
       <GameBoardTheme
         selectorPrefix={`.${props.uniqueClassName} `}
+        animationNamePrefix={props.uniqueAnimationNamespace}
         primaryColor={props.themePreview.primaryColor}
         theme={props.themePreview.theme}
       />
