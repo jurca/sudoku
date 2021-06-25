@@ -15,7 +15,7 @@ export default function PhoneUIHeader(props: IProps) {
     return null
   }
 
-  const isIOS = / iPhone /.test(navigator.userAgent)
+  const isIOS = /\(iPhone;/.test(navigator.userAgent)
 
   return (
     <div className={classnames(styles.header, isIOS && styles.ios)}>
