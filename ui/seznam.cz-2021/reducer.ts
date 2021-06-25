@@ -168,14 +168,6 @@ const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
 
     return state
   },
-
-  [AppAction.LEAVE_GAME](state: IAppState): IAppState {
-    if (!sbrowserApis.terminateApp()) {
-      location.href = 'menu.html'
-    }
-
-    return state
-  },
 })
 
 export default combineReducers<IState>({

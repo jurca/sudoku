@@ -50,8 +50,8 @@ export function gamesPlay(gameId: string): void {
     callNativeVoidReturningMethod('gamesPlay', [gameId])
 }
 
-export function gamesExit(gameId: string, gamesPlayed: number, gamesWon: number): void {
-    callNativeVoidReturningMethod('gamesExit', [gameId, gamesPlayed, gamesWon], [JSON.stringify({
+export function gamesExit(gameId: string, gamesPlayed: number, gamesWon: number): boolean {
+    return callNativeVoidReturningMethod('gamesExit', [gameId, gamesPlayed, gamesWon], [JSON.stringify({
         game: gameId,
         "games-played": gamesPlayed,
         "games-won": gamesWon,

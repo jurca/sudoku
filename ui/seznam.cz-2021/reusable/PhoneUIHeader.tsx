@@ -7,10 +7,21 @@ import styles from './phoneUIHeader.css'
 
 interface IProps {
   readonly children: string
-  readonly onGearAction?: () => void
+  onGearAction?(): void
+  onTerminate?(): void
 }
 
 export default function PhoneUIHeader(props: IProps) {
+  const onTerminate = React.useMemo(
+    () => (event: React.MouseEvent) => {
+      if (props.onTerminate) {
+        event.preventDefault()
+        props.onTerminate()
+      }
+    },
+    [],
+  )
+
   if (!isAndroidOrIOS()) {
     return null
   }
@@ -19,7 +30,7 @@ export default function PhoneUIHeader(props: IProps) {
 
   return (
     <div className={classnames(styles.header, isIOS && styles.ios)}>
-      <a href="menu.html" className={styles.buttonWrapper}>
+      <a href="menu.html" className={styles.buttonWrapper} onClick={onTerminate}>
         <Icon icon={IconType.ARROW_LEFT}/>
       </a>
       <div className={styles.title}>{props.children}</div>
