@@ -31,9 +31,8 @@ addEventListener('DOMContentLoaded', async () => {
     if (!isLeavingApp && action.type === AppAction.LEAVE_GAME) {
       isLeavingApp = true
       const statistics = sessionStatisticsSelector(state)
-      if (!sbrowserApis.gamesExit(GAME_ID, statistics.newGames, statistics.wonGames)) {
-        location.href = 'menu.html'
-      }
+      sbrowserApis.gamesExit(GAME_ID, statistics.newGames, statistics.wonGames)
+      location.href = 'menu.html'
     }
 
     return appReducer(state, action)
