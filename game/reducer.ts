@@ -198,6 +198,10 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
       ...notesRow[hint.cell.column],
       userMarkedOptions: [hint.value],
     })
+    const historyIndex = state.history.findIndex(
+      entry => entry.matrix === state.matrix && entry.notes === state.notes,
+    )
+
     return {
       ...state,
       notes: [
@@ -205,6 +209,9 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
         notesRow as unknown as SudokuMatrixNotesRow,
         ...state.notes.slice(hint.cell.row + 1),
       ] as unknown as SudokuMatrixNotes,
+      history: state.history
+        .slice(0, historyIndex === -1 ? state.history.length : historyIndex)
+        .concat({matrix: state.matrix, notes: state.notes}),
       usedHints: true,
       valuePickerOpenAt: hint.cell,
     }
@@ -224,10 +231,16 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
         userMarkedOptions: [hint.value],
       }
     }
+    const historyIndex = state.history.findIndex(
+      entry => entry.matrix === state.matrix && entry.notes === state.notes,
+    )
 
     return {
       ...state,
       notes: notes as unknown as SudokuMatrixNotes,
+      history: state.history
+        .slice(0, historyIndex === -1 ? state.history.length : historyIndex)
+        .concat({matrix: state.matrix, notes: state.notes}),
       usedHints: true,
       valuePickerOpenAt: null,
     }
