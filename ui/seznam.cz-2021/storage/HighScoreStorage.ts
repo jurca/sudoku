@@ -42,7 +42,7 @@ export default class HighScoreStorage {
 
   public async set(highScores: HighScores): Promise<void> {
     await this.storage.set(STORAGE_KEY, highScores as unknown as ReadOnlySerializable)
-    for (const observer of this.observers) {
+    for (const observer of Array.from(this.observers)) {
       observer(highScores)
     }
   }

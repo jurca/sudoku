@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "esnext",
+    "target": "ES5",
     "module": "esnext",
     "outDir": "./dist",
     "jsx": "react",

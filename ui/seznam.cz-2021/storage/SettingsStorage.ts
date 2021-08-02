@@ -39,7 +39,7 @@ export default class SettingsStorage {
 
   public async set(settings: ISettings): Promise<void> {
     await this.storage.set(STORAGE_KEY, settings as unknown as ReadOnlySerializable)
-    for (const observer of this.observers) {
+    for (const observer of Array.from(this.observers)) {
       observer(settings)
     }
   }

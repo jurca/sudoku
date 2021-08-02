@@ -56,5 +56,5 @@ function getRelatedCells(matrix: SudokuMatrixState, primaryCell: IMatrixCoordina
 
   cells.delete(matrix[primaryCell.row][primaryCell.column])
 
-  return [...cells]
+  return [...Array.from(cells)]
 }
