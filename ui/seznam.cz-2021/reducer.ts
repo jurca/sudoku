@@ -9,6 +9,7 @@ import {InputMode} from './blocks/InputModeSwitch'
 import Dialog from './dialog/Dialog'
 import {DEFAULT_APP_STATE, IAppState, IState, IThemeConfiguration} from './state'
 import {HighScores} from './storage/HighScoreStorage'
+import {IPausedGame} from './storage/PausedGameStorage'
 import {ISettings} from './storage/SettingsStorage'
 import StatisticsStorage from './storage/StatisticsStorage'
 
@@ -167,6 +168,14 @@ const appReducer = createReducer<IAppState, any>(DEFAULT_APP_STATE, {
     sbrowserApis.openLoginForm()
 
     return state
+  },
+
+  [Action.RESTORE_PAUSED_GAME](state: IAppState, pausedGame: IPausedGame): IAppState {
+    return {
+      ...state,
+      inputMode: pausedGame.inputMode,
+      dialogStack: [Dialog.PAUSE],
+    }
   },
 })
 

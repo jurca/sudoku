@@ -1,6 +1,7 @@
 import {Action as ReduxActionType} from 'redux'
 import {createAction} from 'redux-actions'
 import Difficulty from '../conf/Difficulty'
+import {IPausedGame} from '../ui/seznam.cz-2021/storage/PausedGameStorage'
 import {IMatrixCoordinates} from './state'
 
 export enum Action {
@@ -15,6 +16,7 @@ export enum Action {
   SET_MOVE_VALIDATION = 'Action.SET_MOVE_VALIDATION',
   SET_NOTES_CULLING = 'Action.SET_NOTES_CULLING',
   CLEAR_LAST_CONFLICTING_VALUE = 'Action.CLEAR_LAST_CONFLICTING_VALUE',
+  RESTORE_PAUSED_GAME = 'Action.RESTORE_PAUSED_GAME',
 }
 
 export type ActionType = ReduxActionType<Action>
@@ -43,6 +45,7 @@ export const revealAllImmediateHints = mkActionFactory<void>(Action.REVEAL_ALL_I
 export const setMoveValidation = mkActionFactory<boolean>(Action.SET_MOVE_VALIDATION)
 export const setNotesCulling = mkActionFactory<boolean>(Action.SET_NOTES_CULLING)
 export const clearLastConflictingValue = mkActionFactory<void>(Action.CLEAR_LAST_CONFLICTING_VALUE)
+export const restorePausedGame = mkActionFactory<IPausedGame>(Action.RESTORE_PAUSED_GAME)
 
 function mkActionFactory<Payload>(type: Action) {
   return createAction<Payload>(type) as (payload: Payload) => ActionType

@@ -1,6 +1,7 @@
 import createReducer from 'redux-create-fsa-reducer'
 import Difficulty from '../conf/Difficulty'
 import {AppAction} from '../ui/seznam.cz-2021/Action'
+import {IPausedGame} from '../ui/seznam.cz-2021/storage/PausedGameStorage'
 import {ISettings} from '../ui/seznam.cz-2021/storage/SettingsStorage'
 import {Action, IToggleCellValuePayload, ValueEntryMode} from './Action'
 import {checkBoard, cullNotes, isCellValueAllowed} from './boardChecker'
@@ -280,6 +281,20 @@ export default createReducer<IState, any>(DEFAULT_STATE, {
     return {
       ...state,
       lastConflictingValue: null,
+    }
+  },
+
+  [Action.RESTORE_PAUSED_GAME](state: IState, pausedGame: IPausedGame): IState {
+    return {
+      ...state,
+      difficulty: pausedGame.difficulty,
+      gameStart: pausedGame.gameStart,
+      gameEnd: null,
+      matrix: pausedGame.matrix,
+      notes: pausedGame.notes,
+      history: pausedGame.history,
+      breaks: pausedGame.breaks,
+      valuePickerOpenAt: pausedGame.valuePickerOpenAt,
     }
   },
 })

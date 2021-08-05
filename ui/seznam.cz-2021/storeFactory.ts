@@ -6,8 +6,9 @@ import {DEFAULT_STATE, IState} from './state'
 const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__
 export default (
   reducerWrapper?: (state: IState, action: ActionType, reducer: Reducer<IState, ActionType>) => IState,
+  initialState: IState = DEFAULT_STATE,
 ) => createStore<IState, ActionType, {}, {}>(
-  reducerWrapper ? (state, action) => reducerWrapper(state || DEFAULT_STATE, action, reducer) : reducer,
-  DEFAULT_STATE,
+  reducerWrapper ? (state, action) => reducerWrapper(state || initialState, action, reducer) : reducer,
+  initialState,
   reduxDevTools && reduxDevTools(),
 )

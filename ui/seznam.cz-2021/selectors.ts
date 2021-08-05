@@ -15,6 +15,7 @@ import {
 } from '../../game/selectors'
 import {lastItem} from '../../game/util'
 import {IState} from './state'
+import {IPausedGame} from './storage/PausedGameStorage'
 
 export const appStateSelector = (globalState: IState) => globalState.app
 export const gameStateSelector = (globalState: IState) => globalState.game
@@ -148,3 +149,14 @@ export const sessionStatisticsSelector = createSelector(
   appStateSelector,
   appState => appState.sessionStatistics,
 )
+
+export const pausedGameStateSelector = (globalState: IState): IPausedGame => ({
+  difficulty: globalState.game.difficulty,
+  inputMode: globalState.app.inputMode,
+  gameStart: globalState.game.gameStart,
+  matrix: globalState.game.matrix,
+  notes: globalState.game.notes,
+  history: globalState.game.history,
+  breaks: globalState.game.breaks,
+  valuePickerOpenAt: globalState.game.valuePickerOpenAt,
+})
