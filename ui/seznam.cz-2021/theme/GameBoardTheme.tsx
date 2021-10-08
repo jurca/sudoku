@@ -28,7 +28,7 @@ export default function GameBoardTheme(props: IProps) {
 
   return (
     ReactDOM.createPortal(
-      <style>{styles}</style>,
+      <style data-theme="">{styles}</style>,
       document.head,
     )
   )
