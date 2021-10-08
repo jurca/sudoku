@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import * as React from 'react'
 import Difficulty from '../../../conf/Difficulty'
 import {IEndedGamePlayBreak, IStartedGamePlayBreak} from '../../../game/state'
-import isAndroidOrIOS from '../reusable/isAndroidOrIOS'
+import isAndroidOrIOSPhone from '../reusable/isAndroidOrIOSPhone'
 import BackgroundPattern from './BackgroundPattern'
 import styles from './gameDesk.css'
 import GameDeskFooter from './GameDeskFooter'
@@ -26,7 +26,7 @@ interface IProps {
 
 export default function GameDesk(props: IProps) {
   return (
-    <div className={classnames(styles.gameDesk, isAndroidOrIOS() && styles.forceMobileLayout)}>
+    <div className={classnames(styles.gameDesk, isAndroidOrIOSPhone() && styles.forceMobileLayout)}>
       <BackgroundPattern/>
       <div className={styles.container} onClick={props.onDeselectCell}>
         <div className={styles.topContentOffset}/>

@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import * as React from 'react'
 import Icon, {IconType} from './Icon'
 import IconButton from './IconButton'
-import isAndroidOrIOS from './isAndroidOrIOS'
+import isAndroidOrIOSPhone from './isAndroidOrIOSPhone'
 import styles from './phoneUIHeader.css'
 
 interface IProps {
@@ -22,7 +22,7 @@ export default function PhoneUIHeader(props: IProps) {
     [],
   )
 
-  if (!isAndroidOrIOS()) {
+  if (!isAndroidOrIOSPhone()) {
     return null
   }
 

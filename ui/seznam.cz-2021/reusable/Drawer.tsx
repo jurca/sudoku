@@ -3,7 +3,7 @@ import * as React from 'react'
 import Dialog from './Dialog'
 import styles from './drawer.css'
 import IconButton, {IconType} from './IconButton'
-import isAndroidOrIOS from './isAndroidOrIOS'
+import isAndroidOrIOSPhone from './isAndroidOrIOSPhone'
 import PrimaryActionButton from './PrimaryActionButton'
 
 interface IProps {
@@ -16,7 +16,7 @@ interface IProps {
 }
 
 export default function Drawer(props: IProps) {
-  const showAsDialog = !isAndroidOrIOS()
+  const showAsDialog = !isAndroidOrIOSPhone()
   if (showAsDialog) {
     return (
       <Dialog isNested={props.isNested} title={props.title} onClose={props.onClose}>

@@ -4,7 +4,7 @@ import Difficulty from '../../../conf/Difficulty'
 import {IEndedGamePlayBreak, IStartedGamePlayBreak} from '../../../game/state'
 import {getGamePlayDuration} from '../../../game/util'
 import IconButton, {IconType} from '../reusable/IconButton'
-import isAndroidOrIOS from '../reusable/isAndroidOrIOS'
+import isAndroidOrIOSPhone from '../reusable/isAndroidOrIOSPhone'
 import styles from './gameDeskHeader.css'
 
 interface IProps {
@@ -32,7 +32,7 @@ export default function GameDeskHeader(props: IProps) {
     }
   })
 
-  const forceMobileLayout = isAndroidOrIOS()
+  const forceMobileLayout = isAndroidOrIOSPhone()
 
   return (
     <div className={classnames(styles.header, forceMobileLayout && styles.forceMobileLayout, props.className)}>
