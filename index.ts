@@ -44,7 +44,8 @@ addEventListener('DOMContentLoaded', async () => {
       }
 
       const statistics = sessionStatisticsSelector(state)
-      sbrowserApis.gamesExit(GAME_ID, statistics.newGames, statistics.wonGames)
+      sbrowserApis.submitUsageStatistics(GAME_ID, statistics.newGames, statistics.wonGames)
+      sbrowserApis.gamesExit()
       location.href = 'menu.html'
     }
 
@@ -96,7 +97,7 @@ addEventListener('DOMContentLoaded', async () => {
       }
 
       const statistics = sessionStatisticsSelector(store.getState())
-      sbrowserApis.gamesExit(GAME_ID, statistics.newGames, statistics.wonGames)
+      sbrowserApis.submitUsageStatistics(GAME_ID, statistics.newGames, statistics.wonGames)
     }
   })
 

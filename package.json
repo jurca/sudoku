@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@jlguenego/sudoku-generator": "^1.0.7",
-    "@seznam/seznam.cz-browser-game-module-api": "^2.0.1",
+    "@seznam/seznam.cz-browser-game-module-api": "^3.0.0",
     "classnames": "^2.2.6",
     "dom-augmentor": "^2.0.4",
     "lighterhtml": "^2.0.8",
